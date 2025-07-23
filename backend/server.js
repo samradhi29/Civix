@@ -1,51 +1,3 @@
-
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const xss = require('xss');
-const cookieParser = require('cookie-parser');
-const rateLimit = require('express-rate-limit');
-const initdb = require('./db/init');
-const authRoutes = require('./routes/auth');
-const issuesRoutes = require('./routes/issues');
-const errorHandler = require('./middlewares/errorHandler');
-const { specs, swaggerUi } = require('./config/swagger');
-require('dotenv').config();
-
-const app = express();
-
-// Initialize database
-initdb();
-
-// CORS configuration
-app.use(cors({
-  origin: ['http://localhost:3000', "https://civix-phi.vercel.app/login", "https://civix-phi.vercel.app/signup"],
-  credentials: true,
-}));
-
-// Security middlewares
-app.use(helmet());
-// Custom XSS protection middleware
-app.use((req, res, next) => {
-  if (req.body) {
-    for (let key in req.body) {
-      if (typeof req.body[key] === 'string') {
-        req.body[key] = xss(req.body[key]);
-      }
-    }
-  }
-  next();
-});
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-// Rate limiting middleware 
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-    message: 'Too many requests from this IP, please try again later.'
-
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -54,67 +6,62 @@ const rateLimit = require("express-rate-limit");
 const path = require("path");
 require("dotenv").config();
 
-// Routes
-const authRoutes = require("./routes/auth");
-const issueRoutes = require("./routes/issues");
-const profileRoutes = require("./routes/profileRoutes");
-
-// DB Configs
-require("./config/db");     // PostgreSQL
-require("./config/mongo");  // MongoDB
-
-// Middlewares
-const errorHandler = require("./middlewares/errorHandler");
-const { swaggerUi, specs } = require("./config/swagger");
-
 const app = express();
 
-// Security + Body Parsers
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+// === Database Initialization ===
+
+// ^ Whole Backend is a mess, I removed too much buggy code, and somehow i have commented the following 2 lines, idk why there are 2 databases here..... but they were causing failure to run the backend.
+
+// require("./config/db.js");     // PostgreSQL
+// require("./config/mongo.js");  // MongoDB
+
+// === Swagger Docs ===
+const { swaggerUi, specs } = require("./config/swagger.js");
+
+// === Middlewares ===
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://civix-phi.vercel.app/login",
+    "https://civix-phi.vercel.app/signup",
+  ],
+  credentials: true,
+}));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-// Static Files for uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Rate Limiting
+// === Rate Limiting ===
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
   message: "Too many requests from this IP, please try again later.",
-
 });
 app.use(limiter);
 
-// Swagger Docs
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+// === Routes ===
+const authRoutes = require("./routes/auth.js");
+const issueRoutes = require("./routes/issues.js");
+const profileRoutes = require("./routes/profileRoutes.js");
+const contributionsRoutes = require("./routes/contributions.js")
 
-
-// Routes 
-app.use('/api/auth', authRoutes);
-app.use('/api/issues', issuesRoutes);
-
-// Error handling middleware
-app.use(errorHandler);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/issues", issueRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/contributors", contributionsRoutes)
 
-// Error handler middleware
+
+// === Swagger API Docs ===
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+// === Global Error Handler ===
+const errorHandler = require("./middlewares/errorHandler.js");
 app.use(errorHandler);
 
-
-// Start Server
+// === Start Server ===
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(` Unified server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
