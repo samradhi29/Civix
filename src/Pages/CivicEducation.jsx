@@ -169,7 +169,7 @@ const CivicEducation = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="group hover:scale-105 transition-all duration-300">
+            <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white group hover:scale-[1.02] transition-all duration-300">
               <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-6 rounded-xl shadow-lg">
                 <div className="flex items-center mb-4">
                   <Vote className="w-8 h-8 mr-3" />
@@ -184,7 +184,7 @@ const CivicEducation = () => {
               </div>
             </div>
 
-            <div className="group hover:scale-105 transition-all duration-300">
+            <div className="group hover:scale-[1.02] transition-all duration-300">
               <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
                 <div className="flex items-center mb-4">
                   <Shield className="w-8 h-8 mr-3" />
@@ -265,7 +265,7 @@ const CivicEducation = () => {
                 color: "indigo"
               }
             ].map((item, idx) => (
-              <div key={idx} className="group hover:scale-105 transition-all duration-300">
+              <div key={idx} className="group hover:scale-[1.02] transition-all duration-300">
                 <div className="bg-gradient-to-br from-emerald-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
                   <div className="flex items-center mb-3">
                     <div className="bg-white/20 p-2 rounded-lg mr-3">
@@ -401,7 +401,8 @@ const CivicEducation = () => {
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
-              <h4 className="font-bold text-xl text-gray-900 flex items-center">
+              <h4 className="font-bold text-xl text-gray-900 dark:text-white flex items-center
+">
                 <Rocket className="w-6 h-6 mr-2 text-emerald-500" />
                 Direct Participation
               </h4>
@@ -431,7 +432,7 @@ const CivicEducation = () => {
                   color: "pink"
                 }
               ].map((item, idx) => (
-                <div key={idx} className="group hover:scale-105 transition-all duration-300">
+                <div key={idx} className="group hover:scale-[1.02] transition-all duration-300">
                   <div className="border-l-4 border-emerald-500 bg-white p-4 rounded-r-xl shadow-lg">
                     <div className="flex items-center mb-2">
                       <div className="bg-emerald-100 p-2 rounded-lg mr-3">
@@ -446,7 +447,8 @@ const CivicEducation = () => {
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-bold text-xl text-gray-900 flex items-center">
+              <h4 className="font-bold text-xl text-gray-900 dark:text-white flex items-center
+">
                 <Flame className="w-6 h-6 mr-2 text-orange-500" />
                 Advocacy & Influence
               </h4>
@@ -476,7 +478,7 @@ const CivicEducation = () => {
                   color: "yellow"
                 }
               ].map((item, idx) => (
-                <div key={idx} className="group hover:scale-105 transition-all duration-300">
+                <div key={idx} className="group hover:scale-[1.02] transition-all duration-300">
                   <div className="border-l-4 border-orange-500 bg-white p-4 rounded-r-xl shadow-lg">
                     <div className="flex items-center mb-2">
                       <div className="bg-orange-100 p-2 rounded-lg mr-3">
@@ -973,7 +975,7 @@ const CivicEducation = () => {
                   </div>
                 </button>
                 {activeAccordion === index && (
-                  <div className="px-6 pb-6 border-t bg-gray-50">
+                  <div className="px-6 pb-6 border-t bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                     <div className="pt-6">
                       {item.content}
                     </div>
