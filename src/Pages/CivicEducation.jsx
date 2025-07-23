@@ -807,8 +807,8 @@ const CivicEducation = () => {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 flex items-center justify-center space-x-2 py-4 px-6 transition-colors ${activeTab === tab.id
-                    ? 'bg-emerald-50 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 border-b-2 border-emerald-500'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                  ? 'bg-emerald-50 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 border-b-2 border-emerald-500'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
 
                   }`}
               >
@@ -863,8 +863,8 @@ const CivicEducation = () => {
                   ].map((item, index) => (
                     <div key={index} className="text-center">
                       <div className={`w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center transition-all duration-300 ${item.completed
-                          ? 'bg-emerald-500 text-white shadow-lg scale-110'
-                          : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-300'
+                        ? 'bg-emerald-500 text-white shadow-lg scale-110'
+                        : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-300'
                         }`}>
                         {item.completed ? <CheckCircle className="w-8 h-8" /> : item.icon}
                       </div>
@@ -941,8 +941,8 @@ const CivicEducation = () => {
                       </h3>
                       <div className="flex items-center space-x-4 text-sm text-gray-500">
                         <span className={`px-2 py-1 rounded-full text-xs ${item.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
-                            item.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                              'bg-red-100 text-red-800'
+                          item.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-red-100 text-red-800'
                           }`}>
                           {item.difficulty}
                         </span>
@@ -959,8 +959,8 @@ const CivicEducation = () => {
                           toggleBookmark(item.id);
                         }}
                         className={`p-2 rounded-lg transition-colors ${bookmarkedSections.includes(item.id)
-                            ? 'bg-yellow-100 text-yellow-600'
-                            : 'bg-gray-100 text-gray-400 hover:text-gray-600'
+                          ? 'bg-yellow-100 text-yellow-600'
+                          : 'bg-gray-100 text-gray-400 hover:text-gray-600'
                           }`}
                       >
                         <Bookmark className="w-4 h-4" />
@@ -1112,36 +1112,35 @@ const CivicEducation = () => {
                   {/* Enhanced Progress Bar */}
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center space-x-4">
-  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-    Question {currentQuestionIndex + 1} of {quizQuestions.length}
-  </span>
+                      <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                        Question {currentQuestionIndex + 1} of {quizQuestions.length}
+                      </span>
 
-  <span
-    className={`px-2 py-1 rounded-full text-xs ${
-      currentQuestion.difficulty === 'Easy'
-        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-        : currentQuestion.difficulty === 'Medium'
-        ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-        : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-    }`}
-  >
-    {currentQuestion.difficulty}
-  </span>
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs ${currentQuestion.difficulty === 'Easy'
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                          : currentQuestion.difficulty === 'Medium'
+                            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                            : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                          }`}
+                      >
+                        {currentQuestion.difficulty}
+                      </span>
 
-  <span className="px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
-    {currentQuestion.category}
-  </span>
-</div>
+                      <span className="px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                        {currentQuestion.category}
+                      </span>
+                    </div>
 
                     <div className="flex space-x-1">
                       {quizQuestions.map((_, index) => (
                         <div
                           key={index}
                           className={`w-3 h-3 rounded-full transition-all duration-300 ${index < currentQuestionIndex
-                              ? 'bg-emerald-500'
-                              : index === currentQuestionIndex
-                                ? 'bg-purple-500 scale-125'
-                                : 'bg-gray-300'
+                            ? 'bg-emerald-500'
+                            : index === currentQuestionIndex
+                              ? 'bg-purple-500 scale-125'
+                              : 'bg-gray-300'
                             }`}
                         />
                       ))}
@@ -1164,27 +1163,27 @@ const CivicEducation = () => {
                           onClick={() => handleAnswerSelect(index)}
                           disabled={showResult}
                           className={`p-4 text-left rounded-lg border-2 transition-all transform hover:scale-[1.01] ${selectedAnswer === index
-                              ? showResult
-                                ? index === currentQuestion.correct
-                                  ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                  : 'border-red-500 bg-red-50 text-red-700'
-                                : 'border-purple-500 bg-purple-50 text-purple-700'
-                              : showResult && index === currentQuestion.correct
+                            ? showResult
+                              ? index === currentQuestion.correct
                                 ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                : 'border-gray-300 bg-white hover:border-purple-300 text-black dark:bg-gray-800 dark:text-white dark:border-gray-600'
+                                : 'border-red-500 bg-red-50 text-red-700'
+                              : 'border-purple-500 bg-purple-50 text-purple-700'
+                            : showResult && index === currentQuestion.correct
+                              ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
+                              : 'border-gray-300 bg-white hover:border-purple-300 text-black dark:bg-gray-800 dark:text-white dark:border-gray-600'
 
                             }`}
                         >
                           <div className="flex items-center space-x-3">
                             <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedAnswer === index
-                                ? showResult
-                                  ? index === currentQuestion.correct
-                                    ? 'border-emerald-500 bg-emerald-500'
-                                    : 'border-red-500 bg-red-500'
-                                  : 'border-purple-500 bg-purple-500'
-                                : showResult && index === currentQuestion.correct
+                              ? showResult
+                                ? index === currentQuestion.correct
                                   ? 'border-emerald-500 bg-emerald-500'
-                                  : 'border-gray-400 dark:border-gray-600'
+                                  : 'border-red-500 bg-red-500'
+                                : 'border-purple-500 bg-purple-500'
+                              : showResult && index === currentQuestion.correct
+                                ? 'border-emerald-500 bg-emerald-500'
+                                : 'border-gray-400 dark:border-gray-600'
 
                               }`}>
                               {((selectedAnswer === index && showResult) || (showResult && index === currentQuestion.correct)) && (
@@ -1278,62 +1277,62 @@ const CivicEducation = () => {
 
             {/* External Resources */}
             <div className="grid md:grid-cols-2 gap-6">
-  <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-    <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-      <ExternalLink className="w-5 h-5 mr-2 text-blue-500" />
-      Government Resources
-    </h4>
-    <div className="space-y-3">
-      {[
-        { title: "USA.gov - Official Guide", desc: "Official government information" },
-        { title: "Vote.gov", desc: "Voter registration and information" },
-        { title: "Congress.gov", desc: "Legislative information" },
-        { title: "Local Government Directory", desc: "Find your local representatives" }
-      ].map((resource, idx) => (
-        <div 
-          key={idx} 
-          className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer"
-        >
-          <div>
-            <div className="font-medium text-gray-900 dark:text-white">{resource.title}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-300">{resource.desc}</div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 dark:text-gray-300" />
-        </div>
-      ))}
-    </div>
-  </div>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <ExternalLink className="w-5 h-5 mr-2 text-blue-500" />
+                  Government Resources
+                </h4>
+                <div className="space-y-3">
+                  {[
+                    { title: "USA.gov - Official Guide", desc: "Official government information" },
+                    { title: "Vote.gov", desc: "Voter registration and information" },
+                    { title: "Congress.gov", desc: "Legislative information" },
+                    { title: "Local Government Directory", desc: "Find your local representatives" }
+                  ].map((resource, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+                    >
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-white">{resource.title}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">{resource.desc}</div>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-gray-400 dark:text-gray-300" />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-  <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-    <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-      <Phone className="w-5 h-5 mr-2 text-emerald-500 dark:text-emerald-400" />
-      Contact Information
-    </h4>
-    <div className="space-y-4">
-      <div className="flex items-center space-x-3 p-3 bg-emerald-50 dark:bg-emerald-900 rounded-lg">
-        <Phone className="w-5 h-5 text-emerald-600 dark:text-emerald-300" />
-        <div>
-          <div className="font-medium text-gray-900 dark:text-white">Civic Helpline</div>
-          <div className="text-sm text-gray-600 dark:text-gray-300">1-800-CIVIC-HELP</div>
-        </div>
-      </div>
-      <div className="flex items-center space-x-3 p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
-        <Mail className="w-5 h-5 text-blue-600 dark:text-blue-300" />
-        <div>
-          <div className="font-medium text-gray-900 dark:text-white">Email Support</div>
-          <div className="text-sm text-gray-600 dark:text-gray-300">civic@example.com</div>
-        </div>
-      </div>
-      <div className="flex items-center space-x-3 p-3 bg-purple-50 dark:bg-purple-900 rounded-lg">
-        <MapPin className="w-5 h-5 text-purple-600 dark:text-purple-300" />
-        <div>
-          <div className="font-medium text-gray-900 dark:text-white">Local Office</div>
-          <div className="text-sm text-gray-600 dark:text-gray-300">Find your nearest location</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <Phone className="w-5 h-5 mr-2 text-emerald-500 dark:text-emerald-400" />
+                  Contact Information
+                </h4>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3 p-3 bg-emerald-50 dark:bg-emerald-900 rounded-lg">
+                    <Phone className="w-5 h-5 text-emerald-600 dark:text-emerald-300" />
+                    <div>
+                      <div className="font-medium text-gray-900 dark:text-white">Civic Helpline</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">1-800-CIVIC-HELP</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                    <Mail className="w-5 h-5 text-blue-600 dark:text-blue-300" />
+                    <div>
+                      <div className="font-medium text-gray-900 dark:text-white">Email Support</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">civic@example.com</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-purple-50 dark:bg-purple-900 rounded-lg">
+                    <MapPin className="w-5 h-5 text-purple-600 dark:text-purple-300" />
+                    <div>
+                      <div className="font-medium text-gray-900 dark:text-white">Local Office</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">Find your nearest location</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
             {/* Interactive Tools */}
