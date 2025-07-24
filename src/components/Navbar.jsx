@@ -74,9 +74,9 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, href } from 'react-router-dom';
 import Switch from '../DarkModeToggle';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -122,6 +122,26 @@ const Navbar = () => {
     console.error('Invalid token');
   }
 
+  const navLinks = [
+    {
+      title: "Civic Education & Rights",
+      href: "/civic-education"
+    },
+    {
+      title: "About",
+      href: "/about"
+    },
+    {
+      title: "Contact Us",
+      href: "/contact"
+    },
+    {
+      title: "Our contributors",
+      href: "/contributors"
+    },
+
+  ]
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur">
       <div className="container flex h-14 items-center justify-between">
@@ -146,12 +166,16 @@ const Navbar = () => {
 
         {/* Desktop nav - only show on large screens */}
         <nav className="hidden lg:flex gap-6">
-          <a href="/#features" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">Features</a>
-          <a href="/#how-it-works" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">How It Works</a>
-          <a href="/#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">Testimonials</a>
-          <a href="/#faqs" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">FAQ</a>
-          <Link to="/civic-education" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">Civic Education & Rights</Link>
+          {navLinks.map((navItem) => (
+            <Link key={navItem.title}
+              to={navItem.href}
+              className='text-sm font-medium hover:text-emerald-500 transition-colors duration-300'
+            >
+              {navItem.title}
+            </Link>
+          ))}
         </nav>
+
 
         {/* Hamburger for mobile and tablet */}
         <button
@@ -199,7 +223,7 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <>
           {/* Dark overlay */}
-          <div 
+          <div
             className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm animate-fade-in"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
@@ -214,11 +238,19 @@ const Navbar = () => {
               >
                 &times;
               </button>
-              <a href="#features" className="text-lg font-medium hover:text-emerald-500 transition-colors duration-300" onClick={() => handleNav()}>Features</a>
-              <a href="#how-it-works" className="text-lg font-medium hover:text-emerald-500 transition-colors duration-300" onClick={() => handleNav()}>How It Works</a>
-              <a href="#testimonials" className="text-lg font-medium hover:text-emerald-500 transition-colors duration-300" onClick={() => handleNav()}>Testimonials</a>
-              <a href="#faqs" className="text-lg font-medium hover:text-emerald-500 transition-colors duration-300" onClick={() => handleNav()}>FAQ</a>
-              <Link to="/civic-education" className="text-lg font-medium hover:text-emerald-500 transition-colors duration-300" onClick={() => handleNav()}>Civic Education & Rights</Link>
+
+
+              {navLinks.map((navItem) => (
+                <Link key={navItem.title}
+                  to={navItem.href}
+                  onClick={() => handleNav()}
+                  className='text-lg font-medium hover:text-emerald-500 transition-colors duration-300'
+                >
+                  {navItem.title}
+                </Link>
+              ))}
+
+
               {isAdmin && (
                 <button
                   onClick={() => handleNav(() => navigate('/admin'))}
@@ -264,7 +296,7 @@ export default Navbar;
 //   };
 
 //   return (
-//     <header 
+//     <header
 //       className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur"
 //       style={{
 //         '--tw-bg-opacity': '0.95',
