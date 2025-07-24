@@ -30,7 +30,7 @@ const CivicEducation = () => {
     const savedLevel = localStorage.getItem('civicEducationLevel');
     const savedAchievements = localStorage.getItem('civicEducationAchievements');
     const savedStreak = localStorage.getItem('civicEducationStreak');
-    
+
     if (savedScore) setQuizScore(parseInt(savedScore));
     if (savedBookmarks) setBookmarkedSections(JSON.parse(savedBookmarks));
     if (savedProgress) setReadingProgress(parseInt(savedProgress));
@@ -56,32 +56,32 @@ const CivicEducation = () => {
 
   // Did You Know facts rotation with more engaging content
   const didYouKnowFacts = [
-    { 
+    {
       fact: "The right to vote is considered one of the most fundamental civic rights in democratic societies.",
       icon: <Vote className="w-5 h-5" />,
       color: "emerald"
     },
-    { 
+    {
       fact: "Local governments typically handle services like water, sewage, parks, and local roads.",
       icon: <Building className="w-5 h-5" />,
       color: "blue"
     },
-    { 
+    {
       fact: "Citizens can attend city council meetings to voice their opinions on local issues.",
       icon: <Users className="w-5 h-5" />,
       color: "purple"
     },
-    { 
+    {
       fact: "The Freedom of Information Act allows citizens to request government documents.",
       icon: <FileText className="w-5 h-5" />,
       color: "orange"
     },
-    { 
+    {
       fact: "Community participation in local government can lead to a 40% increase in civic satisfaction.",
       icon: <TrendingUp className="w-5 h-5" />,
       color: "pink"
     },
-    { 
+    {
       fact: "Young voters (18-29) have the power to significantly influence election outcomes.",
       icon: <Zap className="w-5 h-5" />,
       color: "yellow"
@@ -107,10 +107,10 @@ const CivicEducation = () => {
     const newBookmarks = bookmarkedSections.includes(sectionId)
       ? bookmarkedSections.filter(id => id !== sectionId)
       : [...bookmarkedSections, sectionId];
-    
+
     setBookmarkedSections(newBookmarks);
     localStorage.setItem('civicEducationBookmarks', JSON.stringify(newBookmarks));
-    
+
     if (!bookmarkedSections.includes(sectionId)) {
       awardXP(5, 'Bookworm');
     }
@@ -119,10 +119,10 @@ const CivicEducation = () => {
   const awardXP = (points, reason) => {
     const newXP = userXP + points;
     const newLevel = Math.floor(newXP / 100) + 1;
-    
+
     setUserXP(newXP);
     localStorage.setItem('civicEducationXP', newXP.toString());
-    
+
     if (newLevel > userLevel) {
       setUserLevel(newLevel);
       localStorage.setItem('civicEducationLevel', newLevel.toString());
@@ -136,7 +136,7 @@ const CivicEducation = () => {
 
   const checkAchievements = (xp, reason) => {
     const newAchievements = [...achievements];
-    
+
     if (xp >= 50 && !achievements.includes('first-steps')) {
       newAchievements.push('first-steps');
     }
@@ -146,7 +146,7 @@ const CivicEducation = () => {
     if (bookmarkedSections.length >= 3 && !achievements.includes('collector')) {
       newAchievements.push('collector');
     }
-    
+
     if (newAchievements.length > achievements.length) {
       setAchievements(newAchievements);
       localStorage.setItem('civicEducationAchievements', JSON.stringify(newAchievements));
@@ -167,9 +167,9 @@ const CivicEducation = () => {
               Civic rights are the fundamental freedoms and privileges that belong to citizens in a democratic society. These rights form the foundation of civic participation and democratic governance.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="group hover:scale-105 transition-all duration-300">
+            <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white group hover:scale-[1.02] transition-all duration-300">
               <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-6 rounded-xl shadow-lg">
                 <div className="flex items-center mb-4">
                   <Vote className="w-8 h-8 mr-3" />
@@ -183,8 +183,8 @@ const CivicEducation = () => {
                 </ul>
               </div>
             </div>
-            
-            <div className="group hover:scale-105 transition-all duration-300">
+
+            <div className="group hover:scale-[1.02] transition-all duration-300">
               <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
                 <div className="flex items-center mb-4">
                   <Shield className="w-8 h-8 mr-3" />
@@ -225,47 +225,47 @@ const CivicEducation = () => {
               Along with rights come responsibilities. Being an active citizen means contributing to your community and upholding democratic values through meaningful participation.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { 
-                title: "Stay Informed", 
+              {
+                title: "Stay Informed",
                 desc: "Keep up with local news and issues affecting your community",
                 icon: <BookOpen className="w-6 h-6" />,
                 color: "emerald"
               },
-              { 
-                title: "Participate in Elections", 
+              {
+                title: "Participate in Elections",
                 desc: "Vote in all elections, from local to national",
                 icon: <Vote className="w-6 h-6" />,
                 color: "blue"
               },
-              { 
-                title: "Serve on Juries", 
+              {
+                title: "Serve on Juries",
                 desc: "Participate in the justice system when called upon",
                 icon: <Scale className="w-6 h-6" />,
                 color: "purple"
               },
-              { 
-                title: "Pay Taxes", 
+              {
+                title: "Pay Taxes",
                 desc: "Contribute to public services and infrastructure",
                 icon: <PieChart className="w-6 h-6" />,
                 color: "orange"
               },
-              { 
-                title: "Volunteer", 
+              {
+                title: "Volunteer",
                 desc: "Give back to your community through service",
                 icon: <Heart className="w-6 h-6" />,
                 color: "pink"
               },
-              { 
-                title: "Respect Others", 
+              {
+                title: "Respect Others",
                 desc: "Treat fellow citizens with dignity and respect",
                 icon: <Users className="w-6 h-6" />,
                 color: "indigo"
               }
             ].map((item, idx) => (
-              <div key={idx} className="group hover:scale-105 transition-all duration-300">
+              <div key={idx} className="group hover:scale-[1.02] transition-all duration-300">
                 <div className="bg-gradient-to-br from-emerald-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
                   <div className="flex items-center mb-3">
                     <div className="bg-white/20 p-2 rounded-lg mr-3">
@@ -307,7 +307,7 @@ const CivicEducation = () => {
               Local government is the level of government closest to citizens, handling daily services and community issues that directly impact your life.
             </p>
           </div>
-          
+
           <div className="bg-gradient-to-r from-emerald-500 to-blue-500 text-white p-8 rounded-xl shadow-xl">
             <h4 className="text-2xl font-bold mb-6 text-center">Structure of Local Government</h4>
             <div className="grid md:grid-cols-3 gap-6">
@@ -334,7 +334,7 @@ const CivicEducation = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
@@ -344,7 +344,7 @@ const CivicEducation = () => {
               <div className="space-y-3">
                 {[
                   "Water and sewer systems",
-                  "Waste management", 
+                  "Waste management",
                   "Parks and recreation",
                   "Local roads and traffic",
                   "Building permits",
@@ -357,7 +357,7 @@ const CivicEducation = () => {
                 ))}
               </div>
             </div>
-            
+
             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
                 <BarChart3 className="w-5 h-5 mr-2 text-blue-500" />
@@ -398,40 +398,41 @@ const CivicEducation = () => {
               Active participation in your community strengthens democracy and creates positive change. Here are practical ways to get involved and make your voice heard.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
-              <h4 className="font-bold text-xl text-gray-900 flex items-center">
+              <h4 className="font-bold text-xl text-gray-900 dark:text-white flex items-center
+">
                 <Rocket className="w-6 h-6 mr-2 text-emerald-500" />
                 Direct Participation
               </h4>
               {[
-                { 
-                  title: "Attend City Council Meetings", 
+                {
+                  title: "Attend City Council Meetings",
                   desc: "Voice your opinions on local issues",
                   icon: <Users className="w-5 h-5" />,
                   color: "emerald"
                 },
-                { 
-                  title: "Join Community Organizations", 
+                {
+                  title: "Join Community Organizations",
                   desc: "Connect with like-minded neighbors",
                   icon: <Heart className="w-5 h-5" />,
                   color: "blue"
                 },
-                { 
-                  title: "Volunteer for Causes", 
+                {
+                  title: "Volunteer for Causes",
                   desc: "Contribute time to important issues",
                   icon: <Gift className="w-5 h-5" />,
                   color: "purple"
                 },
-                { 
-                  title: "Use Civic Apps", 
+                {
+                  title: "Use Civic Apps",
                   desc: "Report issues through platforms like Civix",
                   icon: <Sparkles className="w-5 h-5" />,
                   color: "pink"
                 }
               ].map((item, idx) => (
-                <div key={idx} className="group hover:scale-105 transition-all duration-300">
+                <div key={idx} className="group hover:scale-[1.02] transition-all duration-300">
                   <div className="border-l-4 border-emerald-500 bg-white p-4 rounded-r-xl shadow-lg">
                     <div className="flex items-center mb-2">
                       <div className="bg-emerald-100 p-2 rounded-lg mr-3">
@@ -444,39 +445,40 @@ const CivicEducation = () => {
                 </div>
               ))}
             </div>
-            
+
             <div className="space-y-4">
-              <h4 className="font-bold text-xl text-gray-900 flex items-center">
+              <h4 className="font-bold text-xl text-gray-900 dark:text-white flex items-center
+">
                 <Flame className="w-6 h-6 mr-2 text-orange-500" />
                 Advocacy & Influence
               </h4>
               {[
-                { 
-                  title: "Contact Representatives", 
+                {
+                  title: "Contact Representatives",
                   desc: "Share your views with elected officials",
                   icon: <Phone className="w-5 h-5" />,
                   color: "orange"
                 },
-                { 
-                  title: "Start or Sign Petitions", 
+                {
+                  title: "Start or Sign Petitions",
                   desc: "Rally support for important causes",
                   icon: <FileText className="w-5 h-5" />,
                   color: "red"
                 },
-                { 
-                  title: "Organize Neighborhood Groups", 
+                {
+                  title: "Organize Neighborhood Groups",
                   desc: "Build grassroots support",
                   icon: <Users className="w-5 h-5" />,
                   color: "indigo"
                 },
-                { 
-                  title: "Run for Office", 
+                {
+                  title: "Run for Office",
                   desc: "Become a representative yourself",
                   icon: <Crown className="w-5 h-5" />,
                   color: "yellow"
                 }
               ].map((item, idx) => (
-                <div key={idx} className="group hover:scale-105 transition-all duration-300">
+                <div key={idx} className="group hover:scale-[1.02] transition-all duration-300">
                   <div className="border-l-4 border-orange-500 bg-white p-4 rounded-r-xl shadow-lg">
                     <div className="flex items-center mb-2">
                       <div className="bg-orange-100 p-2 rounded-lg mr-3">
@@ -600,7 +602,7 @@ const CivicEducation = () => {
     if (selectedAnswer !== null) {
       const newAnsweredQuestions = [...answeredQuestions];
       const isCorrect = selectedAnswer === quizQuestions[currentQuestionIndex].correct;
-      
+
       newAnsweredQuestions[currentQuestionIndex] = {
         questionIndex: currentQuestionIndex,
         selectedAnswer: selectedAnswer,
@@ -621,10 +623,10 @@ const CivicEducation = () => {
         setQuizScore(finalScore);
         setQuizSubmitted(true);
         localStorage.setItem('civicEducationQuizScore', finalScore.toString());
-        
+
         // Award bonus XP for completion
         awardXP(50, 'Quiz Completion');
-        
+
         // Update streak
         const newStreak = streakCount + 1;
         setStreakCount(newStreak);
@@ -684,7 +686,7 @@ const CivicEducation = () => {
     <div className="min-h-screen bg-gray-50 transition-colors duration-300">
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
-        <div 
+        <div
           className="h-full bg-gradient-to-r from-emerald-500 to-blue-500 transition-all duration-300"
           style={{ width: `${readingProgress}%` }}
         />
@@ -791,9 +793,9 @@ const CivicEducation = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-12 bg-white dark:bg-gray-900 text-black dark:text-white">
         {/* Navigation Tabs */}
-        <div className="bg-white rounded-xl shadow-lg mb-8 overflow-hidden">
+        <div className="bg-white dark:bg-[#1f2937] rounded-xl shadow-lg mb-8 overflow-hidden">
           <div className="flex border-b border-gray-200">
             {[
               { id: 'overview', label: 'Overview', icon: <Globe className="w-4 h-4" /> },
@@ -804,11 +806,11 @@ const CivicEducation = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex items-center justify-center space-x-2 py-4 px-6 transition-colors ${
-                  activeTab === tab.id
-                    ? 'bg-emerald-50 text-emerald-600 border-b-2 border-emerald-500'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
+                className={`flex-1 flex items-center justify-center space-x-2 py-4 px-6 transition-colors ${activeTab === tab.id
+                  ? 'bg-emerald-50 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 border-b-2 border-emerald-500'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+
+                  }`}
               >
                 {tab.icon}
                 <span className="font-medium">{tab.label}</span>
@@ -821,7 +823,7 @@ const CivicEducation = () => {
         {activeTab === 'overview' && (
           <div className="space-y-8">
             {/* Enhanced Did You Know Section */}
-            <div className="bg-gradient-to-r from-emerald-500 to-blue-600 text-white rounded-xl shadow-lg p-6 transform hover:scale-105 transition-all duration-300">
+            <div className="bg-gradient-to-r from-emerald-500 to-blue-600 dark:from-emerald-700 dark:to-blue-800 text-white rounded-xl shadow-lg p-6 transform hover:scale-[1.01] transition-all duration-300">
               <div className="flex items-center mb-4">
                 <div className="bg-white/20 p-3 rounded-full mr-4">
                   {currentFact.icon}
@@ -835,9 +837,8 @@ const CivicEducation = () => {
                     {didYouKnowFacts.map((_, index) => (
                       <div
                         key={index}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          index === didYouKnowIndex ? 'bg-white' : 'bg-white/40'
-                        }`}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${index === didYouKnowIndex ? 'bg-white' : 'bg-white/40'
+                          }`}
                       />
                     ))}
                   </div>
@@ -861,15 +862,14 @@ const CivicEducation = () => {
                     { step: 4, title: "Act", desc: "Make a difference", icon: <Rocket className="w-8 h-8" />, color: "pink", completed: quizScore >= 4 }
                   ].map((item, index) => (
                     <div key={index} className="text-center">
-                      <div className={`w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center transition-all duration-300 ${
-                        item.completed 
-                          ? 'bg-emerald-500 text-white shadow-lg scale-110' 
-                          : 'bg-gray-200 text-gray-400'
-                      }`}>
+                      <div className={`w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center transition-all duration-300 ${item.completed
+                        ? 'bg-emerald-500 text-white shadow-lg scale-110'
+                        : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-300'
+                        }`}>
                         {item.completed ? <CheckCircle className="w-8 h-8" /> : item.icon}
                       </div>
                       <h4 className="font-semibold text-gray-900 mb-1">{item.title}</h4>
-                      <p className="text-sm text-gray-600">{item.desc}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{item.desc}</p>
                       {item.completed && (
                         <div className="mt-2">
                           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-emerald-100 text-emerald-800">
@@ -896,7 +896,7 @@ const CivicEducation = () => {
                 </div>
                 <p className="text-emerald-100">Join millions learning about civic engagement</p>
               </div>
-              
+
               <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
                 <div className="flex items-center justify-between mb-4">
                   <Vote className="w-12 h-12 opacity-80" />
@@ -907,7 +907,7 @@ const CivicEducation = () => {
                 </div>
                 <p className="text-blue-100">High engagement in civic education</p>
               </div>
-              
+
               <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg">
                 <div className="flex items-center justify-between mb-4">
                   <Award className="w-12 h-12 opacity-80" />
@@ -925,25 +925,25 @@ const CivicEducation = () => {
         {activeTab === 'learn' && (
           <div className="space-y-6">
             {accordionData.map((item, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300">
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
                 <button
                   onClick={() => toggleAccordion(index)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group"
+                  className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors group"
                 >
+
                   <div className="flex items-center space-x-4 flex-1">
                     <div className="text-emerald-600 group-hover:scale-110 transition-transform">
                       {item.icon}
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
                         {item.title}
                       </h3>
                       <div className="flex items-center space-x-4 text-sm text-gray-500">
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          item.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
+                        <span className={`px-2 py-1 rounded-full text-xs ${item.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
                           item.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
+                            'bg-red-100 text-red-800'
+                          }`}>
                           {item.difficulty}
                         </span>
                         <span className="flex items-center">
@@ -958,17 +958,16 @@ const CivicEducation = () => {
                           e.stopPropagation();
                           toggleBookmark(item.id);
                         }}
-                        className={`p-2 rounded-lg transition-colors ${
-                          bookmarkedSections.includes(item.id)
-                            ? 'bg-yellow-100 text-yellow-600'
-                            : 'bg-gray-100 text-gray-400 hover:text-gray-600'
-                        }`}
+                        className={`p-2 rounded-lg transition-colors ${bookmarkedSections.includes(item.id)
+                          ? 'bg-yellow-100 text-yellow-600'
+                          : 'bg-gray-100 text-gray-400 hover:text-gray-600'
+                          }`}
                       >
                         <Bookmark className="w-4 h-4" />
                       </button>
                       <div className="text-gray-500">
-                        {activeAccordion === index ? 
-                          <ChevronUp className="w-5 h-5" /> : 
+                        {activeAccordion === index ?
+                          <ChevronUp className="w-5 h-5" /> :
                           <ChevronDown className="w-5 h-5" />
                         }
                       </div>
@@ -976,7 +975,7 @@ const CivicEducation = () => {
                   </div>
                 </button>
                 {activeAccordion === index && (
-                  <div className="px-6 pb-6 border-t bg-gray-50">
+                  <div className="px-6 pb-6 border-t bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                     <div className="pt-6">
                       {item.content}
                     </div>
@@ -1012,7 +1011,7 @@ const CivicEducation = () => {
               </div>
             </div>
 
-            <div className="p-6">
+            <div className="p-6 bg-white dark:bg-gray-900 text-black dark:text-white">
               {!quizStarted && !quizSubmitted ? (
                 // Quiz Start Screen
                 <div className="text-center space-y-6">
@@ -1066,7 +1065,7 @@ const CivicEducation = () => {
                     <p className="text-lg text-gray-700 mb-6">
                       {getScoreMessage(quizScore)}
                     </p>
-                    
+
                     {/* Enhanced Score Breakdown */}
                     <div className="grid md:grid-cols-2 gap-4 mb-6">
                       <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -1113,39 +1112,46 @@ const CivicEducation = () => {
                   {/* Enhanced Progress Bar */}
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center space-x-4">
-                      <span className="text-sm font-medium text-gray-600">
+                      <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
                         Question {currentQuestionIndex + 1} of {quizQuestions.length}
                       </span>
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        currentQuestion.difficulty === 'Easy' ? 'bg-green-100 text-green-800' :
-                        currentQuestion.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-red-100 text-red-800'
-                      }`}>
+
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs ${currentQuestion.difficulty === 'Easy'
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                          : currentQuestion.difficulty === 'Medium'
+                            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                            : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                          }`}
+                      >
                         {currentQuestion.difficulty}
                       </span>
-                      <span className="px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800">
+
+                      <span className="px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
                         {currentQuestion.category}
                       </span>
                     </div>
+
                     <div className="flex space-x-1">
                       {quizQuestions.map((_, index) => (
                         <div
                           key={index}
-                          className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                            index < currentQuestionIndex
-                              ? 'bg-emerald-500'
-                              : index === currentQuestionIndex
+                          className={`w-3 h-3 rounded-full transition-all duration-300 ${index < currentQuestionIndex
+                            ? 'bg-emerald-500'
+                            : index === currentQuestionIndex
                               ? 'bg-purple-500 scale-125'
                               : 'bg-gray-300'
-                          }`}
+                            }`}
                         />
                       ))}
                     </div>
                   </div>
 
                   {/* Question Card */}
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-xl border border-purple-200">
-                    <h4 className="text-xl font-semibold text-gray-900 mb-6">
+                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900 p-8 rounded-xl border border-purple-200 dark:border-purple-700">
+
+                    <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+
                       {currentQuestion.question}
                     </h4>
 
@@ -1156,30 +1162,30 @@ const CivicEducation = () => {
                           key={index}
                           onClick={() => handleAnswerSelect(index)}
                           disabled={showResult}
-                          className={`p-4 text-left rounded-lg border-2 transition-all transform hover:scale-[1.02] ${
-                            selectedAnswer === index
-                              ? showResult
-                                ? index === currentQuestion.correct
-                                  ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                  : 'border-red-500 bg-red-50 text-red-700'
-                                : 'border-purple-500 bg-purple-50 text-purple-700'
-                              : showResult && index === currentQuestion.correct
+                          className={`p-4 text-left rounded-lg border-2 transition-all transform hover:scale-[1.01] ${selectedAnswer === index
+                            ? showResult
+                              ? index === currentQuestion.correct
+                                ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
+                                : 'border-red-500 bg-red-50 text-red-700'
+                              : 'border-purple-500 bg-purple-50 text-purple-700'
+                            : showResult && index === currentQuestion.correct
                               ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                              : 'border-gray-300 bg-white hover:border-purple-300 text-black'
-                          }`}
+                              : 'border-gray-300 bg-white hover:border-purple-300 text-black dark:bg-gray-800 dark:text-white dark:border-gray-600'
+
+                            }`}
                         >
                           <div className="flex items-center space-x-3">
-                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                              selectedAnswer === index
-                                ? showResult
-                                  ? index === currentQuestion.correct
-                                    ? 'border-emerald-500 bg-emerald-500'
-                                    : 'border-red-500 bg-red-500'
-                                  : 'border-purple-500 bg-purple-500'
-                                : showResult && index === currentQuestion.correct
+                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedAnswer === index
+                              ? showResult
+                                ? index === currentQuestion.correct
+                                  ? 'border-emerald-500 bg-emerald-500'
+                                  : 'border-red-500 bg-red-500'
+                                : 'border-purple-500 bg-purple-500'
+                              : showResult && index === currentQuestion.correct
                                 ? 'border-emerald-500 bg-emerald-500'
-                                : 'border-gray-400'
-                            }`}>
+                                : 'border-gray-400 dark:border-gray-600'
+
+                              }`}>
                               {((selectedAnswer === index && showResult) || (showResult && index === currentQuestion.correct)) && (
                                 <CheckCircle className="w-4 h-4 text-white" />
                               )}
@@ -1195,18 +1201,22 @@ const CivicEducation = () => {
 
                     {/* Explanation (shown after answer) */}
                     {showResult && (
-                      <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                        <h5 className="font-semibold text-blue-800 mb-2 flex items-center">
+                      <div className="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+
+                        <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-2 flex items-center">
+
                           <Lightbulb className="w-4 h-4 mr-2" />
                           Explanation:
                         </h5>
-                        <p className="text-blue-700">{currentQuestion.explanation}</p>
+                        <p className="text-blue-700 dark:text-blue-100">{currentQuestion.explanation}</p>
+
                       </div>
                     )}
 
                     {/* Action Buttons */}
                     <div className="flex justify-between mt-6">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+
                         {selectedAnswer !== null && !showResult && "Click 'Check Answer' to see if you're correct!"}
                       </div>
                       <div className="space-x-3">
@@ -1238,7 +1248,7 @@ const CivicEducation = () => {
         {activeTab === 'resources' && (
           <div className="space-y-6">
             {/* Download Resources */}
-            <div className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white rounded-xl p-8 text-center">
+            <div className="bg-gradient-to-r from-emerald-600 to-blue-600 dark:from-emerald-700 dark:to-blue-700 text-white rounded-xl p-8 text-center">
               <Download className="w-16 h-16 mx-auto mb-4 opacity-90" />
               <h3 className="text-2xl font-semibold mb-2">
                 Download Civic Education Resources
@@ -1267,8 +1277,8 @@ const CivicEducation = () => {
 
             {/* External Resources */}
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white p-6 rounded-xl shadow-lg">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                   <ExternalLink className="w-5 h-5 mr-2 text-blue-500" />
                   Government Resources
                 </h4>
@@ -1279,72 +1289,82 @@ const CivicEducation = () => {
                     { title: "Congress.gov", desc: "Legislative information" },
                     { title: "Local Government Directory", desc: "Find your local representatives" }
                   ].map((resource, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+                    >
                       <div>
-                        <div className="font-medium text-gray-900">{resource.title}</div>
-                        <div className="text-sm text-gray-600">{resource.desc}</div>
+                        <div className="font-medium text-gray-900 dark:text-white">{resource.title}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">{resource.desc}</div>
                       </div>
-                      <ExternalLink className="w-4 h-4 text-gray-400" />
+                      <ExternalLink className="w-4 h-4 text-gray-400 dark:text-gray-300" />
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-lg">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
-                  <Phone className="w-5 h-5 mr-2 text-emerald-500" />
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <Phone className="w-5 h-5 mr-2 text-emerald-500 dark:text-emerald-400" />
                   Contact Information
                 </h4>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg">
-                    <Phone className="w-5 h-5 text-emerald-600" />
+                  <div className="flex items-center space-x-3 p-3 bg-emerald-50 dark:bg-emerald-900 rounded-lg">
+                    <Phone className="w-5 h-5 text-emerald-600 dark:text-emerald-300" />
                     <div>
-                      <div className="font-medium text-gray-900">Civic Helpline</div>
-                      <div className="text-sm text-gray-600">1-800-CIVIC-HELP</div>
+                      <div className="font-medium text-gray-900 dark:text-white">Civic Helpline</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">1-800-CIVIC-HELP</div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                    <Mail className="w-5 h-5 text-blue-600" />
+                  <div className="flex items-center space-x-3 p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                    <Mail className="w-5 h-5 text-blue-600 dark:text-blue-300" />
                     <div>
-                      <div className="font-medium text-gray-900">Email Support</div>
-                      <div className="text-sm text-gray-600">civic@example.com</div>
+                      <div className="font-medium text-gray-900 dark:text-white">Email Support</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">civic@example.com</div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 bg-purple-50 rounded-lg">
-                    <MapPin className="w-5 h-5 text-purple-600" />
+                  <div className="flex items-center space-x-3 p-3 bg-purple-50 dark:bg-purple-900 rounded-lg">
+                    <MapPin className="w-5 h-5 text-purple-600 dark:text-purple-300" />
                     <div>
-                      <div className="font-medium text-gray-900">Local Office</div>
-                      <div className="text-sm text-gray-600">Find your nearest location</div>
+                      <div className="font-medium text-gray-900 dark:text-white">Local Office</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">Find your nearest location</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+
             {/* Interactive Tools */}
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <h4 className="font-semibold text-gray-900 mb-6 flex items-center">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
                 <Zap className="w-5 h-5 mr-2 text-yellow-500" />
                 Interactive Tools & Calculators
               </h4>
               <div className="grid md:grid-cols-3 gap-4">
+                {/* Tax Impact Calculator */}
                 <div className="bg-gradient-to-br from-yellow-400 to-orange-500 text-white p-6 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer">
                   <PieChart className="w-12 h-12 mx-auto mb-3" />
                   <h5 className="font-semibold mb-2">Tax Impact Calculator</h5>
-                  <p className="text-sm opacity-90">See how your taxes fund local services</p>
+                  <p className="text-sm text-white/90">See how your taxes fund local services</p>
                 </div>
+
+                {/* Voting Guide */}
                 <div className="bg-gradient-to-br from-green-400 to-emerald-500 text-white p-6 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer">
                   <Vote className="w-12 h-12 mx-auto mb-3" />
                   <h5 className="font-semibold mb-2">Voting Guide</h5>
-                  <p className="text-sm opacity-90">Find your polling place and candidates</p>
+                  <p className="text-sm text-white/90">Find your polling place and candidates</p>
                 </div>
+
+                {/* Representative Finder */}
                 <div className="bg-gradient-to-br from-blue-400 to-purple-500 text-white p-6 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer">
                   <Users className="w-12 h-12 mx-auto mb-3" />
                   <h5 className="font-semibold mb-2">Representative Finder</h5>
-                  <p className="text-sm opacity-90">Contact your elected officials</p>
+                  <p className="text-sm text-white/90">Contact your elected officials</p>
                 </div>
               </div>
             </div>
+
           </div>
         )}
       </div>
