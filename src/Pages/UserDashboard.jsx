@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DarkModeToggler from "../DarkModeToggle";
 import {
   faFileAlt,
   faListUl,
@@ -11,56 +10,12 @@ import {
   faBookOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserDashboard.css";
-import { useAuth } from '@clerk/clerk-react';
 
 const UserDashboard = () => {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
-
-  const handleLogout = async () => {
-    if (signOut) {
-      await signOut(); // Clerk: clears session and data
-    }
-    localStorage.removeItem("token");
-    window.dispatchEvent(new Event("storage-update"));
-    navigate("/");
-  };
 
   return (
     <div className="dashboard-page">
-      {/* Header */}
-      <header className="dashboard-header bg-white/95 backdrop-blur">
-        <div className="header-container">
-          <div className="logo-container">
-            <button className="logo-button">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="logo-icon"
-              >
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <span className="logo-text">Civix</span>
-            </button>
-          </div>
-
-          <div className="header-actions">
-            <DarkModeToggler />
-            <button onClick={handleLogout} className="logout-button">
-              Logout
-            </button>
-          </div>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="dashboard-main">
         <h2 className="welcome-text">Welcome, Citizen 👋</h2>
