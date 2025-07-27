@@ -77,15 +77,27 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, href } from 'react-router-dom';
 import Switch from '../DarkModeToggle';
 import { jwtDecode } from 'jwt-decode';
+import { useAuth } from '@clerk/clerk-react';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isSignedIn, signOut } = useAuth();
 
   // Close menu on route change or navigation
   const handleNav = (cb) => {
     setMobileMenuOpen(false);
     if (cb) cb();
+  };
+
+  // Handle logout
+  const handleLogout = async () => {
+    if (signOut) {
+      await signOut(); // Clerk: clears session and data
+    }
+    localStorage.removeItem("token");
+    window.dispatchEvent(new Event("storage-update"));
+    navigate("/");
   };
 
   // Close menu on Escape key
@@ -204,18 +216,31 @@ const Navbar = () => {
               Admin Dashboard
             </button>
           )}
-          <button
-            onClick={() => navigate('/login')}
-            className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-          >
-            Login
-          </button>
-          <button
-            onClick={() => navigate('/signup')}
-            className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-primary-foreground hover:bg-emerald-600 h-9 px-4 py-2"
-          >
-            Get Started
-          </button>
+          
+          {/* Show logout button when authenticated, login/signup when not */}
+          {isSignedIn || token ? (
+            <button
+              onClick={handleLogout}
+              className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-white hover:bg-emerald-600 h-9 px-4 py-2"
+            >
+              Logout
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => navigate('/login')}
+                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => navigate('/signup')}
+                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-primary-foreground hover:bg-emerald-600 h-9 px-4 py-2"
+              >
+                Get Started
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -259,18 +284,31 @@ const Navbar = () => {
                   Admin Dashboard
                 </button>
               )}
-              <button
-                onClick={() => handleNav(() => navigate('/login'))}
-                className="w-11/12 rounded-md text-base font-medium border border-input hover:bg-accent hover:text-accent-foreground h-11 px-4 py-2"
-              >
-                Login
-              </button>
-              <button
-                onClick={() => handleNav(() => navigate('/signup'))}
-                className="w-11/12 rounded-md text-base font-medium bg-emerald-500 text-white hover:bg-emerald-600 h-11 px-4 py-2"
-              >
-                Get Started
-              </button>
+              
+              {/* Show logout button when authenticated, login/signup when not */}
+              {isSignedIn || token ? (
+                <button
+                  onClick={() => handleNav(handleLogout)}
+                  className="w-11/12 rounded-md text-base font-medium bg-emerald-500 text-white hover:bg-emerald-600 h-11 px-4 py-2"
+                >
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={() => handleNav(() => navigate('/login'))}
+                    className="w-11/12 rounded-md text-base font-medium border border-input hover:bg-accent hover:text-accent-foreground h-11 px-4 py-2"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => handleNav(() => navigate('/signup'))}
+                    className="w-11/12 rounded-md text-base font-medium bg-emerald-500 text-white hover:bg-emerald-600 h-11 px-4 py-2"
+                  >
+                    Get Started
+                  </button>
+                </>
+              )}
             </nav>
           </div>
         </>
