@@ -162,8 +162,8 @@ const CivicEducation = () => {
       readTime: "3 min",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-emerald-50 to-blue-50 p-6 rounded-xl border border-emerald-200">
-            <p className="text-gray-700 text-lg leading-relaxed">
+          <div className="bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/30 dark:to-blue-900/30 p-6 rounded-xl border border-emerald-200 dark:border-emerald-700">
+            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
               Civic rights are the fundamental freedoms and privileges that belong to citizens in a democratic society. These rights form the foundation of civic participation and democratic governance.
             </p>
           </div>
@@ -200,12 +200,12 @@ const CivicEducation = () => {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-            <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
               <Lightbulb className="w-5 h-5 mr-2 text-yellow-500" />
               Quick Fact
             </h4>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               The Universal Declaration of Human Rights, adopted by the UN in 1948, outlines 30 fundamental rights that belong to every person, regardless of nationality, race, or religion.
             </p>
           </div>
@@ -220,8 +220,8 @@ const CivicEducation = () => {
       readTime: "4 min",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-pink-50 to-purple-50 p-6 rounded-xl border border-pink-200">
-            <p className="text-gray-700 text-lg leading-relaxed">
+          <div className="bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/30 dark:to-purple-900/30 p-6 rounded-xl border border-pink-200 dark:border-pink-700">
+            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
               Along with rights come responsibilities. Being an active citizen means contributing to your community and upholding democratic values through meaningful participation.
             </p>
           </div>
@@ -302,8 +302,8 @@ const CivicEducation = () => {
       readTime: "5 min",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
-            <p className="text-gray-700 text-lg leading-relaxed">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 p-6 rounded-xl border border-blue-200 dark:border-blue-700">
+            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
               Local government is the level of government closest to citizens, handling daily services and community issues that directly impact your life.
             </p>
           </div>
@@ -336,8 +336,8 @@ const CivicEducation = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-              <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                 <Activity className="w-5 h-5 mr-2 text-emerald-500" />
                 Services Provided
               </h4>
@@ -350,16 +350,16 @@ const CivicEducation = () => {
                   "Building permits",
                   "Emergency services"
                 ].map((service, idx) => (
-                  <div key={idx} className="flex items-center p-2 bg-gray-50 rounded-lg">
+                  <div key={idx} className="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
                     <CheckCircle className="w-4 h-4 text-emerald-500 mr-3" />
-                    <span className="text-gray-700">{service}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{service}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-              <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                 <BarChart3 className="w-5 h-5 mr-2 text-blue-500" />
                 Decision Making Process
               </h4>
@@ -372,11 +372,11 @@ const CivicEducation = () => {
                   "Budget planning",
                   "Policy implementation"
                 ].map((process, idx) => (
-                  <div key={idx} className="flex items-center p-2 bg-gray-50 rounded-lg">
+                  <div key={idx} className="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
                     <div className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs flex items-center justify-center mr-3">
                       {idx + 1}
                     </div>
-                    <span className="text-gray-700">{process}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{process}</span>
                   </div>
                 ))}
               </div>
@@ -393,8 +393,8 @@ const CivicEducation = () => {
       readTime: "4 min",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200">
-            <p className="text-gray-700 text-lg leading-relaxed">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-6 rounded-xl border border-purple-200 dark:border-purple-700">
+            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
               Active participation in your community strengthens democracy and creates positive change. Here are practical ways to get involved and make your voice heard.
             </p>
           </div>
@@ -433,14 +433,14 @@ const CivicEducation = () => {
                 }
               ].map((item, idx) => (
                 <div key={idx} className="group hover:scale-[1.02] transition-all duration-300">
-                  <div className="border-l-4 border-emerald-500 bg-white p-4 rounded-r-xl shadow-lg">
+                  <div className="border-l-4 border-emerald-500 bg-white dark:bg-gray-800 p-4 rounded-r-xl shadow-lg">
                     <div className="flex items-center mb-2">
-                      <div className="bg-emerald-100 p-2 rounded-lg mr-3">
+                      <div className="bg-emerald-100 dark:bg-emerald-900/30 p-2 rounded-lg mr-3">
                         {item.icon}
                       </div>
-                      <h5 className="font-semibold text-gray-900">{item.title}</h5>
+                      <h5 className="font-semibold text-gray-900 dark:text-white">{item.title}</h5>
                     </div>
-                    <p className="text-gray-600 ml-12">{item.desc}</p>
+                    <p className="text-gray-600 dark:text-gray-300 ml-12">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -479,14 +479,14 @@ const CivicEducation = () => {
                 }
               ].map((item, idx) => (
                 <div key={idx} className="group hover:scale-[1.02] transition-all duration-300">
-                  <div className="border-l-4 border-orange-500 bg-white p-4 rounded-r-xl shadow-lg">
+                  <div className="border-l-4 border-orange-500 bg-white dark:bg-gray-800 p-4 rounded-r-xl shadow-lg">
                     <div className="flex items-center mb-2">
-                      <div className="bg-orange-100 p-2 rounded-lg mr-3">
+                      <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded-lg mr-3">
                         {item.icon}
                       </div>
-                      <h5 className="font-semibold text-gray-900">{item.title}</h5>
+                      <h5 className="font-semibold text-gray-900 dark:text-white">{item.title}</h5>
                     </div>
-                    <p className="text-gray-600 ml-12">{item.desc}</p>
+                    <p className="text-gray-600 dark:text-gray-300 ml-12">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -683,9 +683,9 @@ const CivicEducation = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       {/* Reading Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+      <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 z-50">
         <div
           className="h-full bg-gradient-to-r from-emerald-500 to-blue-500 transition-all duration-300"
           style={{ width: `${readingProgress}%` }}
@@ -695,10 +695,10 @@ const CivicEducation = () => {
       {/* Level Up Celebration */}
       {showCelebration && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-xl shadow-2xl text-center animate-bounce">
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl text-center animate-bounce">
             <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Level Up!</h3>
-            <p className="text-gray-600">You've reached Level {userLevel}!</p>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Level Up!</h3>
+            <p className="text-gray-600 dark:text-gray-300">You've reached Level {userLevel}!</p>
           </div>
         </div>
       )}
@@ -848,8 +848,8 @@ const CivicEducation = () => {
             </div>
 
             {/* Interactive Civic Journey */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
+            <div className="bg-white dark:bg-[#23272f] rounded-xl shadow-lg p-8">
+              <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
                 Your Civic Journey
               </h3>
               <div className="relative">
@@ -868,7 +868,7 @@ const CivicEducation = () => {
                         }`}>
                         {item.completed ? <CheckCircle className="w-8 h-8" /> : item.icon}
                       </div>
-                      <h4 className="font-semibold text-gray-900 mb-1">{item.title}</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{item.title}</h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300">{item.desc}</p>
                       {item.completed && (
                         <div className="mt-2">
