@@ -1169,23 +1169,24 @@ const CivicEducation = () => {
                           }`}
                         >
                           <div className="flex items-center space-x-3">
-                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                              selectedAnswer === index
-                                ? showResult
-                                  ? index === currentQuestion.correct
-                                    ? 'border-emerald-500 bg-emerald-500'
-                                    : 'border-red-500 bg-red-500'
-                                  : 'border-purple-500 bg-purple-500'
-                                : showResult && index === currentQuestion.correct
-                                ? 'border-emerald-500 bg-emerald-500'
-                                : 'border-gray-400'
-                            }`}>
-                              {((selectedAnswer === index && showResult) || (showResult && index === currentQuestion.correct)) && (
+                            <div
+                              className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                                selectedAnswer === index
+                                  ? showResult
+                                    ? index === currentQuestion.correct
+                                      ? 'border-emerald-500 bg-emerald-500'
+                                      : 'border-red-500 bg-red-500'
+                                    : 'border-purple-500 bg-purple-500'
+                                  : showResult && index === currentQuestion.correct
+                                  ? 'border-emerald-500 bg-emerald-500'
+                                  : 'border-gray-400'
+                              }`}
+                            >
+                              {showResult && index === currentQuestion.correct ? (
                                 <CheckCircle className="w-4 h-4 text-white" />
-                              )}
-                              {selectedAnswer === index && showResult && index !== currentQuestion.correct && (
+                              ) : showResult && selectedAnswer === index && index !== currentQuestion.correct ? (
                                 <XCircle className="w-4 h-4 text-white" />
-                              )}
+                              ) : null}
                             </div>
                             <span className="font-medium">{option}</span>
                           </div>
