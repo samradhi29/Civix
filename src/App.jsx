@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { SignIn, SignUp } from '@clerk/clerk-react';
+import { SignIn, SignUp, useAuth } from '@clerk/clerk-react';
 
 import Home from './Home';
 import Login from './components/Login';
@@ -31,11 +31,16 @@ import Resources from './Pages/Resources';
 import MyComplaints from './Pages/MyComplaints';
 import CivicEducation from './Pages/CivicEducation';
 import CivicSimulator from './Pages/CivicSimulator';
+import Contributors from './Pages/Contributors';
+import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 
 const App = () => {
+  const { isSignedIn } = useAuth();
+  // Only show Navbar if user is NOT signed in
   return (
     <>
       <ScrollToTop />
+      <ScrollToTopOnRouteChange/>
       <Toaster
         position="top-right"
         toastOptions={{
@@ -50,17 +55,19 @@ const App = () => {
           },
         }}
       />
-      <Navbar />
-      <main className="container mx-auto p-4">
+          
+      <Navbar/>
+
+      <main className="min-h-screen">
         <Routes>
           {/* Clerk Auth Routes */}
           <Route
             path="/sign-in/*"
-            element={<SignIn routing="path" path="/sign-in" redirectUrl="/home" />}
+            element={<SignIn routing="path" path="/sign-in" redirectUrl="/" />}
           />
           <Route
             path="/signup/*"
-            element={<SignUp routing="path" path="/signup" redirectUrl="/home" />}
+            element={<SignUp routing="path" path="/signup" redirectUrl="/" />}
           />
 
           {/* Public Routes */}
@@ -82,6 +89,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/complaints" element={<MyComplaints />} />
+          <Route path="/contributors" element={<Contributors />} />
 
           {/* Protected Routes */}
           <Route

@@ -6,17 +6,6 @@ import Switch from '../DarkModeToggle';
 function Contact() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-emerald-100 dark:from-[#18181b] dark:via-[#23272f] dark:to-[#18181b] px-4 py-8">
-      <button
-        className="back-button"
-        onClick={() => window.history.back()}
-        type="button"
-      >
-        ← Back
-      </button>
-      {/* Top bar with dark mode toggle */}
-      <div className="w-full flex justify-end mb-6">
-        <Switch />
-      </div>
       <div className="w-full max-w-2xl bg-white dark:bg-[#23272f] rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col gap-6">
         <motion.h1
           className="text-3xl md:text-4xl font-bold text-emerald-600 mb-2"

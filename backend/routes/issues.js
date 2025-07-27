@@ -5,21 +5,24 @@ const { verifyToken, isAdmin } = require('../middlewares/validate');
 const upload = require('../middlewares/upload');
 const xss = require('xss');
 
-// POST create issue
+// POST: Create a new issue
 router.post('/', upload.single('file'), async (req, res, next) => {
   try {
-    req.body.title = xss(req.body.title);
-    req.body.description = xss(req.body.description);
-    req.body.location = xss(req.body.location);
-    if (req.body.category) req.body.category = xss(req.body.category);
+    const sanitizedBody = {
+      title: xss(req.body.title),
+      description: xss(req.body.description),
+      location: xss(req.body.location),
+      category: req.body.category ? xss(req.body.category) : undefined,
+    };
 
+    req.body = { ...req.body, ...sanitizedBody };
     await issueController.createIssue(req, res);
   } catch (err) {
     next(err);
   }
 });
 
-// PATCH update status
+// PATCH: Update issue status (Admin only)
 router.patch('/:id/status', verifyToken, isAdmin, async (req, res, next) => {
   try {
     if (req.body.newStatus) {
@@ -31,10 +34,7 @@ router.patch('/:id/status', verifyToken, isAdmin, async (req, res, next) => {
   }
 });
 
-const { upload } = require('../middlewares/upload');
-// const { validate } = require('../middlewares/validate');
-// GET all issues
+// GET: All issues
 router.get('/', issueController.getAllIssues);
-
 
 module.exports = router;

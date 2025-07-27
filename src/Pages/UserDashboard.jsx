@@ -10,12 +10,17 @@ import {
   faChartBar,
   faBookOpen,
 } from "@fortawesome/free-solid-svg-icons";
-import "./UserDashboard.css"; 
+import "./UserDashboard.css";
+import { useAuth } from '@clerk/clerk-react';
 
 const UserDashboard = () => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    if (signOut) {
+      await signOut(); // Clerk: clears session and data
+    }
     localStorage.removeItem("token");
     window.dispatchEvent(new Event("storage-update"));
     navigate("/");
@@ -24,7 +29,7 @@ const UserDashboard = () => {
   return (
     <div className="dashboard-page">
       {/* Header */}
-      <header className="dashboard-header">
+      <header className="dashboard-header bg-white/95 backdrop-blur">
         <div className="header-container">
           <div className="logo-container">
             <button className="logo-button">
