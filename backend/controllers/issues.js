@@ -1,6 +1,7 @@
 const Issue = require('../models/issues');
 const sendEmail = require('../utils/sendEmail');
 const { asyncHandler } = require('../utils/asyncHandler'); 
+const { uploadOnCloudinary } = require("../utils/cloudinary.js");
 
 const createIssue = asyncHandler(async (req, res) => {
   const { title, description, phone, email, notifyByEmail } = req.body;
@@ -9,7 +10,19 @@ const createIssue = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "Title, description, and email are required" });
   }
 
-  const fileUrl = req.file ? `/uploads/${req.file.filename}` : null;
+  let fileUrl = null;
+
+  if (req.file) {
+    const localFilePath = req.file?.path;
+    const cloudinaryResponse = await uploadOnCloudinary(localFilePath);
+    console.log(cloudinaryResponse);
+
+    if (cloudinaryResponse) {
+      fileUrl = cloudinaryResponse.secure_url;
+    } else {
+      return res.status(500).json({ error: "Failed to upload file to Cloudinary" });
+    }
+  }
 
   const issue = await Issue.create({
     title,
