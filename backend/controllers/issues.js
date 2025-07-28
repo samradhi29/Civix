@@ -1,7 +1,7 @@
 const Issue = require('../models/issues');
 const sendEmail = require('../utils/sendEmail');
 const { asyncHandler } = require('../utils/asyncHandler'); 
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+const { uploadOnCloudinary } = require("../utils/cloudinary.js");
 
 const createIssue = asyncHandler(async (req, res) => {
   const { title, description, phone, email, notifyByEmail } = req.body;
@@ -13,8 +13,9 @@ const createIssue = asyncHandler(async (req, res) => {
   let fileUrl = null;
 
   if (req.file) {
-    const localFilePath = req.file.path;
+    const localFilePath = req.file?.path;
     const cloudinaryResponse = await uploadOnCloudinary(localFilePath);
+    console.log(cloudinaryResponse);
 
     if (cloudinaryResponse) {
       fileUrl = cloudinaryResponse.secure_url;

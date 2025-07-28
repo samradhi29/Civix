@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const issueController = require('../controllers/issues');
 const { verifyToken, isAdmin } = require('../middlewares/validate');
-import { upload } from "../middlewares/multer.middleware.js"; 
+const { upload } = require("../middlewares/multer.middleware");
 const xss = require('xss');
+
 
 // POST: Create a new issue
 router.post('/', upload.single('file'), async (req, res, next) => {

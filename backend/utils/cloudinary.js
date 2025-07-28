@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2;
-import fs from "fs";
+require('dotenv').config();
+const fs = require("fs");
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -8,18 +9,25 @@ cloudinary.config({
 });
 
 const uploadOnCloudinary = async (localFilePath) => {
-  try {
+  try {     
     if (!localFilePath) return null;
     const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
     });
-    // console.log("File uploaded Successfully, ", response.url);
-    fs.unlink(localFilePath);
+
+    fs.unlink(localFilePath, (err) => {
+      if (err) console.error("Error deleting local file:", err);
+    });
+
     return response;
+
   } catch (e) {
-    fs.unlink(localFilePath);  
+    fs.unlink(localFilePath, (err) => {
+      if (err) console.error("Error deleting local file:", err);
+    });  
+    console.error("Cloudinary error:", e);
     return null;
   }
 };
 
-export {uploadOnCloudinary}
+module.exports =  {uploadOnCloudinary}
