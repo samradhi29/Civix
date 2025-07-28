@@ -158,10 +158,9 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur">
       <div className="container flex h-14 items-center justify-between">
-        <button onClick={() => { setMobileMenuOpen(false); navigate('/'); }} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300" style={{width: "74px", marginLeft: "21px"}}
-    
->
-          
+        <button onClick={() => { setMobileMenuOpen(false); navigate('/'); }} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300" style={{ width: "74px", marginLeft: "21px" }}
+        >
+
           <img src={logo} alt="" />
           <span id="logo" className="text-xl font-bold" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>  </span>
         </button>
@@ -206,7 +205,7 @@ const Navbar = () => {
               Admin Dashboard
             </button>
           )}
-          
+
           {/* Show logout button when authenticated, login/signup when not */}
           {isSignedIn || token ? (
             <button
@@ -274,7 +273,7 @@ const Navbar = () => {
                   Admin Dashboard
                 </button>
               )}
-              
+
               {/* Show logout button when authenticated, login/signup when not */}
               {isSignedIn || token ? (
                 <button
