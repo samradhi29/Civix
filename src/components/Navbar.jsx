@@ -10,7 +10,7 @@
 //   };
 
 //   return (
-//     <header 
+//     <header
 //       className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur"
 //       style={{
 //         '--tw-bg-opacity': '0.95',
@@ -46,7 +46,7 @@
 //           <a href="#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
 //             Testimonials
 //           </a>
-//           <a href="#faqs" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+//           <a href="#faq" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
 //             FAQ
 //           </a>
 //         </nav>
@@ -74,7 +74,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link, href } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Switch from '../DarkModeToggle';
 import { jwtDecode } from 'jwt-decode';
 import { useAuth } from '@clerk/clerk-react';
@@ -208,6 +208,16 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4">
           <Switch />
+          {/* Dashboard link for authenticated users */}
+          {(isSignedIn || token) && (
+            <button
+              onClick={() => navigate(isAdmin ? '/admin' : '/user/dashboard')}
+              className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium border border-emerald-500 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 h-9 px-4 py-2"
+            >
+              Dashboard
+            </button>
+          )}
+
           {isAdmin && (
             <button
               onClick={() => navigate('/admin')}
@@ -275,6 +285,15 @@ const Navbar = () => {
                 </Link>
               ))}
 
+              {/* Dashboard link for authenticated users in mobile menu */}
+              {(isSignedIn || token) && (
+                <button
+                  onClick={() => handleNav(() => navigate(isAdmin ? '/admin' : '/user/dashboard'))}
+                  className="w-11/12 rounded-md text-base font-medium border border-emerald-500 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 h-11 px-4 py-2"
+                >
+                  Dashboard
+                </button>
+              )}
 
               {isAdmin && (
                 <button
