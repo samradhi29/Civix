@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CommunityVoting.css"; // Create this file for styling
 import { motion, AnimatePresence } from "framer-motion";
-import Switch from '../DarkModeToggle';
 
 const CommunityVotingPage = () => {
   const navigate = useNavigate();
@@ -40,49 +39,7 @@ const CommunityVotingPage = () => {
     }
   ]);
   
-   // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        when: "beforeChildren"
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-      transition: {
-        duration: 0.3,
-        ease: "easeIn"
-      }
-    }
-  };
-
-  const progressVariants = {
-    initial: { width: 0 },
-    animate: {
-      width: "100%",
-      transition: {
-        duration: 1.5,
-        ease: "easeInOut"
-      }
-    }
-  };
-
+  // Animation variants omitted here for brevity but you can keep them if you want
 
   const areas = ["All Areas", "Noida", "East Delhi", "West Delhi", "North Delhi", "South Delhi", "Ghaziabad"];
   const sortOptions = ["Most Votes", "Most Recent", "Longest Open", "Most Accidents"];
@@ -105,160 +62,158 @@ const CommunityVotingPage = () => {
 
   return (
     <>
-    {/* Top bar with dark mode toggle */}
-  <div className="w-full flex justify-end mb-6"  style={{ paddingRight: "20px", paddingTop: "20px" }}>
-    <Switch />
-  </div>
-  <motion.div 
-    className="community-voting-container"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    <motion.button 
-      className="back-button" 
-      onClick={() => navigate(-1)}
-      whileHover={{ x: -2 }}
-      transition={{ type: "spring", stiffness: 300 }}
-    >
-      ← Back
-    </motion.button>
+      {/* Removed dark/light toggle here */}
 
-    <motion.div
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.2 }}
-    >
-      <h1>Community Voting Dashboard</h1>
-      <p>Help prioritize local issues in your area</p>
-    </motion.div>
-
-    {/* Circular Filter Bar */}
-    <motion.div 
-      className="filter-bar"
-      initial={{ scale: 0.95, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 0.4 }}
-    >
-      <div className="filter-section">
-        <label>Area:</label>
-        <motion.select 
-          value={selectedArea} 
-          onChange={(e) => setSelectedArea(e.target.value)}
-          className="filter-dropdown"
-          whileHover={{ scale: 1.02 }}
-          whileFocus={{ scale: 1.02 }}
+      <motion.div 
+        className="community-voting-container"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.button 
+          className="back-button" 
+          onClick={() => navigate(-1)}
+          whileHover={{ x: -2 }}
+          transition={{ type: "spring", stiffness: 300 }}
         >
-          {areas.map(area => (
-            <option key={area} value={area}>{area}</option>
-          ))}
-        </motion.select>
-      </div>
+          ← Back
+        </motion.button>
 
-      <div className="filter-section">
-        <label>Sort By:</label>
-        <motion.select 
-          value={sortBy} 
-          onChange={(e) => setSortBy(e.target.value)}
-          className="filter-dropdown"
-          whileHover={{ scale: 1.02 }}
-          whileFocus={{ scale: 1.02 }}
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
         >
-          {sortOptions.map(option => (
-            <option key={option} value={option}>{option}</option>
-          ))}
-        </motion.select>
-      </div>
-    </motion.div>
+          <h1>Community Voting Dashboard</h1>
+          <p>Help prioritize local issues in your area</p>
+        </motion.div>
 
-    {/* Issues List */}
-    <AnimatePresence>
-      <motion.div className="issues-list">
-        {filteredIssues.map((issue, index) => (
-          <motion.div
-            key={issue.id}
-            className="issue-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ 
-              type: "spring",
-              stiffness: 100,
-              delay: index * 0.05,
-              duration: 0.5
-            }}
-            layout // Enables smooth layout transitions
-            whileHover={{ y: -5 }}
-          >
-            <div className="issue-header">
-              <h3>{issue.title}</h3>
-              <motion.span 
-                className="area-badge"
-                whileHover={{ scale: 1.1 }}
-              >
-                {issue.area}
-              </motion.span>
-            </div>
-            
-            <div className="issue-metrics">
-              <div className="metric">
-                <span className="metric-label">Days Open:</span>
-                <motion.span 
-                  className="metric-value"
-                  key={`days-${issue.daysOpen}`}
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring" }}
-                >
-                  {issue.daysOpen}
-                </motion.span>
-              </div>
-              <div className="metric">
-                <span className="metric-label">Accidents:</span>
-                <motion.span 
-                  className="metric-value"
-                  key={`accidents-${issue.accidentsReported}`}
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring" }}
-                >
-                  {issue.accidentsReported}
-                </motion.span>
-              </div>
-              <div className="metric">
-                <span className="metric-label">Status:</span>
-                <span className="metric-value">{issue.status}</span>
-              </div>
-            </div>
+        {/* Filter Bar */}
+        <motion.div 
+          className="filter-bar"
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          <div className="filter-section">
+            <label>Area:</label>
+            <motion.select 
+              value={selectedArea} 
+              onChange={(e) => setSelectedArea(e.target.value)}
+              className="filter-dropdown"
+              whileHover={{ scale: 1.02 }}
+              whileFocus={{ scale: 1.02 }}
+            >
+              {areas.map(area => (
+                <option key={area} value={area}>{area}</option>
+              ))}
+            </motion.select>
+          </div>
 
-            <div className="vote-section">
-              <motion.button 
-                className="vote-button"
-                onClick={() => handleVote(issue.id)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+          <div className="filter-section">
+            <label>Sort By:</label>
+            <motion.select 
+              value={sortBy} 
+              onChange={(e) => setSortBy(e.target.value)}
+              className="filter-dropdown"
+              whileHover={{ scale: 1.02 }}
+              whileFocus={{ scale: 1.02 }}
+            >
+              {sortOptions.map(option => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </motion.select>
+          </div>
+        </motion.div>
+
+        {/* Issues List */}
+        <AnimatePresence>
+          <motion.div className="issues-list">
+            {filteredIssues.map((issue, index) => (
+              <motion.div
+                key={issue.id}
+                className="issue-card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 100,
+                  delay: index * 0.05,
+                  duration: 0.5
+                }}
+                layout
+                whileHover={{ y: -5 }}
               >
-                ▲ Vote ({issue.votes})
-              </motion.button>
-              <div className="progress-bar">
-                <motion.div 
-                  className="progress-fill"
-                  initial={{ width: 0 }}
-                  animate={{ 
-                    width: `${Math.min(issue.votes * 5, 100)}%`,
-                    transition: { duration: 1.5, ease: "easeInOut" }
-                  }}
-                  key={`progress-${issue.id}-${issue.votes}`}
-                />
-              </div>
-            </div>
+                <div className="issue-header">
+                  <h3>{issue.title}</h3>
+                  <motion.span 
+                    className="area-badge"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    {issue.area}
+                  </motion.span>
+                </div>
+
+                <div className="issue-metrics">
+                  <div className="metric">
+                    <span className="metric-label">Days Open:</span>
+                    <motion.span 
+                      className="metric-value"
+                      key={`days-${issue.daysOpen}`}
+                      initial={{ scale: 0.8 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring" }}
+                    >
+                      {issue.daysOpen}
+                    </motion.span>
+                  </div>
+                  <div className="metric">
+                    <span className="metric-label">Accidents:</span>
+                    <motion.span 
+                      className="metric-value"
+                      key={`accidents-${issue.accidentsReported}`}
+                      initial={{ scale: 0.8 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring" }}
+                    >
+                      {issue.accidentsReported}
+                    </motion.span>
+                  </div>
+                  <div className="metric">
+                    <span className="metric-label">Status:</span>
+                    <span className="metric-value">{issue.status}</span>
+                  </div>
+                </div>
+
+                <div className="vote-section">
+                  <motion.button 
+                    className="vote-button"
+                    onClick={() => handleVote(issue.id)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    ▲ Vote ({issue.votes})
+                  </motion.button>
+                  <div className="progress-bar">
+                    <motion.div 
+                      className="progress-fill"
+                      initial={{ width: 0 }}
+                      animate={{ 
+                        width: `${Math.min(issue.votes * 5, 100)}%`,
+                        transition: { duration: 1.5, ease: "easeInOut" }
+                      }}
+                      key={`progress-${issue.id}-${issue.votes}`}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
+        </AnimatePresence>
       </motion.div>
-    </AnimatePresence>
-  </motion.div>
-  </>
-);
+    </>
+  );
 };
 
 export default CommunityVotingPage;
