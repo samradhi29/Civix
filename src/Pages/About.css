@@ -35,7 +35,7 @@
 
 @media (prefers-color-scheme: dark) {
   .heading2 {
-    color: #e2e8f0;
+    color: hsl(213, 14%, 73%);
   }
 }
 
