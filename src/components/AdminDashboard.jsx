@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+mimport { motion } from 'framer-motion';
 import { toast, ToastContainer } from 'react-toastify';
 
 const AdminDashboard = () => {
