@@ -3,6 +3,12 @@
   margin: auto;
   padding: 2rem;
   font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+/* Dark mode support */
+.dark .resources-container {
+  color: #e0e0e0;
 }
 
 .resources-title {
@@ -12,6 +18,10 @@
   margin-bottom: 2rem;
   border-bottom: 2px solid #4caf50;
   padding-bottom: 0.5rem;
+}
+
+.dark .resources-title {
+  color: #f0f0f0;
 }
 
 .resources-section {
@@ -28,9 +38,17 @@
   margin-bottom: 0.8rem;
 }
 
+.dark .resources-subtitle {
+  color: #e0e0e0;
+}
+
 .resources-text {
   font-size: 1rem;
   line-height: 1.6;
+}
+
+.dark .resources-text {
+  color: #cccccc;
 }
 
 .resources-list {
@@ -38,6 +56,10 @@
   padding-left: 1.5rem;
   font-size: 1rem;
   line-height: 1.6;
+}
+
+.dark .resources-list {
+  color: #cccccc;
 }
 
 .icon {
@@ -61,6 +83,10 @@
   overflow: hidden;
 }
 
+.dark .faq-item {
+  border-color: #555;
+}
+
 .faq-question {
   background: none;
   border: none;
@@ -76,6 +102,10 @@
   color: #333;
 }
 
+.dark .faq-question {
+  color: #e0e0e0;
+}
+
 .faq-answer {
   padding: 0.8rem 1rem;
   background-color: #f7f7f7;
@@ -83,7 +113,27 @@
   line-height: 1.5;
 }
 
+.dark .faq-answer {
+  background-color: #2a2a2a;
+  color: #cccccc;
+}
+
 .arrow-icon {
   font-size: 1rem;
   color: #4caf50;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #4caf50;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.dark .back-button {
+  color: #5cbe60;
 }

@@ -28,7 +28,7 @@ const faqData = [
   },
   {
     question: "Will I be notified of status changes?",
-    answer: "Yes, you’ll receive email or dashboard updates on status changes."
+    answer: "Yes, you'll receive email or dashboard updates on status changes."
   }
 ];
 
@@ -41,32 +41,33 @@ const Resources = () => {
   };
 
   return (
-    <div className="resources-container">
+    <div className="resources-container bg-white dark:bg-gray-900">
       <button
-        className="back-button"
+        className="back-button text-emerald-500 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-300"
         onClick={() => window.history.back()}
         type="button"
       >
-        ← Back
+        <FontAwesomeIcon icon={faArrowLeft} className="mr-2" /> Back
       </button>
-      <h1 className="resources-title">Citizen Resources</h1>
+
+      <h1 className="resources-title text-gray-800 dark:text-white">Citizen Resources</h1>
 
       <section className="resources-section">
-        <h2 className="resources-subtitle">
+        <h2 className="resources-subtitle text-gray-800 dark:text-white">
           <FontAwesomeIcon icon={faGavel} className="icon green" />
           Your Rights & Responsibilities
         </h2>
-        <p className="resources-text">
+        <p className="resources-text text-gray-700 dark:text-gray-300">
           You have the right to file civic complaints and receive updates. Misuse or false complaints may lead to action.
         </p>
       </section>
 
       <section className="resources-section">
-        <h2 className="resources-subtitle">
+        <h2 className="resources-subtitle text-gray-800 dark:text-white">
           <FontAwesomeIcon icon={faInfoCircle} className="icon green" />
           How to File a Complaint
         </h2>
-        <ol className="resources-list">
+        <ol className="resources-list text-gray-700 dark:text-gray-300">
           <li>Login to your account.</li>
           <li>Click "File a Complaint" from the dashboard.</li>
           <li>Provide complete issue details.</li>
@@ -75,11 +76,11 @@ const Resources = () => {
       </section>
 
       <section className="resources-section">
-        <h2 className="resources-subtitle">
+        <h2 className="resources-subtitle text-gray-800 dark:text-white">
           <FontAwesomeIcon icon={faPhoneAlt} className="icon green" />
           Emergency Contacts
         </h2>
-        <ul className="resources-list">
+        <ul className="resources-list text-gray-700 dark:text-gray-300">
           <li>Police: 100</li>
           <li>Fire: 101</li>
           <li>Women Helpline: 1091</li>
@@ -89,29 +90,45 @@ const Resources = () => {
       </section>
 
       <section className="resources-section">
-        <h2 className="resources-subtitle">
+        <h2 className="resources-subtitle text-gray-800 dark:text-white">
           <FontAwesomeIcon icon={faFileAlt} className="icon green" />
           Related Laws & Acts
         </h2>
-        <p className="resources-text">
+        <p className="resources-text text-gray-700 dark:text-gray-300">
           Get simplified summaries of local civic laws, nuisance acts, and safety regulations.
         </p>
       </section>
 
+      {/* Redesigned FAQ Section with proper dark mode support */}
       <section className="resources-section">
-        <h2 className="resources-subtitle">
+        <h2 className="resources-subtitle text-gray-800 dark:text-white">
           <FontAwesomeIcon icon={faQuestionCircle} className="icon green" />
           FAQs
         </h2>
-        <div className="faq-section">
+
+        <div className="mt-4 space-y-4">
           {faqData.map((item, index) => (
-            <div key={index} className="faq-item">
-              <button className="faq-question" onClick={() => toggleFAQ(index)}>
-                {item.question}
-                <FontAwesomeIcon icon={openIndex === index ? faChevronUp : faChevronDown} className="arrow-icon" />
+            <div
+              key={index}
+              className="overflow-hidden rounded-lg border dark:border-gray-700 bg-transparent dark:bg-transparent"
+            >
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="flex w-full justify-between items-center px-4 py-3 text-left text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                aria-expanded={openIndex === index}
+              >
+                <span className="font-medium">{item.question}</span>
+                <FontAwesomeIcon
+                  icon={openIndex === index ? faChevronUp : faChevronDown}
+                  className="text-emerald-500 dark:text-emerald-400 text-sm transition-transform duration-200"
+                  style={{
+                    transform: openIndex === index ? 'rotate(0deg)' : 'rotate(0deg)'
+                  }}
+                />
               </button>
+
               {openIndex === index && (
-                <div className="faq-answer">
+                <div className="px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-t dark:border-gray-700">
                   {item.answer}
                 </div>
               )}
