@@ -78,6 +78,7 @@ import { useNavigate, Link, href } from 'react-router-dom';
 import Switch from '../DarkModeToggle';
 import { jwtDecode } from 'jwt-decode';
 import { useAuth } from '@clerk/clerk-react';
+import logo from './logoo.svg';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -157,23 +158,11 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur">
       <div className="container flex h-14 items-center justify-between">
-        <button onClick={() => { setMobileMenuOpen(false); navigate('/'); }} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-6 w-6 text-emerald-500"
-          >
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          <span id="logo" className="text-xl font-bold" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Civix</span>
+        <button onClick={() => { setMobileMenuOpen(false); navigate('/'); }} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300" style={{ width: "74px", marginLeft: "21px" }}
+        >
+
+          <img src={logo} alt="" />
+          <span id="logo" className="text-xl font-bold" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>  </span>
         </button>
 
         {/* Desktop nav - only show on large screens */}
@@ -226,7 +215,7 @@ const Navbar = () => {
               Admin Dashboard
             </button>
           )}
-          
+
           {/* Show logout button when authenticated, login/signup when not */}
           {isSignedIn || token ? (
             <button
@@ -303,7 +292,7 @@ const Navbar = () => {
                   Admin Dashboard
                 </button>
               )}
-              
+
               {/* Show logout button when authenticated, login/signup when not */}
               {isSignedIn || token ? (
                 <button

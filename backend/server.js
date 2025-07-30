@@ -47,6 +47,7 @@ const issueRoutes = require("./routes/issues.js");
 const profileRoutes = require("./routes/profileRoutes.js");
 const contributionsRoutes = require("./routes/contributions.js")
 
+
 app.use("/api/auth", authRoutes);
 app.use("/api/issues", issueRoutes);
 app.use("/api/profile", profileRoutes);
