@@ -51,9 +51,11 @@
 /* Main content container, now below the header */
 .resources-container {
   max-width: 960px;
+
   margin: 2rem auto; /* Added top margin to separate from header, and auto for horizontal centering */
   padding: 0 2rem; /* Horizontal padding, vertical padding controlled by margin-top */
   flex-grow: 1; /* Allows container to grow and take available space */
+
 }
 
 .resources-title {
@@ -63,6 +65,10 @@
   margin-bottom: 2rem;
   border-bottom: 2px solid #4caf50;
   padding-bottom: 0.5rem;
+}
+
+.dark .resources-title {
+  color: #f0f0f0;
 }
 
 .resources-section {
@@ -79,9 +85,17 @@
   margin-bottom: 0.8rem;
 }
 
+.dark .resources-subtitle {
+  color: #e0e0e0;
+}
+
 .resources-text {
   font-size: 1rem;
   line-height: 1.6;
+}
+
+.dark .resources-text {
+  color: #cccccc;
 }
 
 .resources-list {
@@ -91,7 +105,9 @@
   line-height: 1.6;
 }
 
+
 /* General icon styles (for icons other than the back button) */
+
 .icon {
   font-size: 1.2rem;
 }
@@ -113,6 +129,10 @@
   overflow: hidden;
 }
 
+.dark .faq-item {
+  border-color: #555;
+}
+
 .faq-question {
   background: none;
   border: none;
@@ -128,6 +148,10 @@
   color: #333;
 }
 
+.dark .faq-question {
+  color: #e0e0e0;
+}
+
 .faq-answer {
   padding: 0.8rem 1rem;
   background-color: #f7f7f7;
@@ -135,7 +159,27 @@
   line-height: 1.5;
 }
 
+.dark .faq-answer {
+  background-color: #2a2a2a;
+  color: #cccccc;
+}
+
 .arrow-icon {
   font-size: 1rem;
   color: #4caf50;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #4caf50;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.dark .back-button {
+  color: #5cbe60;
 }

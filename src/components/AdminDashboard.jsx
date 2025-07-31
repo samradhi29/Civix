@@ -1,9 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast ,ToastContainer} from 'react-toastify';
+mimport { motion } from 'framer-motion';
+import { toast, ToastContainer } from 'react-toastify';
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [issues, setIssues] = useState([]);
+
+  // Animation variants for the page container
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        staggerChildren: 0.1
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.4 }
+    }
+  };
+
+  // Animation variants for table rows
+  const rowVariants = {
+    initial: { opacity: 0, x: -20 },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.4 }
+    }
+  };
 
   // Fetch all reported issues
   const fetchIssues = React.useCallback(async () => {
@@ -58,41 +89,89 @@ const AdminDashboard = () => {
   }, [fetchIssues]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <motion.div
+      className="min-h-screen bg-gray-50"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       {/* Issues Table */}
       <main className="p-6">
-        <h2 className="text-xl font-bold mb-4">Admin Dashboard</h2>
-        <p>Welcome, Admin! You have access to admin controls.</p>
+        <motion.h2
+          className="text-xl font-bold mb-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          Admin Dashboard
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Welcome, Admin! You have access to admin controls.
+        </motion.p>
         <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="dark"
-        toastClassName="toast-body custom-toast-shadow"
-        bodyClassName="text-sm font-medium"
-      />
-        <h3 className="text-lg font-semibold mb-4">Reported Issues</h3>
+          position="top-right"
+          autoClose={3000}
+          closeOnClick
+          pauseOnHover
+          draggable
+          theme="dark"
+          toastClassName="toast-body custom-toast-shadow"
+          bodyClassName="text-sm font-medium"
+        />
+        <motion.h3
+          className="text-lg font-semibold mb-4"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          Reported Issues
+        </motion.h3>
 
         {issues.length === 0 ? (
-          <p>No issues found.</p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            No issues found.
+          </motion.p>
         ) : (
-          <div className="overflow-x-auto">
+          <motion.div
+            className="overflow-x-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             <table className="min-w-full border border-gray-300 bg-white text-sm rounded-lg overflow-hidden shadow">
               <thead className="bg-gray-200 text-gray-700">
-                <tr>
+                <motion.tr
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
                   <th className="p-3">Title</th>
                   <th className="p-3">Description</th>
                   <th className="p-3">Phone</th>
                   <th className="p-3">Email</th>
                   <th className="p-3">Status</th>
                   <th className="p-3">Change Status</th>
-                </tr>
+                </motion.tr>
               </thead>
               <tbody>
-                {issues.map((issue) => (
-                  <tr key={issue._id} className="border-t border-gray-200">
+                {issues.map((issue, index) => (
+                  <motion.tr
+                    key={issue._id}
+                    className="border-t border-gray-200"
+                    variants={rowVariants}
+                    initial="initial"
+                    animate="animate"
+                    transition={{ delay: 0.6 + (index * 0.1) }}
+                  >
                     <td className="p-3">{issue.title}</td>
                     <td className="p-3">{issue.description}</td>
                     <td className="p-3">{issue.phone}</td>
@@ -110,14 +189,14 @@ const AdminDashboard = () => {
                         <option>Rejected</option>
                       </select>
                     </td>
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
-          </div>
+          </motion.div>
         )}
       </main>
-    </div>
+    </motion.div>
   );
 };
 
