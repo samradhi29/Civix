@@ -213,7 +213,7 @@ function Home() {
               </div>
             </motion.div>
             <div className="flex justify-center">
-              <motion.div className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+              <motion.div className="grid max-w-5xl  justify-items-center items-stretch gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
                 {[
                   {
                     icon: (
@@ -252,10 +252,10 @@ function Home() {
                     onClick: () => navigate('/community-voting')
                   }
                 ].map((feature, index) => (
-                  <motion.div key={index} className="rounded-lg bg-card text-card-foreground p-8 shadow-xl w-full max-w-[350px] transition-all duration-300 hover:shadow-md" variants={cardVariants} whileHover={{ y: -5 }} onClick={feature.onClick || (() => { })}>
+                  <motion.div key={index} className=" rounded-lg bg-card .text-card-foreground p-8 shadow-xl w-full max-w-[350px] transition-all duration-300 hover:shadow-md" variants={cardVariants} whileHover={{ y: -5 }} onClick={feature.onClick || (() => { })}>
                     {feature.icon}
                     <h3 className="mt-4 text-xl font-bold">{feature.title}</h3>
-                    <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                    <p className="mt-2 text-muted-foreground ">{feature.description}</p>
                     <ul className="mt-4 space-y-2">
                       {feature.features.map((item, i) => (
                         <li key={i} className="flex items-center gap-2">
