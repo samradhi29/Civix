@@ -65,24 +65,6 @@ app.use(cors({
 
 // === Security Headers Configuration ===
 app.use(helmet({
-  // Content Security Policy - More permissive to avoid common CSP errors
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https:", "data:", "blob:"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https:", "data:"],
-      fontSrc: ["'self'", "https:", "data:"],
-      imgSrc: ["'self'", "https:", "data:", "blob:"],
-      connectSrc: ["'self'", "https:", "wss:", "ws:"],
-      frameSrc: ["'self'", "https:"],
-      objectSrc: ["'none'"],
-      mediaSrc: ["'self'", "https:", "data:", "blob:"],
-      workerSrc: ["'self'", "blob:", "data:"],
-      childSrc: ["'self'", "blob:", "data:"],
-      formAction: ["'self'", "https:"],
-    },
-  },
-
   // X-Frame-Options - Prevent clickjacking
   frameguard: {
     action: 'sameorigin'
