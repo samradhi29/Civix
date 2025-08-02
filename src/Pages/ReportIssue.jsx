@@ -1,32 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import './ReportIssue.css';
 
-export default function ReportIssue() {
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+// Debounce hook for form inputs
+const useDebounce = (callback, delay) => {
+  const [debounceTimer, setDebounceTimer] = useState(null);
+
+  const debouncedCallback = useCallback((...args) => {
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+    }
+    const newTimer = setTimeout(() => {
+      callback(...args);
+    }, delay);
+    setDebounceTimer(newTimer);
+  }, [callback, delay, debounceTimer]);
+
+  return debouncedCallback;
+};
+
+// Memoized background animations component
+const BackgroundAnimations = React.memo(() => {
+  // Simplified animation configs to reduce performance impact
+  const animationConfig = {
+    duration: 15,
+    repeat: Infinity,
+    repeatType: 'reverse',
+    ease: 'easeInOut'
+  };
+
+  return (
+    <>
+      <motion.div
+        className="absolute top-10 left-10 w-32 h-32 bg-emerald-200 rounded-full mix-blend-multiply filter blur-lg opacity-30"
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1.2 }}
+        transition={animationConfig}
+      />
+      <motion.div
+        className="absolute bottom-10 right-10 w-32 h-32 bg-teal-200 rounded-full mix-blend-multiply filter blur-lg opacity-30"
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1.2 }}
+        transition={{ ...animationConfig, delay: 2 }}
+      />
+    </>
+  );
+});
+
+BackgroundAnimations.displayName = 'BackgroundAnimations';
+
+// Memoized form input component
+const FormInput = React.memo(({
+  type = 'text',
+  id,
+  label,
+  placeholder,
+  value,
+  onChange,
+  required = false,
+  rows
+}) => {
+  const InputComponent = type === 'textarea' ? 'textarea' : 'input';
+
+  return (
+    <div>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+        {label}
+      </label>
+      <InputComponent
+        type={type !== 'textarea' ? type : undefined}
+        id={id}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        rows={rows}
+        className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out resize-y"
+        required={required}
+      />
+    </div>
+  );
+});
+
+FormInput.displayName = 'FormInput';
+
+export default React.memo(function ReportIssue() {
+  const [formData, setFormData] = useState({
+    phone: '',
+    email: '',
+    title: '',
+    description: '',
+    notifyByEmail: false
+  });
   const [file, setFile] = useState(null);
+
   const [notifyByEmail, setNotifyByEmail] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); // Add new state for loading
 
-  const handleSubmit = async (e) => {
+  // Memoized form handlers
+  const handleInputChange = useCallback((field) => (e) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    debouncedUpdate(field, value);
+  }, [debouncedUpdate]);
+
+  const handleFileChange = useCallback((e) => {
+    setFile(e.target.files[0]);
+  }, []);
+
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     setIsSubmitting(true); // Start loading
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('email', email);
-    formData.append('description', description);
-    formData.append('phone', phone);
-    formData.append('notifyByEmail', notifyByEmail);
-    if (file) formData.append('file', file);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    const formDataToSend = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataToSend.append(key, value);
+    });
+    if (file) formDataToSend.append('file', file);
 
     try {
       const res = await fetch('http://localhost:5001/api/report', {
         method: 'POST',
-        body: formData,
+        body: formDataToSend,
       });
 
       if (res.ok) {
@@ -47,35 +143,52 @@ export default function ReportIssue() {
       alert(err.message);
     } finally {
       setIsSubmitting(false); // Always stop loading, whether successful or not
+
     }
-  };
+  }, [formData, file, isSubmitting]);
+
+  // Memoized form fields configuration
+  const formFields = useMemo(() => [
+    {
+      id: 'phone',
+      type: 'tel',
+      label: 'Phone Number',
+      placeholder: 'e.g., +91 98765 43210',
+      required: true
+    },
+    {
+      id: 'email',
+      type: 'email',
+      label: 'Email Address',
+      placeholder: 'you@example.com',
+      required: true
+    },
+    {
+      id: 'title',
+      type: 'text',
+      label: 'Issue Title',
+      placeholder: 'e.g., Login button not working',
+      required: true
+    },
+    {
+      id: 'description',
+      type: 'textarea',
+      label: 'Describe the Issue',
+      placeholder: 'Please provide as much detail as possible about the issue you\'re experiencing. When did it happen? What steps did you take?',
+      rows: 5,
+      required: true
+    }
+  ], []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
-      <motion.div
-        className="absolute top-10 left-10 w-48 h-48 bg-emerald-200 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-blob"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1, rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-      ></motion.div>
-      <motion.div
-        className="absolute bottom-10 right-10 w-48 h-48 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-blob animation-delay-4000"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1, rotate: -360 }}
-        transition={{ duration: 25, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-      ></motion.div>
-      <motion.div
-        className="absolute top-1/2 left-1/2 w-32 h-32 bg-emerald-100 rounded-lg mix-blend-multiply filter blur-lg opacity-60 animate-blob animation-delay-2000"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1, rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-      ></motion.div>
+      <BackgroundAnimations />
 
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="bg-white/70 dark:bg-gray-800 backdrop-blur-xl rounded-xl shadow-2xl p-6 sm:p-8 lg:p-10 w-full max-w-md border border-gray-100 dark:border-gray-700 z-10"
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="bg-white/70 dark:bg-gray-800 backdrop-blur-lg rounded-xl shadow-2xl p-6 sm:p-8 lg:p-10 w-full max-w-md border border-gray-100 dark:border-gray-700 z-10"
       >
         <h1 className="text-3xl font-extrabold text-center text-emerald-700 dark:text-white mb-6">Report an Issue</h1>
         <p className="text-center text-gray-600 dark:text-gray-200 mb-8">
@@ -83,6 +196,7 @@ export default function ReportIssue() {
         </p>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
+
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
               Phone Number
@@ -146,6 +260,7 @@ export default function ReportIssue() {
               disabled={isSubmitting} // Disable during submission
             ></textarea>
           </div>
+         
 
           <div>
             <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
@@ -154,7 +269,7 @@ export default function ReportIssue() {
             <input
               type="file"
               id="file-upload"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={handleFileChange}
               className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer transition duration-150 ease-in-out"
               disabled={isSubmitting} // Disable during submission
             />
@@ -165,8 +280,8 @@ export default function ReportIssue() {
             <input
               type="checkbox"
               id="notifyByEmail"
-              checked={notifyByEmail}
-              onChange={() => setNotifyByEmail(!notifyByEmail)}
+              checked={formData.notifyByEmail}
+              onChange={handleInputChange('notifyByEmail')}
               className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded cursor-pointer accent-emerald-600"
               disabled={isSubmitting} // Disable during submission
             />
@@ -176,10 +291,11 @@ export default function ReportIssue() {
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.1 }}
             type="submit"
+
             disabled={isSubmitting} // Disable the button during submission
             className="w-full bg-emerald-600 text-white font-semibold py-3 px-4 rounded-md shadow-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
           >
@@ -191,9 +307,12 @@ export default function ReportIssue() {
             ) : (
               'Submit Report'
             )}
+
           </motion.button>
         </form>
       </motion.div>
     </div>
   );
-}
+
+});
+

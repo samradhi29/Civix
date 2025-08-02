@@ -8,6 +8,7 @@ import { useAuth, useUser, SignInButton, SignUpButton, UserButton } from "@clerk
 import { toast, ToastContainer } from 'react-toastify';
 import Navbar from "./components/Navbar";
 import {  AnimatePresence } from "framer-motion";
+import favv from './favv.svg';
 
 function Home() {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -214,7 +215,7 @@ function Home() {
               </div>
             </motion.div>
             <div className="flex justify-center">
-              <motion.div className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+              <motion.div className="grid max-w-5xl  justify-items-center items-stretch gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
                 {[
                   {
                     icon: (
@@ -526,19 +527,7 @@ function Home() {
                   {/* Floating Icon */}
                   <div className="absolute -bottom-5 -left-5 h-16 w-16 rounded-lg border bg-white dark:bg-[#111827] p-2 shadow-lg transition-transform duration-300 hover:scale-110">
                     <div className="flex items-center justify-center h-full w-full rounded bg-emerald-100 dark:bg-emerald-900">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="w-6 h-6 text-emerald-500"
-                      >
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
+                      <img src={favv} alt="" style={{width : "35px"}} />
                     </div>
                   </div>
 
