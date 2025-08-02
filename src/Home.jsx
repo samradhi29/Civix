@@ -453,7 +453,7 @@ function Home() {
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="flex flex-col justify-center space-y-4 animate-on-scroll">
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Ready to improve your community?</h2>
+                  <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-tr from-[#7cf9ff] to-[#0037ff] bg-clip-text text-transparent">Ready to improve your community?</h2>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">Download the Civix app today and start making a difference in your neighborhood.</p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
