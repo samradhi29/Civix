@@ -62,7 +62,79 @@ app.use(cors({
   ],
   credentials: true,
 }));
-app.use(helmet());
+
+// === Security Headers Configuration ===
+app.use(helmet({
+  // X-Frame-Options - Prevent clickjacking
+  frameguard: {
+    action: 'sameorigin'
+  },
+
+  // X-Content-Type-Options - Prevent MIME sniffing
+  noSniff: true,
+
+  // Referrer Policy - Control referrer information
+  referrerPolicy: {
+    policy: ["strict-origin-when-cross-origin"]
+  },
+
+  // X-DNS-Prefetch-Control
+  dnsPrefetchControl: {
+    allow: false
+  },
+
+  // Hide X-Powered-By header
+  hidePoweredBy: true,
+
+  // HSTS (HTTP Strict Transport Security) - only in production
+  hsts: process.env.NODE_ENV === 'production' ? {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  } : false,
+}));
+
+// === Permissions Policy Header ===
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy',
+    'camera=(), ' +
+    'microphone=(), ' +
+    'geolocation=(self), ' +
+    'gyroscope=(), ' +
+    'magnetometer=(), ' +
+    'payment=(), ' +
+    'usb=(), ' +
+    'interest-cohort=()'
+  );
+  next();
+});
+
+// === Additional Security Headers ===
+app.use((req, res, next) => {
+  // X-Content-Type-Options (additional explicit setting)
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+
+  // X-Frame-Options (additional explicit setting)
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+
+  // Referrer-Policy (additional explicit setting)
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+  // X-XSS-Protection (legacy but still useful)
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+
+  // Cross-Origin-Embedder-Policy
+  res.setHeader('Cross-Origin-Embedder-Policy', 'credentialless');
+
+  // Cross-Origin-Opener-Policy
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+
+  // Cross-Origin-Resource-Policy
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
