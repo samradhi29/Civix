@@ -210,7 +210,7 @@ function Home() {
             <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">Features</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Everything you need to improve your community</h2>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-br from-[#7cffd3] to-[#0644a8] bg-clip-text text-transparent">Everything you need to improve your community</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">Civix provides a comprehensive platform for citizens and city workers to collaborate on local issues.</p>
               </div>
             </motion.div>
@@ -309,7 +309,7 @@ function Home() {
             <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-emerald-100 dark:bg-emerald-800 px-3 py-1 text-sm text-emerald-700 dark:text-emerald-200">Testimonials</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight dark:text-white">Trusted by communities everywhere</h2>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-r from-gray-300 to-gray-700 bg-clip-text text-transparent">Trusted by communities everywhere</h2>
                 <p className="max-w-[900px] text-muted-foreground dark:text-gray-300  md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">See what citizens and city workers are saying about Civix.</p>
               </div>
             </motion.div>
