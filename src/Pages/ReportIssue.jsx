@@ -9,9 +9,11 @@ export default function ReportIssue() {
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [notifyByEmail, setNotifyByEmail] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Add new state for loading
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true); // Start loading
 
     const formData = new FormData();
     formData.append('title', title);
@@ -27,17 +29,24 @@ export default function ReportIssue() {
         body: formData,
       });
 
-      const data = await res.json();
-      alert(data.message);
-      setPhone('');
-      setEmail('');
-      setTitle('');
-      setDescription('');
-      setFile(null);
-      setNotifyByEmail(false);
+      if (res.ok) {
+        const data = await res.json();
+        alert(data.message);
+        setPhone('');
+        setEmail('');
+        setTitle('');
+        setDescription('');
+        setFile(null);
+        setNotifyByEmail(false);
+      } else {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to submit issue.');
+      }
     } catch (err) {
       console.error('Submit error:', err);
-      alert('Failed to submit issue.');
+      alert(err.message);
+    } finally {
+      setIsSubmitting(false); // Always stop loading, whether successful or not
     }
   };
 
@@ -86,6 +95,7 @@ export default function ReportIssue() {
               onChange={(e) => setPhone(e.target.value)}
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
               required
+              disabled={isSubmitting} // Disable during submission
             />
           </div>
 
@@ -101,6 +111,7 @@ export default function ReportIssue() {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
               required
+              disabled={isSubmitting} // Disable during submission
             />
           </div>
 
@@ -116,6 +127,7 @@ export default function ReportIssue() {
               onChange={(e) => setTitle(e.target.value)}
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
               required
+              disabled={isSubmitting} // Disable during submission
             />
           </div>
 
@@ -131,6 +143,7 @@ export default function ReportIssue() {
               rows="5"
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 resize-y transition duration-150 ease-in-out"
               required
+              disabled={isSubmitting} // Disable during submission
             ></textarea>
           </div>
 
@@ -143,6 +156,7 @@ export default function ReportIssue() {
               id="file-upload"
               onChange={(e) => setFile(e.target.files[0])}
               className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer transition duration-150 ease-in-out"
+              disabled={isSubmitting} // Disable during submission
             />
             {file && <p className="mt-2 text-xs text-gray-500 dark:text-gray-300">File selected: {file.name}</p>}
           </div>
@@ -154,6 +168,7 @@ export default function ReportIssue() {
               checked={notifyByEmail}
               onChange={() => setNotifyByEmail(!notifyByEmail)}
               className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded cursor-pointer accent-emerald-600"
+              disabled={isSubmitting} // Disable during submission
             />
             <label htmlFor="notifyByEmail" className="ml-2 block text-sm text-gray-700 dark:text-gray-200 cursor-pointer">
               Notify me via email when the issue status changes
@@ -165,9 +180,17 @@ export default function ReportIssue() {
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             type="submit"
+            disabled={isSubmitting} // Disable the button during submission
             className="w-full bg-emerald-600 text-white font-semibold py-3 px-4 rounded-md shadow-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
           >
-            Submit Report
+            {isSubmitting ? (
+              <div className="flex items-center justify-center">
+                <div className="spinner mr-2"></div>
+                Submitting...
+              </div>
+            ) : (
+              'Submit Report'
+            )}
           </motion.button>
         </form>
       </motion.div>
