@@ -74,9 +74,7 @@ exports.login = asyncHandler(async (req, res) => {
   if (!user) {
     return res.status(401).json({ error: "Invalid credentials" });
   }
-  if (!user.is_verified) {
-    return res.status(403).json({ error: "Account not verified. Please check your email or verify OTP." });
-  }
+
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     return res.status(401).json({ error: "Invalid credentials" });
