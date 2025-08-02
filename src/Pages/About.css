@@ -145,7 +145,7 @@
   font-weight: 700;
   font-family: 'Montserrat', sans-serif;
   margin: 3rem 0 1.5rem;
-  background: linear-gradient(90deg, #151715 0%, #d6d9df 100%);
+  background: linear-gradient(90deg, #989898, #000000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

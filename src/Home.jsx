@@ -124,7 +124,7 @@ function Home() {
                       🏛️ Civic Engagement Platform
                     </span>
                   </div> */}
-                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none leading-tight">
+                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none leading-tight col">
                     Report Local Issues. <br />
                     <span className="text-emerald-500 bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
                       Make Your City Better.
