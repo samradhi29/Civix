@@ -2,7 +2,6 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import './ReportIssue.css';
 
-// Debounce hook for form inputs
 const useDebounce = (callback, delay) => {
   const [debounceTimer, setDebounceTimer] = useState(null);
 
@@ -19,9 +18,7 @@ const useDebounce = (callback, delay) => {
   return debouncedCallback;
 };
 
-// Memoized background animations component
 const BackgroundAnimations = React.memo(() => {
-  // Simplified animation configs to reduce performance impact
   const animationConfig = {
     duration: 15,
     repeat: Infinity,
@@ -94,9 +91,12 @@ export default React.memo(function ReportIssue() {
   const [file, setFile] = useState(null);
 
   const [notifyByEmail, setNotifyByEmail] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Add new state for loading
+  const [isSubmitting, setIsSubmitting] = useState(false); 
 
-  // Memoized form handlers
+  const debouncedUpdate = useDebounce((field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  }, 300);
+
   const handleInputChange = useCallback((field) => (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     debouncedUpdate(field, value);
@@ -108,7 +108,7 @@ export default React.memo(function ReportIssue() {
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    setIsSubmitting(true); // Start loading
+    setIsSubmitting(true);
 
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -142,12 +142,11 @@ export default React.memo(function ReportIssue() {
       console.error('Submit error:', err);
       alert(err.message);
     } finally {
-      setIsSubmitting(false); // Always stop loading, whether successful or not
+      setIsSubmitting(false); 
 
     }
   }, [formData, file, isSubmitting]);
 
-  // Memoized form fields configuration
   const formFields = useMemo(() => [
     {
       id: 'phone',
@@ -205,11 +204,11 @@ export default React.memo(function ReportIssue() {
               type="tel"
               id="phone"
               placeholder="e.g., +91 98765 43210"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
               required
-              disabled={isSubmitting} // Disable during submission
+              disabled={isSubmitting} 
             />
           </div>
 
@@ -221,11 +220,11 @@ export default React.memo(function ReportIssue() {
               type="email"
               id="email"
               placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
               required
-              disabled={isSubmitting} // Disable during submission
+              disabled={isSubmitting} 
             />
           </div>
 
@@ -237,11 +236,11 @@ export default React.memo(function ReportIssue() {
               type="text"
               id="title"
               placeholder="e.g., Login button not working"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
               required
-              disabled={isSubmitting} // Disable during submission
+              disabled={isSubmitting} 
             />
           </div>
 
@@ -252,12 +251,12 @@ export default React.memo(function ReportIssue() {
             <textarea
               id="description"
               placeholder="Please provide as much detail as possible about the issue you're experiencing. When did it happen? What steps did you take?"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows="5"
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 resize-y transition duration-150 ease-in-out"
               required
-              disabled={isSubmitting} // Disable during submission
+              disabled={isSubmitting} 
             ></textarea>
           </div>
          
@@ -271,7 +270,7 @@ export default React.memo(function ReportIssue() {
               id="file-upload"
               onChange={handleFileChange}
               className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer transition duration-150 ease-in-out"
-              disabled={isSubmitting} // Disable during submission
+              disabled={isSubmitting} 
             />
             {file && <p className="mt-2 text-xs text-gray-500 dark:text-gray-300">File selected: {file.name}</p>}
           </div>
@@ -283,7 +282,7 @@ export default React.memo(function ReportIssue() {
               checked={formData.notifyByEmail}
               onChange={handleInputChange('notifyByEmail')}
               className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded cursor-pointer accent-emerald-600"
-              disabled={isSubmitting} // Disable during submission
+              disabled={isSubmitting} 
             />
             <label htmlFor="notifyByEmail" className="ml-2 block text-sm text-gray-700 dark:text-gray-200 cursor-pointer">
               Notify me via email when the issue status changes
@@ -296,7 +295,7 @@ export default React.memo(function ReportIssue() {
             transition={{ duration: 0.1 }}
             type="submit"
 
-            disabled={isSubmitting} // Disable the button during submission
+            disabled={isSubmitting} 
             className="w-full bg-emerald-600 text-white font-semibold py-3 px-4 rounded-md shadow-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
           >
             {isSubmitting ? (
@@ -315,4 +314,3 @@ export default React.memo(function ReportIssue() {
   );
 
 });
-
