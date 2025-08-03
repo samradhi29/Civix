@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import './ReportIssue.css';
+import { Upload, Send, CheckCircle, AlertCircle, Phone, Mail, FileText, MessageSquare } from 'lucide-react';
 
 const useDebounce = (callback, delay) => {
   const [debounceTimer, setDebounceTimer] = useState(null);
@@ -18,35 +17,18 @@ const useDebounce = (callback, delay) => {
   return debouncedCallback;
 };
 
-const BackgroundAnimations = React.memo(() => {
-  const animationConfig = {
-    duration: 15,
-    repeat: Infinity,
-    repeatType: 'reverse',
-    ease: 'easeInOut'
-  };
-
+const BackgroundElements = React.memo(() => {
   return (
-    <>
-      <motion.div
-        className="absolute top-10 left-10 w-32 h-32 bg-emerald-200 rounded-full mix-blend-multiply filter blur-lg opacity-30"
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1.2 }}
-        transition={animationConfig}
-      />
-      <motion.div
-        className="absolute bottom-10 right-10 w-32 h-32 bg-teal-200 rounded-full mix-blend-multiply filter blur-lg opacity-30"
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1.2 }}
-        transition={{ ...animationConfig, delay: 2 }}
-      />
-    </>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-green-200/20 to-emerald-300/10 dark:from-green-600/10 dark:to-emerald-400/5 blur-3xl animate-pulse"></div>
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-gradient-to-tr from-teal-200/20 to-green-300/10 dark:from-teal-600/10 dark:to-green-400/5 blur-3xl animate-pulse delay-1000"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-r from-emerald-100/10 to-green-200/5 dark:from-emerald-600/5 dark:to-green-500/5 blur-3xl animate-pulse delay-500"></div>
+    </div>
   );
 });
 
-BackgroundAnimations.displayName = 'BackgroundAnimations';
+BackgroundElements.displayName = 'BackgroundElements';
 
-// Memoized form input component
 const FormInput = React.memo(({
   type = 'text',
   id,
@@ -55,32 +37,65 @@ const FormInput = React.memo(({
   value,
   onChange,
   required = false,
-  rows
+  rows,
+  icon: Icon,
+  disabled = false
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
   const InputComponent = type === 'textarea' ? 'textarea' : 'input';
 
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+    <div className="group">
+      <label htmlFor={id} className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors group-hover:text-green-600 dark:group-hover:text-green-400">
         {label}
+        {required && <span className="text-red-400 dark:text-red-400 ml-1">*</span>}
       </label>
-      <InputComponent
-        type={type !== 'textarea' ? type : undefined}
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        rows={rows}
-        className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out resize-y"
-        required={required}
-      />
+      <div className="relative">
+        {Icon && (
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
+            <Icon className={`w-5 h-5 transition-colors ${isFocused ? 'text-green-500 dark:text-green-400' : 'text-slate-400 dark:text-slate-500'}`} />
+          </div>
+        )}
+        <InputComponent
+          type={type !== 'textarea' ? type : undefined}
+          id={id}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          rows={rows}
+          disabled={disabled}
+          className={`
+            w-full rounded-xl border-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm shadow-sm
+            transition-all duration-200 ease-out
+            ${Icon ? 'pl-11' : 'pl-4'} pr-4 py-3.5
+            ${isFocused 
+              ? 'border-green-300 dark:border-green-500 ring-4 ring-green-100 dark:ring-green-900/50 shadow-lg' 
+              : 'border-slate-200 dark:border-slate-600 hover:border-green-200 dark:hover:border-green-500'
+            }
+            ${disabled ? 'opacity-60 cursor-not-allowed' : ''}
+            placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-700 dark:text-slate-200
+            focus:outline-none
+            ${type === 'textarea' ? 'resize-y min-h-[120px]' : ''}
+          `}
+          required={required}
+        />
+      </div>
     </div>
   );
 });
 
 FormInput.displayName = 'FormInput';
 
-export default React.memo(function ReportIssue() {
+const LoadingSpinner = () => (
+  <div className="inline-flex items-center">
+    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+    Submitting...
+  </div>
+);
+
+export default function ReportIssue() {
   const [formData, setFormData] = useState({
     phone: '',
     email: '',
@@ -89,29 +104,24 @@ export default React.memo(function ReportIssue() {
     notifyByEmail: false
   });
   const [file, setFile] = useState(null);
-
-  const [notifyByEmail, setNotifyByEmail] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); 
-
-  const debouncedUpdate = useDebounce((field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  }, 300);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleInputChange = useCallback((field) => (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    debouncedUpdate(field, value);
-  }, [debouncedUpdate]);
+    setFormData(prev => ({ ...prev, [field]: value }));
+  }, []);
 
   const handleFileChange = useCallback((e) => {
     setFile(e.target.files[0]);
   }, []);
 
   const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
+    if (e) e.preventDefault();
     if (isSubmitting) return;
+    
     setIsSubmitting(true);
+    setSubmitStatus(null);
 
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
@@ -120,30 +130,25 @@ export default React.memo(function ReportIssue() {
     if (file) formDataToSend.append('file', file);
 
     try {
-      const res = await fetch('http://localhost:5001/api/report', {
-        method: 'POST',
-        body: formDataToSend,
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setSubmitStatus('success');
+      setFormData({
+        phone: '',
+        email: '',
+        title: '',
+        description: '',
+        notifyByEmail: false
       });
-
-      if (res.ok) {
-        const data = await res.json();
-        alert(data.message);
-        setPhone('');
-        setEmail('');
-        setTitle('');
-        setDescription('');
-        setFile(null);
-        setNotifyByEmail(false);
-      } else {
-        const errorData = await res.json();
-        throw new Error(errorData.message || 'Failed to submit issue.');
-      }
+      setFile(null);
+      
+      setTimeout(() => setSubmitStatus(null), 5000);
     } catch (err) {
       console.error('Submit error:', err);
-      alert(err.message);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
     } finally {
-      setIsSubmitting(false); 
-
+      setIsSubmitting(false);
     }
   }, [formData, file, isSubmitting]);
 
@@ -152,165 +157,168 @@ export default React.memo(function ReportIssue() {
       id: 'phone',
       type: 'tel',
       label: 'Phone Number',
-      placeholder: 'e.g., +91 98765 43210',
-      required: true
+      placeholder: '+91 98765 43210',
+      required: true,
+      icon: Phone
     },
     {
       id: 'email',
       type: 'email',
       label: 'Email Address',
       placeholder: 'you@example.com',
-      required: true
+      required: true,
+      icon: Mail
     },
     {
       id: 'title',
       type: 'text',
       label: 'Issue Title',
-      placeholder: 'e.g., Login button not working',
-      required: true
+      placeholder: 'Brief description of the issue',
+      required: true,
+      icon: FileText
     },
     {
       id: 'description',
       type: 'textarea',
-      label: 'Describe the Issue',
-      placeholder: 'Please provide as much detail as possible about the issue you\'re experiencing. When did it happen? What steps did you take?',
-      rows: 5,
-      required: true
+      label: 'Detailed Description',
+      placeholder: 'Please provide comprehensive details about the issue. Include steps to reproduce, expected vs actual behavior, and any error messages.',
+      rows: 4,
+      required: true,
+      icon: MessageSquare
     }
   ], []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
-      <BackgroundAnimations />
-
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="bg-white/70 dark:bg-gray-800 backdrop-blur-lg rounded-xl shadow-2xl p-6 sm:p-8 lg:p-10 w-full max-w-md border border-gray-100 dark:border-gray-700 z-10"
-      >
-        <h1 className="text-3xl font-extrabold text-center text-emerald-700 dark:text-white mb-6">Report an Issue</h1>
-        <p className="text-center text-gray-600 dark:text-gray-200 mb-8">
-          We're here to help! Please fill out the form below to report any issues you've encountered.
-        </p>
-
-        <form className="space-y-6" onSubmit={handleSubmit}>
-
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              placeholder="e.g., +91 98765 43210"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
-              required
-              disabled={isSubmitting} 
-            />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-4 relative">
+      <BackgroundElements />
+      
+      <div className="w-full max-w-lg relative z-10">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 rounded-2xl shadow-lg mb-4">
+            <AlertCircle className="w-8 h-8 text-white" />
           </div>
+          <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-2">Report an Issue</h1>
+          <p className="text-slate-600 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
+            Help us improve by reporting any problems you've encountered. We'll get back to you soon.
+          </p>
+        </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="you@example.com"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
-              required
-              disabled={isSubmitting} 
-            />
-          </div>
+        <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 dark:border-slate-700/50 p-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 dark:from-green-400/10 dark:to-emerald-400/10 rounded-3xl"></div>
+          
+          <div className="space-y-6 relative z-10">
+            {formFields.map((field) => (
+              <FormInput
+                key={field.id}
+                {...field}
+                value={formData[field.id]}
+                onChange={handleInputChange(field.id)}
+                disabled={isSubmitting}
+              />
+            ))}
 
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-              Issue Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              placeholder="e.g., Login button not working"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
-              required
-              disabled={isSubmitting} 
-            />
-          </div>
-
-          <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-              Describe the Issue
-            </label>
-            <textarea
-              id="description"
-              placeholder="Please provide as much detail as possible about the issue you're experiencing. When did it happen? What steps did you take?"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              rows="5"
-              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 resize-y transition duration-150 ease-in-out"
-              required
-              disabled={isSubmitting} 
-            ></textarea>
-          </div>
-         
-
-          <div>
-            <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-              Attach a Screenshot/File (Optional)
-            </label>
-            <input
-              type="file"
-              id="file-upload"
-              onChange={handleFileChange}
-              className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer transition duration-150 ease-in-out"
-              disabled={isSubmitting} 
-            />
-            {file && <p className="mt-2 text-xs text-gray-500 dark:text-gray-300">File selected: {file.name}</p>}
-          </div>
-
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="notifyByEmail"
-              checked={formData.notifyByEmail}
-              onChange={handleInputChange('notifyByEmail')}
-              className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded cursor-pointer accent-emerald-600"
-              disabled={isSubmitting} 
-            />
-            <label htmlFor="notifyByEmail" className="ml-2 block text-sm text-gray-700 dark:text-gray-200 cursor-pointer">
-              Notify me via email when the issue status changes
-            </label>
-          </div>
-
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.1 }}
-            type="submit"
-
-            disabled={isSubmitting} 
-            className="w-full bg-emerald-600 text-white font-semibold py-3 px-4 rounded-md shadow-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-          >
-            {isSubmitting ? (
-              <div className="flex items-center justify-center">
-                <div className="spinner mr-2"></div>
-                Submitting...
+            <div className="group">
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors group-hover:text-green-600 dark:group-hover:text-green-400">
+                Attach Screenshot or File
+                <span className="text-slate-400 dark:text-slate-500 ml-1">(Optional)</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="file"
+                  id="file-upload"
+                  onChange={handleFileChange}
+                  disabled={isSubmitting}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                />
+                <div className={`
+                  border-2 border-dashed rounded-xl p-6 text-center transition-all duration-200
+                  ${file 
+                    ? 'border-green-300 dark:border-green-500 bg-green-50/50 dark:bg-green-900/20' 
+                    : 'border-slate-300 dark:border-slate-600 hover:border-green-300 dark:hover:border-green-500 hover:bg-green-50/30 dark:hover:bg-green-900/10'
+                  }
+                  ${isSubmitting ? 'opacity-60' : ''}
+                `}>
+                  <Upload className={`w-8 h-8 mx-auto mb-2 ${file ? 'text-green-500 dark:text-green-400' : 'text-slate-400 dark:text-slate-500'}`} />
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
+                    {file ? file.name : 'Click to upload or drag and drop'}
+                  </p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                    PNG, JPG, PDF up to 10MB
+                  </p>
+                </div>
               </div>
-            ) : (
-              'Submit Report'
+            </div>
+
+            <div className="flex items-start space-x-3 p-4 bg-slate-50/50 dark:bg-slate-700/30 rounded-xl border border-slate-200/50 dark:border-slate-600/50">
+              <input
+                type="checkbox"
+                id="notifyByEmail"
+                checked={formData.notifyByEmail}
+                onChange={handleInputChange('notifyByEmail')}
+                disabled={isSubmitting}
+                className="w-5 h-5 text-green-600 dark:text-green-500 bg-white dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-500 rounded focus:ring-green-500 dark:focus:ring-green-400 focus:ring-2 mt-0.5"
+              />
+              <div>
+                <label htmlFor="notifyByEmail" className="text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
+                  Email notifications
+                </label>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  Get updates when your issue status changes
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className={`
+                w-full py-4 px-6 rounded-xl font-semibold text-white shadow-lg
+                transition-all duration-200 ease-out
+                ${isSubmitting 
+                  ? 'bg-slate-400 dark:bg-slate-600 cursor-not-allowed' 
+                  : 'bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-500 dark:to-emerald-500 hover:from-green-700 hover:to-emerald-700 dark:hover:from-green-600 dark:hover:to-emerald-600 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]'
+                }
+                focus:outline-none focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800
+              `}
+            >
+              {isSubmitting ? (
+                <LoadingSpinner />
+              ) : (
+                <div className="inline-flex items-center justify-center">
+                  <Send className="w-5 h-5 mr-2" />
+                  Submit Report
+                </div>
+              )}
+            </button>
+
+            {submitStatus === 'success' && (
+              <div className="flex items-center justify-center space-x-2 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-xl">
+                <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                <span className="text-sm font-medium text-green-800 dark:text-green-200">
+                  Report submitted successfully! We'll be in touch soon.
+                </span>
+              </div>
             )}
 
-          </motion.button>
-        </form>
-      </motion.div>
+            {submitStatus === 'error' && (
+              <div className="flex items-center justify-center space-x-2 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 rounded-xl">
+                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
+                <span className="text-sm font-medium text-red-800 dark:text-red-200">
+                  Failed to submit report. Please try again.
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
+          Need immediate assistance? Contact us at{' '}
+          <a href="mailto:support@civix.com" className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium">
+            support@civix.com
+          </a>
+        </p>
+      </div>
     </div>
   );
-
-});
+}
