@@ -28,7 +28,7 @@ const faqData = [
   },
   {
     question: "Will I be notified of status changes?",
-    answer: "Yes, you’ll receive email or dashboard updates on status changes."
+    answer: "Yes, you'll receive email or dashboard updates on status changes."
   }
 ];
 
@@ -41,6 +41,7 @@ const Resources = () => {
   };
 
   return (
+
     <div className="resources-page-wrapper">
       {/* Back button OUTSIDE resources-container */}
         <div className="blob bg-green animate-blob"></div>
@@ -49,11 +50,14 @@ const Resources = () => {
 
       <button
         className="back-button"
+
         onClick={() => window.history.back()}
         type="button"
         aria-label="Go back"
       >
+
         <FontAwesomeIcon icon={faArrowLeft} className="icon" /> Back
+
       </button>
 
       <div className="resources-container">
@@ -69,6 +73,7 @@ const Resources = () => {
             You have the right to file civic complaints and receive updates. Misuse or false complaints may lead to action.
           </p>
         </section>
+
 
         <section className="resources-section">
           <h2 className="resources-subtitle">
@@ -144,6 +149,7 @@ const Resources = () => {
         </section>
 
       </div>
+
     </div>
   );
 };
