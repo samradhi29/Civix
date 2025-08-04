@@ -7,6 +7,8 @@ import Switch from "./DarkModeToggle";
 import { useAuth, useUser, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 import { toast, ToastContainer } from 'react-toastify';
 import Navbar from "./components/Navbar";
+import TestimonialCarousel from "./components/TestimonialCarousel";
+
 
 function Home() {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -302,50 +304,7 @@ function Home() {
           </div>
         </motion.section>
 
-        <motion.section id="testimonials" className="bg-slate-50 py-6 dark:bg-gray-900 md:py-12 lg:py-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInVariants}>
-          <div className="container mx-auto px-4">
-            <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-emerald-100 dark:bg-emerald-800 px-3 py-1 text-sm text-emerald-700 dark:text-emerald-200">Testimonials</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight dark:text-white">Trusted by communities everywhere</h2>
-                <p className="max-w-[900px] text-muted-foreground dark:text-gray-300  md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">See what citizens and city workers are saying about Civix.</p>
-              </div>
-            </motion.div>
-            <div className="flex justify-center">
-              <motion.div className="grid max-w-5xl items-stretch justify-items-center gap-6 py-12 lg:grid-cols-2" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                {[
-                  { quote: "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.", name: "Sarah Johnson", role: "Resident, Portland" },
-                  { quote: "As a city worker, Civix has transformed how we manage local issues. The dashboard makes it easy to prioritize and track our work.", name: "Michael Rodriguez", role: "Public Works, Austin" }
-                ].map((testimonial, index) => (
-                  <motion.div key={index} className="w-full max-w-md rounded-lg border dark:border-gray-700  bg-white dark:bg-gray-800  text-card-foreground dark:text-white shadow-sm transition-all duration-300 hover:shadow-md flex flex-col h-full" variants={cardVariants} whileHover={{ y: -5 }}>
-                    <div className="p-6">
-                      <div className="flex flex-col gap-4">
-                        <div className="flex gap-1">
-                          {[...Array(5)].map((_, i) => (
-                            <svg key={i} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 fill-emerald-500 text-emerald-500">
-                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                            </svg>
-                          ))}
-                        </div>
-                        <p className="text-lg">"{testimonial.quote}"</p>
-                        <div className="flex items-center gap-4">
-                          <div className="rounded-full bg-slate-100 dark:bg-gray-700 p-1">
-                            <div className="h-10 w-10 rounded-full bg-slate-200  dark:bg-gray-600" />
-                          </div>
-
-                          <div>
-                            <p className="font-semibold dark:text-white">{testimonial.name}</p>
-                            <p className="text-sm text-muted-foreground dark:text-gray-400">{testimonial.role}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-        </motion.section>
+        <TestimonialCarousel />
 
         <motion.section id="faqs" className="bg-white dark:bg-background py-6 md:py-12 lg:py-16" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={containerVariants}>
           <div className="container px-4 mx-auto">

@@ -6,10 +6,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "vitest",
-     "cypress:open": "cypress open",
-     "cypress:run": "cypress run",
-     "cypress:start": "cypress open",
-     "eject": "react-scripts eject"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:start": "cypress open",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.32.3",
@@ -31,6 +31,7 @@
     "react-scripts": "^5.0.1",
     "react-toastify": "^11.0.5",
     "styled-components": "^6.1.19",
+    "swiper": "^11.2.10",
     "three": "^0.177.0"
   },
   "devDependencies": {
