@@ -38,7 +38,7 @@ import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 const App = () => {
   const { isSignedIn } = useAuth();
   const location = useLocation();
-
+  
   return (
     <>
       <ScrollToTop />

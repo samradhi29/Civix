@@ -73,8 +73,8 @@
 // export default Navbar;
 
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link, href } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Switch from '../DarkModeToggle';
 import { jwtDecode } from 'jwt-decode';
 import { useAuth } from '@clerk/clerk-react';
@@ -83,6 +83,8 @@ import logo from './logoo.svg';
 const Navbar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const { isSignedIn, signOut } = useAuth();
 
   // Close menu on route change or navigation
@@ -98,8 +100,23 @@ const Navbar = () => {
     }
     localStorage.removeItem("token");
     window.dispatchEvent(new Event("storage-update"));
+    setProfileDropdownOpen(false);
     navigate("/");
   };
+
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Close menu on Escape key
   useEffect(() => {
@@ -197,6 +214,91 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4">
           <Switch />
+
+          {/* Profile Icon with Dropdown for authenticated users */}
+          {(isSignedIn || token) && (
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                className="hidden lg:flex items-center justify-center w-9 h-9 rounded-full bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-900 dark:hover:bg-emerald-800 transition-colors duration-200"
+                aria-label="Profile menu"
+              >
+                <svg
+                  className="w-5 h-5 text-emerald-600 dark:text-emerald-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+              </button>
+
+              {/* Profile Dropdown */}
+              {profileDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
+                  <button
+                    onClick={() => {
+                      setProfileDropdownOpen(false);
+                      navigate('/profile');
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Profile
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setProfileDropdownOpen(false);
+                      navigate(isAdmin ? '/admin' : '/user/dashboard');
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                    Dashboard
+                  </button>
+
+                  {isAdmin && (
+                    <button
+                      onClick={() => {
+                        setProfileDropdownOpen(false);
+                        navigate('/admin');
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                      Admin Panel
+                    </button>
+                  )}
+
+                  <hr className="my-2 border-gray-200 dark:border-gray-700" />
+
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Dashboard link for authenticated users */}
           {(isSignedIn || token) && (
             <button
@@ -204,15 +306,6 @@ const Navbar = () => {
               className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium border border-emerald-500 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 h-9 px-4 py-2"
             >
               Dashboard
-            </button>
-          )}
-
-          {isAdmin && (
-            <button
-              onClick={() => navigate('/admin')}
-              className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium border border-emerald-500 text-emerald-600 hover:bg-emerald-50 h-9 px-4 py-2"
-            >
-              Admin Dashboard
             </button>
           )}
 
@@ -263,7 +356,6 @@ const Navbar = () => {
                 &times;
               </button>
 
-
               {navLinks.map((navItem) => (
                 <Link key={navItem.title}
                   to={navItem.href}
@@ -273,6 +365,16 @@ const Navbar = () => {
                   {navItem.title}
                 </Link>
               ))}
+
+              {/* Profile link for authenticated users in mobile menu */}
+              {(isSignedIn || token) && (
+                <button
+                  onClick={() => handleNav(() => navigate('/profile'))}
+                  className="w-11/12 rounded-md text-base font-medium border border-emerald-500 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 h-11 px-4 py-2"
+                >
+                  Profile
+                </button>
+              )}
 
               {/* Dashboard link for authenticated users in mobile menu */}
               {(isSignedIn || token) && (
