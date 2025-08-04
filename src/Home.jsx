@@ -356,102 +356,98 @@ function Home() {
 </motion.section>
 
         <motion.section
-  id="faqs"
-  className="bg-white dark:bg-background py-6 md:py-12 lg:py-16"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, margin: "-100px" }}
-  variants={containerVariants}
+    id="faqs"
+    className="bg-gray-50 dark:bg-gray-900 py-6 md:py-12 lg:py-16"
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-100px" }}
+    variants={containerVariants}
 >
-  <div className="container px-4 mx-auto">
-    <motion.div
-      className="flex flex-col items-center space-y-4 text-center w-full"
-      variants={itemVariants}
-    >
-      <div className="space-y-2">
-        <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
-          FAQs
-        </div>
-        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-          Frequently Asked Questions
-        </h2>
-        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          Find answers to commonly asked questions about Civix platform features and services.
-        </p>
-      </div>
-      <div className="w-full mt-8 max-w-3xl mx-auto">
-        {questions.map((faq) => (
-          <div key={faq.id} className="py-2 mb-4 w-full overflow-hidden">
-            <button
-              className={`w-full text-left flex items-center justify-between px-4 py-2 border-0 outline-none focus:outline-none focus:ring-0 shadow-none rounded-md transition-colors duration-300 ${
-                activeFaq === faq.id
-                  ? "bg-emerald-200 dark:bg-emerald-600 text-emerald-900 dark:text-white font-semibold"
-                  : "bg-emerald-100 dark:bg-[#131a28bd] text-accent-foreground dark:text-white hover:bg-accent hover:dark:bg-[#131a28]"
-              }`}
-              onClick={() =>
-                setActiveFaq(activeFaq === faq.id ? null : faq.id)
-              }
-            >
-              <span className="font-medium">{faq.question}</span>
-              {activeFaq === faq.id ? (
-                <svg
-                  className="w-5 h-5 text-emerald-500 transition-transform duration-300 rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M5 15l7-7 7 7"
-                  ></path>
-                </svg>
-              ) : (
-                <svg
-                  className="w-5 h-5 text-emerald-500 transition-transform duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
-              )}
-            </button>
+    <div className="container px-4 mx-auto">
+        <motion.div
+            className="flex flex-col items-center space-y-4 text-center w-full"
+            variants={itemVariants}
+        >
+            <div className="space-y-2">
+                <div className="inline-block rounded-full bg-emerald-100 dark:bg-emerald-900 px-3 py-1 text-sm text-emerald-700 dark:text-emerald-200 font-medium">
+                    FAQs
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">
+                    Frequently Asked Questions
+                </h2>
+                <p className="max-w-[900px] text-gray-600 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    Find answers to commonly asked questions about Civix platform features and services.
+                </p>
+            </div>
+            <div className="w-full mt-8 max-w-3xl mx-auto">
+                {questions.map((faq) => (
+                    <div key={faq.id} className="mb-4 w-full overflow-hidden">
+                        <motion.div
+                            className={`group rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer
+                                ${activeFaq === faq.id 
+                                    ? "bg-gradient-to-r from-emerald-500 to-teal-500 border-emerald-500 shadow-lg"
+                                    : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-md hover:shadow-lg hover:border-emerald-500"
+                                }`}
+                            whileHover={{ y: -4 }}
+                            onClick={() =>
+                                setActiveFaq(activeFaq === faq.id ? null : faq.id)
+                            }
+                        >
+                            <div className={`w-full text-left flex items-center justify-between p-6 transition-colors duration-300
+                                ${activeFaq === faq.id 
+                                    ? "text-white" 
+                                    : "text-gray-900 dark:text-gray-100"
+                                }`}>
+                                <span className={`font-semibold group-hover:text-emerald-500 dark:group-hover:text-emerald-300 ${activeFaq === faq.id ? "!text-white" : ""}`}>
+                                    {faq.question}
+                                </span>
+                                <motion.svg
+                                    className={`w-6 h-6 transition-transform duration-300 
+                                        ${activeFaq === faq.id 
+                                            ? "rotate-180 text-white" 
+                                            : "text-gray-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-300"
+                                        }`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M19 9l-7 7-7-7"
+                                    ></path>
+                                </motion.svg>
+                            </div>
 
-          
-            <AnimatePresence initial={false}>
-              {activeFaq === faq.id && (
-                <motion.div
-                  className="mt-2 px-4 bg-card dark:bg-[#11172385] rounded-md shadow-sm overflow-hidden"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  layout
-                >
-                  <motion.p
-                    className="py-2 text-left text-foreground dark:text-white"
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {faq.answer}
-                  </motion.p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ))}
-      </div>
-    </motion.div>
-  </div>
+                            <AnimatePresence initial={false}>
+                                {activeFaq === faq.id && (
+                                    <motion.div
+                                        className="bg-gray-100 dark:bg-gray-900 px-6 py-4 overflow-hidden"
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                                        layout
+                                    >
+                                        <motion.p
+                                            className="text-left text-gray-700 dark:text-gray-300"
+                                            initial={{ opacity: 0, y: -5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -5 }}
+                                            transition={{ duration: 0.3 }}
+                                        >
+                                            {faq.answer}
+                                        </motion.p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+                    </div>
+                ))}
+            </div>
+        </motion.div>
+    </div>
 </motion.section>
 
         <section id="download" className="py-6 md:py-12 lg:py-16 bg-emerald-50 dark:bg-[#161c28] dark:text-white">
