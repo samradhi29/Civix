@@ -20,18 +20,27 @@ const ContactForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsLoading(false);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 3000);
-  };
+  e.preventDefault();
+
+  const isNameValid = getFieldValidation('name', formData.name);
+  const isEmailValid = getFieldValidation('email', formData.email);
+  const isMessageValid = getFieldValidation('message', formData.message);
+
+  if (!isNameValid || !isEmailValid || !isMessageValid) {
+    alert("Please fill out all fields correctly.");
+    return; // Don't proceed if any field is invalid
+  }
+
+  setIsLoading(true);
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  setIsLoading(false);
+  setSubmitted(true);
+  setTimeout(() => {
+    setSubmitted(false);
+    setFormData({ name: '', email: '', message: '' });
+  }, 3000);
+};
+
 
   const isFilled = (value) => value.trim() !== '';
 
