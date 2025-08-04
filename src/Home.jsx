@@ -308,50 +308,52 @@ function Home() {
           </div>
         </motion.section>
 
-        <motion.section id="testimonials" className="bg-slate-50 py-6 dark:bg-gray-900 md:py-12 lg:py-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInVariants}>
-          <div className="container mx-auto px-4">
-            <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-emerald-100 dark:bg-emerald-800 px-3 py-1 text-sm text-emerald-700 dark:text-emerald-200">Testimonials</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-r from-gray-300 to-gray-700 bg-clip-text text-transparent">Trusted by communities everywhere</h2>
-                <p className="max-w-[900px] text-muted-foreground dark:text-gray-300  md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">See what citizens and city workers are saying about Civix.</p>
-              </div>
-            </motion.div>
-            <div className="flex justify-center">
-              <motion.div className="grid max-w-5xl items-stretch justify-items-center gap-6 py-12 lg:grid-cols-2" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                {[
-                  { quote: "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.", name: "Sarah Johnson", role: "Resident, Portland" },
-                  { quote: "As a city worker, Civix has transformed how we manage local issues. The dashboard makes it easy to prioritize and track our work.", name: "Michael Rodriguez", role: "Public Works, Austin" }
-                ].map((testimonial, index) => (
-                  <motion.div key={index} className="w-full max-w-md rounded-lg border dark:border-gray-700  bg-white dark:bg-gray-800  text-card-foreground dark:text-white shadow-sm transition-all duration-300 hover:shadow-md flex flex-col h-full" variants={cardVariants} whileHover={{ y: -5 }}>
-                    <div className="p-6">
-                      <div className="flex flex-col gap-4">
-                        <div className="flex gap-1">
-                          {[...Array(5)].map((_, i) => (
-                            <svg key={i} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 fill-emerald-500 text-emerald-500">
-                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                            </svg>
-                          ))}
-                        </div>
-                        <p className="text-lg">"{testimonial.quote}"</p>
-                        <div className="flex items-center gap-4">
-                          <div className="rounded-full bg-slate-100 dark:bg-gray-700 p-1">
-                            <div className="h-10 w-10 rounded-full bg-slate-200  dark:bg-gray-600" />
-                          </div>
-
-                          <div>
-                            <p className="font-semibold dark:text-white">{testimonial.name}</p>
-                            <p className="text-sm text-muted-foreground dark:text-gray-400">{testimonial.role}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
+        <motion.section id="testimonials" className="bg-white dark:bg-gray-950 py-6 md:py-12 lg:py-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInVariants}>
+    <div className="container mx-auto px-4">
+        <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
+            <div className="space-y-2">
+                <div className="inline-block rounded-full bg-emerald-100 dark:bg-emerald-900 px-3 py-1 text-sm text-emerald-700 dark:text-emerald-200 font-medium">Testimonials</div>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">Trusted by communities everywhere</h2>
+                <p className="max-w-[900px] text-gray-600 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">See what citizens and city workers are saying about Civix.</p>
             </div>
-          </div>
-        </motion.section>
+        </motion.div>
+        <div className="flex justify-center">
+            <motion.div className="grid max-w-5xl items-stretch justify-items-center gap-8 py-12 lg:grid-cols-2" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                {[
+                    { quote: "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.", name: "Sarah Johnson", role: "Resident, Portland" },
+                    { quote: "As a city worker, Civix has transformed how we manage local issues. The dashboard makes it easy to prioritize and track our work.", name: "Michael Rodriguez", role: "Public Works, Austin" }
+                ].map((testimonial, index) => (
+                    <motion.div key={index} className="group w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-emerald-500 flex flex-col h-full cursor-pointer" variants={cardVariants} whileHover={{ y: -8, scale: 1.02 }}>
+                        <div className="p-8 flex flex-col justify-between h-full">
+                            <div className="relative">
+                                <svg className="absolute -top-6 -left-6 w-16 h-16 text-gray-300 dark:text-gray-700 opacity-70 group-hover:text-emerald-500 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M10 18H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2zm10 0h-4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2z"/>
+                                </svg>
+                                <p className="text-lg leading-relaxed z-10 relative">{testimonial.quote}</p>
+                            </div>
+                            <div className="mt-8 flex items-center gap-4">
+                                <div className="h-12 w-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 font-semibold text-lg transition-all duration-300 group-hover:bg-emerald-100 group-hover:text-emerald-500">
+                                    {testimonial.name.split(' ').map(n => n[0]).join('')}
+                                </div>
+                                <div>
+                                    <div className="flex gap-1 mb-1">
+                                        {[...Array(5)].map((_, i) => (
+                                            <svg key={i} className="h-4 w-4 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                            </svg>
+                                        ))}
+                                    </div>
+                                    <p className="font-semibold dark:text-white transition-colors duration-300 group-hover:text-emerald-500">{testimonial.name}</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                ))}
+            </motion.div>
+        </div>
+    </div>
+</motion.section>
 
         <motion.section
   id="faqs"
