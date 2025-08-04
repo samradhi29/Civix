@@ -43,9 +43,9 @@ const Resources = () => {
   return (
     <div className="resources-page-wrapper">
       {/* Back button OUTSIDE resources-container */}
-        <div className="blob bg-green animate-blob"></div>
-  <div className="blob bg-light-green animate-blob animation-delay-2000"></div>
-  <div className="blob bg-yellow animate-blob animation-delay-4000"></div>
+      <div className="blob bg-green animate-blob"></div>
+      <div className="blob bg-light-green animate-blob animation-delay-2000"></div>
+      <div className="blob bg-yellow animate-blob animation-delay-4000"></div>
 
       <button
         className="back-button"
@@ -57,7 +57,6 @@ const Resources = () => {
       </button>
 
       <div className="resources-container">
-
         <h1 className="resources-title">Citizen Resources</h1>
 
         <section className="resources-section">
@@ -142,7 +141,6 @@ const Resources = () => {
             ))}
           </div>
         </section>
-
       </div>
     </div>
   );
