@@ -135,6 +135,47 @@ function Home() {
       gradient: "from-cyan-400 to-blue-500"
     }
   ];
+  const steps = [
+    {
+      step: "01",
+      title: "Report an Issue",
+      description: "Take a photo, mark the location on the map, and add a detailed description of the problem you've encountered and we will reach you out soon.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+          <circle cx="12" cy="13" r="3" />
+        </svg>
+      ),
+      gradient: "from-emerald-500 to-teal-600"
+    },
+    {
+      step: "02",
+      title: "City Review",
+      description: "City workers review and prioritize issues based on severity, impact, and community votes to ensure efficient resource allocation.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 12l2 2 4-4" />
+          <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" />
+          <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" />
+          <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" />
+          <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3" />
+        </svg>
+      ),
+      gradient: "from-teal-500 to-cyan-600"
+    },
+    {
+      step: "03",
+      title: "Track Resolution",
+      description: "Follow the progress of your report from submission to completion with real-time updates and transparent communication.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+          <polyline points="16 7 22 7 22 13" />
+        </svg>
+      ),
+      gradient: "from-cyan-500 to-blue-600"
+    }
+  ];
 
 
   // Render Home Page UI with JSX
@@ -327,38 +368,99 @@ function Home() {
       </div>
     </section>
 
-        <motion.section id="how-it-works" className="py-6 md:py-12 lg:py-16 xl:py-20" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInVariants}>
-          <div className="container px-4 md:px-6 mx-auto">
-            <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
-              <div className="space-y-2">
-<div className="inline-block rounded-lg bg-emerald-200 px-5 py-2 text-lg font-bold text-emerald-900 uppercase tracking-wide shadow-sm">
-  How It Works
-</div>
+        <section className="relative py-24 bg-gradient-to-b from-white via-slate-50/50 to-emerald-50/30 dark:from-slate-900 dark:via-slate-800/50 dark:to-emerald-900/10 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-32 w-64 h-64 bg-gradient-to-r from-emerald-100/30 to-teal-100/30 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-32 w-64 h-64 bg-gradient-to-l from-teal-100/30 to-cyan-100/30 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-full blur-3xl"></div>
+      </div>
 
+      <div className="relative container mx-auto px-6 lg:px-8">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center px-5 py-3 rounded-full bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border border-emerald-200/60 dark:border-emerald-700/50 mb-8 shadow-sm">
+            <span className="text-emerald-800 dark:text-emerald-200 font-bold text-sm uppercase tracking-wider">How It Works</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <span className="text-slate-800 dark:text-slate-200">Simple process,</span>
+            <br />
+            <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+              powerful results
+            </span>
+          </h2>
+          
+          <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed">
+            Civix makes it easy to report issues and track their resolution in just a few simple steps. 
+            Join thousands of citizens making their communities better.
+          </p>
+        </div>
 
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Simple process, powerful results</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">Civix makes it easy to report issues and track their resolution in just a few simple steps.</p>
-              </div>
-            </motion.div>
-            <div className="flex justify-center">
-              <motion.div className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                {[
-                  { step: "1", title: "Report an Issue", description: "Take a photo, mark the location on the map, and add a description of the problem." },
-                  { step: "2", title: "City Review", description: "City workers review and prioritize issues based on severity and community votes." },
-                  { step: "3", title: "Track Resolution", description: "Follow the progress of your report from submission to completion with real-time updates." }
-                ].map((step, index) => (
-                  <motion.div key={index} className="w-full max-w-xs flex flex-col items-center space-y-4 text-center" variants={itemVariants} whileHover={{ scale: 1.05 }}>
-                    <motion.div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-all duration-300 hover:scale-110" whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
-                      <span className="text-2xl font-bold">{step.step}</span>
-                    </motion.div>
-                    <h3 className="text-xl font-bold">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
-                  </motion.div>
-                ))}
-              </motion.div>
+        <div className="max-w-6xl mx-auto">
+          <div className="hidden lg:block relative">
+            <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-full max-w-4xl h-0.5 bg-gradient-to-r from-emerald-200 via-teal-200 to-cyan-200 dark:from-emerald-800 dark:via-teal-800 dark:to-cyan-800"></div>
+            
+            <div className="grid lg:grid-cols-3 gap-8">
+              {steps.map((step, index) => (
+                <div key={index} className="relative">
+                  <div className="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/50 dark:border-slate-700/50 hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+                    <div className="relative mb-6 flex justify-center">
+                      <div className={`w-20 h-20 bg-gradient-to-br ${step.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <span className="text-white font-bold text-lg">{step.step}</span>
+                      </div>
+                      
+                
+                    </div>
+
+                    <div className="text-center">
+                      <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                        {step.title}
+                      </h3>
+                      
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </motion.section>
+
+          <div className="lg:hidden space-y-8">
+            {steps.map((step, index) => (
+              <div key={index} className="relative">
+                {index < steps.length - 1 && (
+                  <div className="absolute left-10 top-20 w-0.5 h-16 bg-gradient-to-b from-emerald-300 to-teal-300 dark:from-emerald-700 dark:to-teal-700"></div>
+                )}
+                
+                <div className="flex gap-6">
+                  <div className="flex-shrink-0">
+                    <div className={`w-20 h-20 bg-gradient-to-br ${step.gradient} rounded-2xl flex items-center justify-center shadow-lg`}>
+                      <span className="text-white font-bold text-lg">{step.step}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex-1 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 dark:border-slate-700/50">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                        {step.icon}
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">
+                        {step.title}
+                      </h3>
+                    </div>
+                    
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
 
         <TestimonialCarousel />
 
