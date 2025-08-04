@@ -149,7 +149,7 @@ export default App;
 //     <div className="relative min-h-screen">
 //       {/* Your existing layout code */}
 //       {children}
-      
+
 //       {/* Add the ChatBot component at the end */}
 //       <ChatBot />
 //     </div>
