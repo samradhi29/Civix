@@ -279,7 +279,11 @@ function Home() {
           <div className="container px-4 md:px-6 mx-auto">
             <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">How It Works</div>
+<div className="inline-block rounded-lg bg-emerald-200 px-5 py-2 text-lg font-bold text-emerald-900 uppercase tracking-wide shadow-sm">
+  How It Works
+</div>
+
+
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Simple process, powerful results</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">Civix makes it easy to report issues and track their resolution in just a few simple steps.</p>
               </div>
