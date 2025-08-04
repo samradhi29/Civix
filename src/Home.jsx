@@ -93,6 +93,48 @@ function Home() {
 
   ]
 
+  const features = [
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600 dark:text-emerald-400">
+          <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+          <circle cx="12" cy="13" r="3" />
+        </svg>
+      ),
+      title: "Report Issues",
+      description: "Easily report problems with photos, location data, and detailed descriptions for faster resolution.",
+      features: ["Photo uploads", "Map integration", "Categorized issues"],
+      gradient: "from-emerald-400 to-teal-500"
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600 dark:text-emerald-400">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+          <polyline points="16 7 22 7 22 13" />
+        </svg>
+      ),
+      title: "Track Progress",
+      description: "Follow the status of your reports from submission to resolution with real-time insights.",
+      features: ["Real-time updates", "Status notifications", "Resolution timeline"],
+      gradient: "from-teal-400 to-cyan-500"
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600 dark:text-emerald-400">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      ),
+      title: "Community Voting",
+      description: "Upvote issues in your area to help prioritize what matters most to your community.",
+      features: ["Issue upvoting", "Trending issues", "Community feedback"],
+      gradient: "from-cyan-400 to-blue-500"
+    }
+  ];
+
+
   // Render Home Page UI with JSX
   return (
     <div className="flex min-h-screen flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
@@ -205,75 +247,83 @@ function Home() {
           </div>
         </section>
 
-        <motion.section id="features" className="bg-slate-50 dark:bg-background py-6 md:py-12 lg:py-16 xl:py-20" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={containerVariants}>
-          <div className="container px-4 md:px-6 mx-auto">
-            <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">Features</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-br from-[#7cffd3] to-[#0644a8] bg-clip-text text-transparent">Everything you need to improve your community</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">Civix provides a comprehensive platform for citizens and city workers to collaborate on local issues.</p>
-              </div>
-            </motion.div>
-            <div className="flex justify-center">
-              <motion.div className="grid max-w-5xl  justify-items-center items-stretch gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
-                {[
-                  {
-                    icon: (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-10 w-10 text-emerald-500">
-                        <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                        <circle cx="12" cy="13" r="3" />
-                      </svg>
-                    ),
-                    title: "Report Issues",
-                    description: "Easily report problems with photos, location data, and detailed descriptions.",
-                    features: ["Photo uploads", "Map integration", "Categorized issues"]
-                  },
-                  {
-                    icon: (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-10 w-10 text-emerald-500">
-                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                        <polyline points="16 7 22 7 22 13" />
-                      </svg>
-                    ),
-                    title: "Track Progress",
-                    description: "Follow the status of your reports from submission to resolution.",
-                    features: ["Real-time updates", "Status notifications", "Resolution timeline"]
-                  },
-                  {
-                    icon: (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-10 w-10 text-emerald-500">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                      </svg>
-                    ),
-                    title: "Community Voting",
-                    description: "Upvote issues in your area to help prioritize what matters most.",
-                    features: ["Issue upvoting", "Trending issues", "Community feedback"],
-                    onClick: () => navigate('/community-voting')
-                  }
-                ].map((feature, index) => (
-                  <motion.div key={index} className="rounded-lg bg-card text-card-foreground p-8 shadow-xl w-full max-w-[350px] transition-all duration-300 hover:shadow-md" variants={cardVariants} whileHover={{ y: -5 }} onClick={feature.onClick || (() => { })}>
-                    {feature.icon}
-                    <h3 className="mt-4 text-xl font-bold">{feature.title}</h3>
-                    <p className="mt-2 text-muted-foreground">{feature.description}</p>
-                    <ul className="mt-4 space-y-2">
-                      {feature.features.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="text-emerald-500">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
+        <section className="relative py-24 bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 dark:from-slate-900 dark:via-slate-800/50 dark:to-emerald-900/20 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-100/40 to-teal-100/40 dark:from-emerald-900/30 dark:to-teal-900/30 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-green-100/40 to-emerald-100/40 dark:from-green-900/30 dark:to-emerald-900/30 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="relative container mx-auto px-6 lg:px-8">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100/80 dark:bg-emerald-900/50 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-700/50 mb-6">
+            <span className="text-emerald-700 dark:text-emerald-300 font-medium text-sm">Features</span>
           </div>
-        </motion.section>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+              Everything you need
+            </span>
+            <br />
+            <span className="text-slate-800 dark:text-slate-200">to improve your community</span>
+          </h2>
+          
+          <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            Civix provides a comprehensive platform for citizens and city workers to collaborate 
+            on local issues and build stronger communities together.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="group relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-white/20 dark:border-slate-700/50 hover:shadow-xl dark:hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 dark:group-hover:opacity-10 rounded-2xl transition-opacity duration-500`}></div>
+              
+              <div className="relative mb-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-800/50 dark:to-teal-800/50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  {feature.icon}
+                </div>
+              </div>
+
+              <div className="relative">
+                <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                  {feature.title}
+                </h3>
+                
+                <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                  {feature.description}
+                </p>
+
+                <ul className="space-y-3">
+                  {feature.features.map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                      <div className="w-5 h-5 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          width="12" 
+                          height="12" 
+                          fill="none" 
+                          viewBox="0 0 24 24" 
+                          stroke="white" 
+                          strokeWidth="3"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="font-medium">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-emerald-200/50 dark:group-hover:border-emerald-700/50 transition-colors duration-300"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
         <motion.section id="how-it-works" className="py-6 md:py-12 lg:py-16 xl:py-20" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInVariants}>
           <div className="container px-4 md:px-6 mx-auto">
