@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { toast, ToastContainer } from 'react-toastify';
+import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import csrfManager from "../utils/csrfManager";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -16,14 +17,14 @@ const AdminDashboard = () => {
       transition: {
         duration: 0.6,
         ease: "easeOut",
-        staggerChildren: 0.1
-      }
+        staggerChildren: 0.1,
+      },
     },
     exit: {
       opacity: 0,
       y: -20,
-      transition: { duration: 0.4 }
-    }
+      transition: { duration: 0.4 },
+    },
   };
 
   // Animation variants for table rows
@@ -32,55 +33,54 @@ const AdminDashboard = () => {
     animate: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.4 }
-    }
+      transition: { duration: 0.4 },
+    },
   };
 
   // Fetch all reported issues
   const fetchIssues = React.useCallback(async () => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5001/api/issues', {
+      const token = localStorage.getItem("token");
+      const res = await csrfManager.secureFetch("/api/issues", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (!res.ok) {
-        throw new Error('Unauthorized or failed to fetch');
+        throw new Error("Unauthorized or failed to fetch");
       }
 
       const data = await res.json();
       setIssues(data);
     } catch (error) {
-      console.error('Error fetching issues:', error);
-      alert('Failed to fetch issues. Please login again.');
-      navigate('/login');
+      console.error("Error fetching issues:", error);
+      alert("Failed to fetch issues. Please login again.");
+      navigate("/login");
     }
   }, [navigate]);
 
   // Update issue status
   const handleStatusChange = async (id, status) => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5001/api/issues/${id}/status`, {
-        method: 'PATCH',
+      const token = localStorage.getItem("token");
+      const res = await csrfManager.secureFetch(`/api/issues/${id}/status`, {
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ newStatus: status }),
       });
 
       if (!res.ok) {
-        throw new Error('Failed to update status');
+        throw new Error("Failed to update status");
       }
 
       // Refresh issue list
       fetchIssues();
     } catch (error) {
-      console.error('Error updating status:', error);
-      alert('Could not update status.');
+      console.error("Error updating status:", error);
+      alert("Could not update status.");
     }
   };
 
@@ -170,17 +170,19 @@ const AdminDashboard = () => {
                     variants={rowVariants}
                     initial="initial"
                     animate="animate"
-                    transition={{ delay: 0.6 + (index * 0.1) }}
+                    transition={{ delay: 0.6 + index * 0.1 }}
                   >
                     <td className="p-3">{issue.title}</td>
                     <td className="p-3">{issue.description}</td>
                     <td className="p-3">{issue.phone}</td>
                     <td className="p-3">{issue.email}</td>
-                    <td className="p-3">{issue.status || 'Pending'}</td>
+                    <td className="p-3">{issue.status || "Pending"}</td>
                     <td className="p-3">
                       <select
-                        value={issue.status || 'Pending'}
-                        onChange={(e) => handleStatusChange(issue._id, e.target.value)}
+                        value={issue.status || "Pending"}
+                        onChange={(e) =>
+                          handleStatusChange(issue._id, e.target.value)
+                        }
                         className="border border-gray-300 rounded px-2 py-1"
                       >
                         <option>Pending</option>
