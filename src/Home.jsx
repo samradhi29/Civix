@@ -7,8 +7,10 @@ import Switch from "./DarkModeToggle";
 import { useAuth, useUser, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 import { toast, ToastContainer } from 'react-toastify';
 import Navbar from "./components/Navbar";
-import TestimonialCarousel from "./components/TestimonialCarousel";
 
+import TestimonialCarousel from "./components/TestimonialCarousel";
+import {  AnimatePresence } from "framer-motion";
+import favv from './favv.svg';
 
 function Home() {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -124,7 +126,7 @@ function Home() {
                       🏛️ Civic Engagement Platform
                     </span>
                   </div> */}
-                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none leading-tight">
+                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none leading-tight col">
                     Report Local Issues. <br />
                     <span className="text-emerald-500 bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
                       Make Your City Better.
@@ -210,12 +212,12 @@ function Home() {
             <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">Features</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Everything you need to improve your community</h2>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-br from-[#7cffd3] to-[#0644a8] bg-clip-text text-transparent">Everything you need to improve your community</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">Civix provides a comprehensive platform for citizens and city workers to collaborate on local issues.</p>
               </div>
             </motion.div>
             <div className="flex justify-center">
-              <motion.div className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+              <motion.div className="grid max-w-5xl  justify-items-center items-stretch gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
                 {[
                   {
                     icon: (
@@ -306,47 +308,111 @@ function Home() {
 
         <TestimonialCarousel />
 
-        <motion.section id="faqs" className="bg-white dark:bg-background py-6 md:py-12 lg:py-16" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={containerVariants}>
-          <div className="container px-4 mx-auto">
-            <motion.div className="flex flex-col items-center space-y-4 text-center w-full" variants={itemVariants}>
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">FAQs</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Frequently Asked Questions</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">Find answers to commonly asked questions about Civix platform features and services.</p>
-              </div>
-              <div className="w-full mt-8 max-w-3xl mx-auto">
-                {questions.map((faq) => (
-                  <div key={faq.id} className="py-2 mb-4 w-full overflow-hidden">
-                    <button className={`w-full text-left flex items-center justify-between px-4 py-2 border-0 outline-none focus:outline-none focus:ring-0 shadow-none rounded-md transition-colors duration-300 ${activeFaq === faq.id ? 'bg-emerald-200 dark:bg-emerald-600 text-emerald-900 dark:text-white font-semibold' : 'bg-emerald-100 dark:bg-[#131a28bd] text-accent-foreground dark:text-white hover:bg-accent hover:dark:bg-[#131a28]'}`} onClick={() => setActiveFaq(activeFaq === faq.id ? null : faq.id)}>
-                      <span className="font-medium">{faq.question}</span>
-                      {activeFaq === faq.id ? (
-                        <svg className="w-5 h-5 text-emerald-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path>
-                        </svg>
-                      ) : (
-                        <svg className="w-5 h-5 text-emerald-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      )}
-                    </button>
-                    {activeFaq === faq.id && (
-                      <motion.div className="mt-2 px-4 py-2 bg-card dark:bg-[#11172385] rounded-md shadow-sm" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.5, ease: "easeInOut" }}>
-                        <p className="text-left text-foreground dark:text-white">{faq.answer}</p>
-                      </motion.div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+        <motion.section
+  id="faqs"
+  className="bg-white dark:bg-background py-6 md:py-12 lg:py-16"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, margin: "-100px" }}
+  variants={containerVariants}
+>
+  <div className="container px-4 mx-auto">
+    <motion.div
+      className="flex flex-col items-center space-y-4 text-center w-full"
+      variants={itemVariants}
+    >
+      <div className="space-y-2">
+        <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+          FAQs
+        </div>
+        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+          Frequently Asked Questions
+        </h2>
+        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          Find answers to commonly asked questions about Civix platform features and services.
+        </p>
+      </div>
+      <div className="w-full mt-8 max-w-3xl mx-auto">
+        {questions.map((faq) => (
+          <div key={faq.id} className="py-2 mb-4 w-full overflow-hidden">
+            <button
+              className={`w-full text-left flex items-center justify-between px-4 py-2 border-0 outline-none focus:outline-none focus:ring-0 shadow-none rounded-md transition-colors duration-300 ${
+                activeFaq === faq.id
+                  ? "bg-emerald-200 dark:bg-emerald-600 text-emerald-900 dark:text-white font-semibold"
+                  : "bg-emerald-100 dark:bg-[#131a28bd] text-accent-foreground dark:text-white hover:bg-accent hover:dark:bg-[#131a28]"
+              }`}
+              onClick={() =>
+                setActiveFaq(activeFaq === faq.id ? null : faq.id)
+              }
+            >
+              <span className="font-medium">{faq.question}</span>
+              {activeFaq === faq.id ? (
+                <svg
+                  className="w-5 h-5 text-emerald-500 transition-transform duration-300 rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 15l7-7 7 7"
+                  ></path>
+                </svg>
+              ) : (
+                <svg
+                  className="w-5 h-5 text-emerald-500 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              )}
+            </button>
+
+          
+            <AnimatePresence initial={false}>
+              {activeFaq === faq.id && (
+                <motion.div
+                  className="mt-2 px-4 bg-card dark:bg-[#11172385] rounded-md shadow-sm overflow-hidden"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  layout
+                >
+                  <motion.p
+                    className="py-2 text-left text-foreground dark:text-white"
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {faq.answer}
+                  </motion.p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        </motion.section>
+        ))}
+      </div>
+    </motion.div>
+  </div>
+</motion.section>
 
         <section id="download" className="py-6 md:py-12 lg:py-16 bg-emerald-50 dark:bg-[#161c28] dark:text-white">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="flex flex-col justify-center space-y-4 animate-on-scroll">
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Ready to improve your community?</h2>
+                  <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-tr from-[#7cf9ff] to-[#0037ff] bg-clip-text text-transparent">Ready to improve your community?</h2>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">Download the Civix app today and start making a difference in your neighborhood.</p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -420,19 +486,7 @@ function Home() {
                   {/* Floating Icon */}
                   <div className="absolute -bottom-5 -left-5 h-16 w-16 rounded-lg border bg-white dark:bg-[#111827] p-2 shadow-lg transition-transform duration-300 hover:scale-110">
                     <div className="flex items-center justify-center h-full w-full rounded bg-emerald-100 dark:bg-emerald-900">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="w-6 h-6 text-emerald-500"
-                      >
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
+                      <img src={favv} alt="" style={{width : "35px"}} />
                     </div>
                   </div>
 
