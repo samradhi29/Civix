@@ -55,14 +55,14 @@ const Login = () => {
     };
 
     return (
-        <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-green-50 font-inter">
-            <MinimalBG />
+        <div className="relative flex min-h-screen items-center justify-center overflow-hidden font-inter dark:bg-gray-900">
+            {/* <MinimalBG /> */}
             
             {/* Decorative background elements */}
-            <div className="absolute inset-0 overflow-hidden">
+            {/* <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-green-100 opacity-20 blur-3xl"></div>
                 <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-blue-100 opacity-20 blur-3xl"></div>
-            </div>
+            </div> */}
 
             {/* Login Form Container */}
             <div className="relative z-10 w-full max-w-md transform transition-all duration-300 hover:scale-[1.02]">

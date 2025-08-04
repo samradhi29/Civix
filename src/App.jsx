@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { SignIn, SignUp, useAuth } from '@clerk/clerk-react';
+import { AnimatePresence } from 'framer-motion';
 
 import Home from './Home';
 import Login from './components/Login';
@@ -36,7 +37,8 @@ import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 
 const App = () => {
   const { isSignedIn } = useAuth();
-  // Only show Navbar if user is NOT signed in
+  const location = useLocation();
+
   return (
     <>
       <ScrollToTop />
@@ -59,76 +61,78 @@ const App = () => {
       <Navbar/>
 
       <main className="min-h-screen">
-        <Routes>
-          {/* Clerk Auth Routes */}
-          <Route
-            path="/sign-in/*"
-            element={<SignIn routing="path" path="/sign-in" redirectUrl="/" />}
-          />
-          <Route
-            path="/signup/*"
-            element={<SignUp routing="path" path="/signup" redirectUrl="/" />}
-          />
+        <AnimatePresence mode="wait" initial={false}>
+          <Routes location={location} key={location.pathname}>
+            {/* Clerk Auth Routes */}
+            <Route
+              path="/sign-in/*"
+              element={<SignIn routing="path" path="/sign-in" redirectUrl="/" />}
+            />
+            <Route
+              path="/signup/*"
+              element={<SignUp routing="path" path="/signup" redirectUrl="/" />}
+            />
 
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/report-issue" element={<ReportIssue />} />
-          <Route path="/download-android" element={<DownloadAndroid />} />
-          <Route path="/download-ios" element={<DownloadIOS />} />
-          <Route path="/issues/new" element={<NewIssue />} />
-          <Route path="/issues/:id" element={<IssueDetail />} />
-          <Route path="/civic-education" element={<CivicEducation />} />
-          <Route path="/civic-simulator" element={<CivicSimulator />} />
-          <Route path="/community-voting" element={<CommunityVotingPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/complaints" element={<MyComplaints />} />
-          <Route path="/contributors" element={<Contributors />} />
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/report-issue" element={<ReportIssue />} />
+            <Route path="/download-android" element={<DownloadAndroid />} />
+            <Route path="/download-ios" element={<DownloadIOS />} />
+            <Route path="/issues/new" element={<NewIssue />} />
+            <Route path="/issues/:id" element={<IssueDetail />} />
+            <Route path="/civic-education" element={<CivicEducation />} />
+            <Route path="/civic-simulator" element={<CivicSimulator />} />
+            <Route path="/community-voting" element={<CommunityVotingPage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/complaints" element={<MyComplaints />} />
+            <Route path="/contributors" element={<Contributors />} />
 
-          {/* Protected Routes */}
-          <Route
-            path="/admin"
-            element={
-              <RequireAdmin>
-                <AdminDashboard />
-              </RequireAdmin>
-            }
-          />
-          <Route
-            path="/admin/dashboard"
-            element={
-              <PrivateRoute allowedRoles={['admin']}>
-                <AdminDashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              <PrivateRoute allowedRoles={['user', 'admin']}>
-                <Home />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/user/dashboard"
-            element={
-              <PrivateRoute allowedRoles={['user', 'admin']}>
-                <UserDashboard />
-              </PrivateRoute>
-            }
-          />
+            {/* Protected Routes */}
+            <Route
+              path="/admin"
+              element={
+                <RequireAdmin>
+                  <AdminDashboard />
+                </RequireAdmin>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <PrivateRoute allowedRoles={['admin']}>
+                  <AdminDashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute allowedRoles={['user', 'admin']}>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/user/dashboard"
+              element={
+                <PrivateRoute allowedRoles={['user', 'admin']}>
+                  <UserDashboard />
+                </PrivateRoute>
+              }
+            />
 
-          {/* Errors */}
-          <Route path="/500" element={<ServerError />} />
-          <Route path="*" element={<Error404 />} />
-        </Routes>
+            {/* Errors */}
+            <Route path="/500" element={<ServerError />} />
+            <Route path="*" element={<Error404 />} />
+          </Routes>
+        </AnimatePresence>
       </main>
 
       <Footer />
