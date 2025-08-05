@@ -78,7 +78,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Switch from '../DarkModeToggle';
 import { jwtDecode } from 'jwt-decode';
 import { useAuth } from '@clerk/clerk-react';
-import logo from './logoo.svg';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const navigate = useNavigate();
