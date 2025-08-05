@@ -93,6 +93,21 @@ const CommunityVotingPage = () => {
   return (
     <div className={isDark ? 'dark' : ''}>
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 dark:from-gray-900 dark:via-gray-800 dark:to-green-900/20 transition-colors duration-300">
+        <button
+          className="absolute top-20 left-4 z-20 group flex items-center gap-2 px-4 py-2 text-green-700 hover:text-green-800 dark:text-green-300 dark:hover:text-green-200 transition-all duration-200 hover:bg-white/60 dark:hover:bg-gray-800/60 rounded-lg backdrop-blur-sm"
+          onClick={() => window.history.back()}
+          type="button"
+        >
+          <svg
+            className="w-5 h-5 transition-transform group-hover:-translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
+        </button>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <motion.div 
             className="flex items-center justify-between mb-8"
@@ -101,15 +116,6 @@ const CommunityVotingPage = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center space-x-4">
-              <motion.button 
-                onClick={handleGoBack}
-                className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-xl shadow-sm hover:shadow-md border border-gray-200 dark:border-gray-700 transition-all duration-200"
-                whileHover={{ x: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="font-medium">Back</span>
-              </motion.button>
               
               <div>
                 <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">

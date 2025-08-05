@@ -82,23 +82,26 @@ const Resources = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-emerald-900/20 relative overflow-hidden">
+			<button
+				className="absolute top-4 left-4 z-20 group flex items-center gap-2 px-4 py-2 text-green-700 hover:text-green-800 dark:text-green-300 dark:hover:text-green-200 transition-all duration-200 hover:bg-white/60 dark:hover:bg-gray-800/60 rounded-lg backdrop-blur-sm"
+				onClick={() => window.history.back()}
+				type="button"
+			>
+				<svg
+				className="w-5 h-5 transition-transform group-hover:-translate-x-1"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+				>
+				<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+				</svg>
+				Back
+			</button>
 			<div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-green-300/30 to-emerald-300/30 dark:from-green-600/20 dark:to-emerald-600/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
 			<div className="absolute top-40 right-10 w-96 h-96 bg-gradient-to-r from-emerald-300/30 to-teal-300/30 dark:from-emerald-600/20 dark:to-teal-600/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
 			<div className="absolute -bottom-8 left-20 w-80 h-80 bg-gradient-to-r from-teal-300/30 to-green-300/30 dark:from-teal-600/20 dark:to-green-600/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000"></div>
 
-			<div className="relative z-10 p-6">
-				<button
-					onClick={() => window.history.back()}
-					className="group inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-white dark:hover:bg-gray-800 hover:shadow-lg transition-all duration-200 hover:scale-105"
-					type="button"
-					aria-label="Go back"
-				>
-					<ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
-					Back
-				</button>
-			</div>
-
-			<div className="relative z-10 max-w-4xl mx-auto px-6 pb-12">
+			<div className="relative top-10 z-10 max-w-4xl mx-auto px-6 pb-12">
 				<div className="text-center mb-12">
 					<h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 dark:from-green-400 dark:via-emerald-400 dark:to-teal-400 bg-clip-text text-transparent mb-4">
 						Citizen Resources

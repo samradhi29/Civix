@@ -72,11 +72,19 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-50 dark:from-slate-900 dark:to-slate-800 p-4 sm:p-6 lg:p-8">
       <button
+        className="absolute top-20 left-4 z-20 group flex items-center gap-2 px-4 py-2 text-green-700 hover:text-green-800 dark:text-green-300 dark:hover:text-green-200 transition-all duration-200 hover:bg-white/60 dark:hover:bg-gray-800/60 rounded-lg backdrop-blur-sm"
         onClick={() => window.history.back()}
-        className="mb-6 flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 transition-colors duration-200 group"
+        type="button"
       >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
-        <span className="font-medium">Back</span>
+        <svg
+          className="w-5 h-5 transition-transform group-hover:-translate-x-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+        Back
       </button>
 
       <div className="max-w-2xl mx-auto">

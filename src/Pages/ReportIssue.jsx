@@ -60,6 +60,7 @@ const FormInput = React.memo(
 
     return (
       <div className="group">
+
         <label
           htmlFor={id}
           className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors group-hover:text-green-600 dark:group-hover:text-green-400"
@@ -255,6 +256,22 @@ export default function ReportIssue() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-4 relative">
       <BackgroundElements />
+      
+      <button
+        className="absolute top-4 left-4 z-20 group flex items-center gap-2 px-4 py-2 text-green-700 hover:text-green-800 dark:text-green-300 dark:hover:text-green-200 transition-all duration-200 hover:bg-white/60 dark:hover:bg-gray-800/60 rounded-lg backdrop-blur-sm"
+        onClick={() => window.history.back()}
+        type="button"
+      >
+        <svg
+          className="w-5 h-5 transition-transform group-hover:-translate-x-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+        Back
+      </button>
 
       <div className="w-full max-w-lg relative z-10">
         <div className="text-center mb-8">
