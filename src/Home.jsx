@@ -12,8 +12,11 @@ import TestimonialCarousel from "./components/TestimonialCarousel";
 import {  AnimatePresence } from "framer-motion";
 import favv from './favv.svg';
 
+
+
 function Home() {
   const [activeFaq, setActiveFaq] = useState(null);
+  const [faqFilter, setFaqFilter] = useState("All");
   const navigate = useNavigate();
   const { isSignedIn, signOut } = useAuth();
   const { user } = useUser();
@@ -65,35 +68,69 @@ function Home() {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.8 } }
   };
-
-  const questions = [
-    {
-      id: 1,
-      question: "What is Civix?",
-      answer: "Civix is a civic engagement platform that allows citizens to report and track local issues in their communities, such as potholes, broken streetlights, and garbage collection problems."
-    },
-    {
-      id: 2,
-      question: "How do I report an issue?",
-      answer: "To report an issue, simply take a photo of the problem, add a description, and mark the location on the map. Your report will be sent to the appropriate city department for review."
-    },
-    {
-      id: 3,
-      question: "Is Civix free to use?",
-      answer: "Yes, Civix is completely free for citizens to use. There are no hidden fees or charges."
-    },
-    {
-      id: 4,
-      question: "How can I track the status of my report?",
-      answer: "You can track the status of your report through the Civix app or website. You will receive notifications when your issue is reviewed and resolved."
-    },
-    {
-      id: 5,
-      question: "Can I vote on issues reported by others?",
-      answer: "Yes! You can upvote issues reported by other citizens to help prioritize them for resolution."
-    }
-
-  ]
+const questions = [
+  {
+    id: 1,
+    question: "What is Civix?",
+    answer: "Civix is a civic engagement platform that allows citizens to report and track local issues in their communities, such as potholes, broken streetlights, and garbage collection problems.",
+    popular: true,
+    icon: (
+      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <circle cx={12} cy={12} r={10} />
+        <path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 3-3 5" />
+        <circle cx={12} cy={17} r={1} />
+      </svg>
+    )
+  },
+  {
+    id: 2,
+    question: "How do I report an issue?",
+    answer: "To report an issue, simply take a photo of the problem, add a description, and mark the location on the map. Your report will be sent to the appropriate city department for review.",
+    media: "/faq-report-demo.gif",
+    icon: (
+      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <rect x={3} y={3} width={18} height={14} rx={2} />
+        <circle cx={7.5} cy={8.5} r={1.5} />
+        <path d="M21 21l-6-6-4 4-5-5" />
+      </svg>
+    )
+  },
+  {
+    id: 3,
+    question: "Is Civix free to use?",
+    answer: "Yes, Civix is completely free for citizens to use. There are no hidden fees or charges.",
+    popular: true,
+    icon: (
+      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path d="M12 8c-1.5 0-2.7 1.3-2.7 2.7 0 .3.2.8.4 1.1.3.6 1 .7 1.4.7h2.6c.5 0 1.2-.1 1.5-.8.2-.3.4-.8.4-1 0-1.5-1.2-2.7-2.7-2.7Z" />
+        <path d="M12 15h.01" />
+        <circle cx={12} cy={12} r={10} />
+      </svg>
+    )
+  },
+  {
+    id: 4,
+    question: "How can I track the status of my report?",
+    answer: "You can track the status of your report through the Civix app or website. You will receive notifications when your issue is reviewed and resolved.",
+    icon: (
+      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path d="M12 8v4l3 3" />
+        <circle cx={12} cy={12} r={10} />
+      </svg>
+    )
+  },
+  {
+    id: 5,
+    question: "Can I vote on issues reported by others?",
+    answer: "Yes! You can upvote issues reported by other citizens to help prioritize them for resolution.",
+    popular: true,
+    icon: (
+      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path d="M5 15l7-7 7 7" />
+      </svg>
+    )
+  }
+];
 
   const features = [
     {
@@ -519,92 +556,145 @@ function Home() {
     viewport={{ once: true, margin: "-100px" }}
     variants={containerVariants}
 >
-    <div className="container px-4 mx-auto">
-        <motion.div
-            className="flex flex-col items-center space-y-4 text-center w-full"
-            variants={itemVariants}
-        >
-            <div className="space-y-2">
-                <div className="inline-block rounded-full bg-emerald-100 dark:bg-emerald-900 px-3 py-1 text-sm text-emerald-700 dark:text-emerald-200 font-medium">
-                    FAQs
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">
-                    Frequently Asked Questions
-                </h2>
-                <p className="max-w-[900px] text-gray-600 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    Find answers to commonly asked questions about Civix platform features and services.
-                </p>
-            </div>
-            <div className="w-full mt-8 max-w-3xl mx-auto">
-                {questions.map((faq) => (
-                    <div key={faq.id} className="mb-4 w-full overflow-hidden">
-                        <motion.div
-                            className={`group rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer
-                                ${activeFaq === faq.id 
-                                    ? "bg-gradient-to-r from-emerald-500 to-teal-500 border-emerald-500 shadow-lg"
-                                    : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-md hover:shadow-lg hover:border-emerald-500"
-                                }`}
-                            whileHover={{ y: -4 }}
-                            onClick={() =>
-                                setActiveFaq(activeFaq === faq.id ? null : faq.id)
-                            }
-                        >
-                            <div className={`w-full text-left flex items-center justify-between p-6 transition-colors duration-300
-                                ${activeFaq === faq.id 
-                                    ? "text-white" 
-                                    : "text-gray-900 dark:text-gray-100"
-                                }`}>
-                                <span className={`font-semibold group-hover:text-emerald-500 dark:group-hover:text-emerald-300 ${activeFaq === faq.id ? "!text-white" : ""}`}>
-                                    {faq.question}
-                                </span>
-                                <motion.svg
-                                    className={`w-6 h-6 transition-transform duration-300 
-                                        ${activeFaq === faq.id 
-                                            ? "rotate-180 text-white" 
-                                            : "text-gray-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-300"
-                                        }`}
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M19 9l-7 7-7-7"
-                                    ></path>
-                                </motion.svg>
-                            </div>
 
-                            <AnimatePresence initial={false}>
-                                {activeFaq === faq.id && (
-                                    <motion.div
-                                        className="bg-gray-100 dark:bg-gray-900 px-6 py-4 overflow-hidden"
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: "auto" }}
-                                        exit={{ opacity: 0, height: 0 }}
-                                        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                                        layout
-                                    >
-                                        <motion.p
-                                            className="text-left text-gray-700 dark:text-gray-300"
-                                            initial={{ opacity: 0, y: -5 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -5 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            {faq.answer}
-                                        </motion.p>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </motion.div>
-                    </div>
-                ))}
-            </div>
-        </motion.div>
+  <div className="container px-4 mx-auto">
+    <motion.div className="flex flex-col items-center space-y-4 text-center w-full" variants={itemVariants}>
+      <div className="space-y-2">
+        <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">FAQs</div>
+        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Frequently Asked Questions</h2>
+        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          Find answers to commonly asked questions about Civix platform features and services.
+        </p>
+      </div>
+      {/* FAQ Filter */}
+      <div className="flex gap-2 items-center justify-center mt-2">
+        {["All", "Popular"].map((type) => (
+          <button
+            key={type}
+            className={`px-4 py-2 rounded-full transition
+              ${faqFilter === type
+                ? "bg-emerald-500 text-white font-semibold"
+                : "bg-emerald-100 text-emerald-800"}`}
+            onClick={() => setFaqFilter(type)}
+            aria-pressed={faqFilter === type}
+          >
+            {type}
+          </button>
+        ))}
+      </div>
+    </motion.div>
+
+    <div className="w-full mt-8 max-w-3xl mx-auto space-y-4">
+      {(faqFilter === "All" ? questions : questions.filter(f => f.popular)).map((faq) => (
+        <div
+          key={faq.id}
+          className="faq-card-glass py-2 px-1 mb-2 w-full overflow-hidden"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setActiveFaq(activeFaq === faq.id ? null : faq.id);
+            }
+          }}
+        >
+          <button
+            className={`w-full text-left flex items-center justify-between px-4 py-3 border-0 outline-none focus:outline-none focus:ring-2 focus:ring-emerald-400 shadow-none rounded-lg transition-colors duration-300 text-base md:text-lg
+              ${activeFaq === faq.id
+                ? "bg-white dark:bg-emerald-700/30 text-emerald-900 dark:text-white font-semibold"
+                : "bg-emerald-50 dark:bg-[#181e2f] text-emerald-800 dark:text-white hover:bg-emerald-100 dark:hover:bg-[#22273b]"
+              }`}
+            style={{ minHeight: 56 }}
+            onClick={() => setActiveFaq(activeFaq === faq.id ? null : faq.id)}
+            aria-expanded={activeFaq === faq.id}
+            aria-controls={`faq-answer-${faq.id}`}
+          >
+            <span className="flex items-center gap-2 font-medium">
+              {faq.icon}
+              {faq.question}
+              {faq.popular && (
+                <span className="ml-2 px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-700 text-xs font-semibold">
+                  Popular
+                </span>
+              )}
+            </span>
+            {activeFaq === faq.id ? (
+              <svg className="w-5 h-5 text-emerald-500 transition-transform duration-300 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5 text-emerald-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            )}
+          </button>
+
+          <AnimatePresence initial={false}>
+            {activeFaq === faq.id && (
+              <motion.div
+                id={`faq-answer-${faq.id}`}
+                className="mt-1 px-4 bg-white/90 dark:bg-[#151c29ef] rounded-b-lg shadow-sm overflow-hidden"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                layout
+              >
+                <motion.p
+                  className="py-3 text-left text-gray-700 dark:text-white"
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {faq.answer}
+                </motion.p>
+                {faq.media && (
+                  <img
+                    src={faq.media}
+                    alt="FAQ explainer"
+                    className="mb-2 rounded-lg shadow-sm w-full max-w-xs"
+                    style={{ pointerEvents: "none" }}
+                    loading="lazy"
+                  />
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      ))}
     </div>
+
+    <style>{`
+      .faq-card-glass {
+        background: rgba(255,255,255,0.85);
+        border-radius: 1rem;
+        box-shadow: 0 2px 16px rgba(44,62,80,0.05);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(52,211,153,0.12);
+        margin-bottom: 18px;
+        transition: box-shadow 0.3s, background 0.3s;
+      }
+      .faq-card-glass:focus-within,
+      .faq-card-glass:hover {
+        box-shadow: 0 6px 48px rgba(32,90,90,0.14);
+        background: rgba(240,253,250,0.97);
+      }
+      .dark .faq-card-glass {
+        background: rgba(18,22,34,0.83);
+        border: 1px solid rgba(16,185,129,0.09);
+      }
+      .dark .faq-card-glass:focus-within,
+      .dark .faq-card-glass:hover {
+        background: rgba(16,185,129,0.04);
+        box-shadow: 0 10px 48px rgba(16,185,129,0.14);
+      }
+    `}</style>
+  </div>
+
+    
 </motion.section>
+
+
 
         <section id="download" className="py-6 md:py-12 lg:py-16 bg-emerald-50 dark:bg-[#161c28] dark:text-white">
           <div className="container px-4 md:px-6">
