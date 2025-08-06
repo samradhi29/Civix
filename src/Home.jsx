@@ -131,6 +131,54 @@ const questions = [
     )
   }
 ];
+ const testimonials = [
+    { 
+      quote: "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.", 
+      name: "Aarav Patel", 
+      role: "Resident, Bangalore",
+      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      rating: 5,
+      category: "Infrastructure"
+    },
+    { 
+      quote: "As a city worker, Civix has transformed how we manage local issues. The dashboard makes it easy to prioritize and track our work.", 
+      name: "Akshay Prakash", 
+      role: "Public Works, Delhi",
+      avatar: "https://randomuser.me/api/portraits/men/46.jpg",
+      rating: 5,
+      category: "Management"
+    },
+    { 
+      quote: "The transparency and speed of resolution through Civix has restored my faith in local government. Highly recommend to every citizen.", 
+      name: "Meera Sharma", 
+      role: "Teacher, Chennai",
+      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      rating: 5,
+      category: "Community"
+    },
+    { 
+      quote: "Our community engagement has increased by 300% since implementing Civix. Citizens feel heard and empowered to make real change.", 
+      name: "Rahul Singh", 
+      role: "City Manager, Mumbai",
+      avatar: "https://randomuser.me/api/portraits/men/57.jpg",
+      rating: 5,
+      category: "Engagement"
+    }
+  ];
+  const StarRating = ({ rating }) => (
+    <div className="flex gap-1 mb-4">
+      {[...Array(5)].map((_, i) => (
+        <svg
+          key={i}
+          className={`w-4 h-4 ${i < rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  );
 
   const features = [
     {
@@ -499,52 +547,93 @@ const questions = [
       </div>
     </section>
 
-        <motion.section id="testimonials" className="bg-white dark:bg-gray-950 py-6 md:py-12 lg:py-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInVariants}>
-    <div className="container mx-auto px-4">
-        <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
-            <div className="space-y-2">
-                <div className="inline-block rounded-full bg-emerald-100 dark:bg-emerald-900 px-3 py-1 text-sm text-emerald-700 dark:text-emerald-200 font-medium">Testimonials</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">Trusted by communities everywhere</h2>
-                <p className="max-w-[900px] text-gray-600 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">See what citizens and city workers are saying about Civix.</p>
-            </div>
-        </motion.div>
-        <div className="flex justify-center">
-            <motion.div className="grid max-w-5xl items-stretch justify-items-center gap-8 py-12 lg:grid-cols-2" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                {[
-                    { quote: "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.", name: "Sarah Johnson", role: "Resident, Portland" },
-                    { quote: "As a city worker, Civix has transformed how we manage local issues. The dashboard makes it easy to prioritize and track our work.", name: "Michael Rodriguez", role: "Public Works, Austin" }
-                ].map((testimonial, index) => (
-                    <motion.div key={index} className="group w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-emerald-500 flex flex-col h-full cursor-pointer" variants={cardVariants} whileHover={{ y: -8, scale: 1.02 }}>
-                        <div className="p-8 flex flex-col justify-between h-full">
-                            <div className="relative">
-                                <svg className="absolute -top-6 -left-6 w-16 h-16 text-gray-300 dark:text-gray-700 opacity-70 group-hover:text-emerald-500 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M10 18H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2zm10 0h-4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2z"/>
-                                </svg>
-                                <p className="text-lg leading-relaxed z-10 relative">{testimonial.quote}</p>
-                            </div>
-                            <div className="mt-8 flex items-center gap-4">
-                                <div className="h-12 w-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 font-semibold text-lg transition-all duration-300 group-hover:bg-emerald-100 group-hover:text-emerald-500">
-                                    {testimonial.name.split(' ').map(n => n[0]).join('')}
-                                </div>
-                                <div>
-                                    <div className="flex gap-1 mb-1">
-                                        {[...Array(5)].map((_, i) => (
-                                            <svg key={i} className="h-4 w-4 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                                            </svg>
-                                        ))}
-                                    </div>
-                                    <p className="font-semibold dark:text-white transition-colors duration-300 group-hover:text-emerald-500">{testimonial.name}</p>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                ))}
-            </motion.div>
+        <section className="relative py-24 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 dark:from-slate-900 dark:via-emerald-900/10 dark:to-teal-900/5 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -right-32 w-64 h-64 bg-gradient-to-l from-emerald-100/40 to-teal-100/40 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -left-32 w-64 h-64 bg-gradient-to-r from-teal-100/40 to-cyan-100/40 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-emerald-50/50 to-teal-50/50 dark:from-emerald-900/10 dark:to-teal-900/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative container mx-auto px-6 lg:px-8">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100/80 dark:bg-emerald-900/50 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-700/50 mb-6">
+            <span className="text-emerald-700 dark:text-emerald-300 font-medium text-sm">Testimonials</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+              Trusted by communities
+            </span>
+            <br />
+            <span className="text-slate-800 dark:text-slate-200">everywhere</span>
+          </h2>
+          
+          <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            See what citizens and city workers are saying about Civix and how it's transforming communities across the nation.
+          </p>
         </div>
-    </div>
-</motion.section>
+
+        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="group relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/50 dark:border-slate-700/50 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="absolute -top-3 left-8">
+                <div className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-4 py-1 rounded-full text-sm font-medium shadow-lg">
+                  {testimonial.category}
+                </div>
+              </div>
+
+              
+
+              <div className="relative mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-800/50 dark:to-teal-800/50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <svg 
+                    className="w-6 h-6 text-emerald-600 dark:text-emerald-400" 
+                    fill="currentColor" 
+                    viewBox="0 0 32 32"
+                  >
+                    <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14h-4c0-1.1.9-2 2-2V8zM22 8c-3.3 0-6 2.7-6 6v10h10V14h-4c0-1.1.9-2 2-2V8z"/>
+                  </svg>
+                </div>
+              </div>
+
+              <blockquote className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-6 relative z-10">
+                "{testimonial.quote}"
+              </blockquote>
+
+              <StarRating rating={testimonial.rating} />
+
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full p-0.5">
+                    <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-full"></div>
+                  </div>
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="relative w-14 h-14 rounded-full object-cover border-2 border-white dark:border-slate-800"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-bold text-xl text-slate-800 dark:text-slate-200 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                    {testimonial.name}
+                  </h3>
+                  <p className="text-emerald-600 dark:text-emerald-400 font-medium">
+                    {testimonial.role}
+                  </p>
+                </div>
+              </div>
+
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 dark:from-emerald-500/10 dark:to-teal-500/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500"></div>
+            </div>
+          ))}
+        </div>
+
+        
+      </div>
+    </section>
         <TestimonialCarousel />
 
 
