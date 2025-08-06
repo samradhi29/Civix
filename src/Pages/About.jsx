@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import {Link} from 'react-router-dom';
 import './About.css';
 
 function About() {
@@ -151,7 +152,9 @@ function About() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
+              <Link to="/signup" >
               <button className="cta-primary">Get Started</button>
+              </Link>
               <button className="cta-secondary">Learn More</button>
             </motion.div>
           </div>
