@@ -34,6 +34,7 @@ import CivicEducation from './Pages/CivicEducation';
 import CivicSimulator from './Pages/CivicSimulator';
 import Contributors from './Pages/Contributors';
 import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
+import SOS from './Pages/SOS';
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -93,6 +94,7 @@ const App = () => {
             <Route path="/resources" element={<Resources />} />
             <Route path="/complaints" element={<MyComplaints />} />
             <Route path="/contributors" element={<Contributors />} />
+            <Route path="/sos" element={<SOS/>}/>
 
             {/* Protected Routes */}
             <Route

@@ -1,84 +1,10 @@
-// import React from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import Switch from '../DarkModeToggle';
-
-// const Navbar = () => {
-//   const navigate = useNavigate();
-
-//   const scrollToTop = () => {
-//     window.scrollTo({ top: 0, behavior: 'smooth' });
-//   };
-
-//   return (
-//     <header
-//       className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur"
-//       style={{
-//         '--tw-bg-opacity': '0.95',
-//         backgroundColor: 'rgba(255, 255, 255, 0.95)'
-//       }}
-//     >
-//       <div className="container flex h-14 items-center justify-between">
-//         <button onClick={scrollToTop} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300">
-//           <svg
-//             xmlns="http://www.w3.org/2000/svg"
-//             width="24"
-//             height="24"
-//             viewBox="0 0 24 24"
-//             fill="none"
-//             stroke="currentColor"
-//             strokeWidth="2"
-//             strokeLinecap="round"
-//             strokeLinejoin="round"
-//             className="h-6 w-6 text-emerald-500"
-//           >
-//             <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-//             <circle cx="12" cy="10" r="3" />
-//           </svg>
-//           <span className="text-xl font-bold">Civix</span>
-//         </button>
-//         <nav className="hidden md:flex gap-6">
-//           <a href="#features" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
-//             Features
-//           </a>
-//           <a href="#how-it-works" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
-//             How It Works
-//           </a>
-//           <a href="#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
-//             Testimonials
-//           </a>
-//           <a href="#faq" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
-//             FAQ
-//           </a>
-//         </nav>
-//         <div className="flex items-center gap-4">
-//           <Switch />
-//           <button
-//             onClick={() => navigate('/login')}
-//             className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-//           >
-//             Login
-//           </button>
-//           <button
-//             onClick={() => navigate('/signup')}
-//             className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-primary-foreground hover:bg-emerald-500/90 h-9 px-4 py-2"
-//           >
-//             Get Started
-//           </button>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default Navbar;
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Switch from '../DarkModeToggle';
 import { jwtDecode } from 'jwt-decode';
 import { useAuth } from '@clerk/clerk-react';
 import logo from '../assets/logo.png';
+import { title } from 'process';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -87,7 +13,6 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const { isSignedIn, signOut } = useAuth();
 
-  // Close menu on route change or navigation
   const handleNav = (cb) => {
     setMobileMenuOpen(false);
     if (cb) cb();
@@ -102,6 +27,14 @@ const Navbar = () => {
     window.dispatchEvent(new Event("storage-update"));
     setProfileDropdownOpen(false);
     navigate("/");
+  };
+
+  // Handle SOS button click
+  const handleSOSClick = () => {
+    // You can customize this action based on your needs
+    // For now, it will navigate to an SOS/emergency page or trigger emergency services
+    navigate('/sos');
+    // Or open a modal, call emergency services, etc.
   };
 
   // Close profile dropdown when clicking outside
@@ -290,7 +223,7 @@ const Navbar = () => {
                     className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1" />
                     </svg>
                     Logout
                   </button>
@@ -311,12 +244,36 @@ const Navbar = () => {
 
           {/* Show logout button when authenticated, login/signup when not */}
           {isSignedIn || token ? (
-            <button
-              onClick={handleLogout}
-              className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-white hover:bg-emerald-600 h-9 px-4 py-2"
-            >
-              Logout
-            </button>
+            <>
+              <button
+                onClick={handleLogout}
+                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-white hover:bg-emerald-600 h-9 px-4 py-2"
+              >
+                Logout
+              </button>
+              
+              {/* SOS Button - positioned after logout button */}
+              <button
+                onClick={handleSOSClick}
+                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl h-9 px-4 py-2"
+                title="Emergency SOS"
+                aria-label="Emergency SOS Button"
+              >
+                <svg
+                  className="w-4 h-4 mr-1"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                SOS
+              </button>
+            </>
           ) : (
             <>
               <button
@@ -330,6 +287,28 @@ const Navbar = () => {
                 className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-primary-foreground hover:bg-emerald-600 h-9 px-4 py-2"
               >
                 Get Started
+              </button>
+
+              {/* SOS Button for non-authenticated users - positioned after signup */}
+              <button
+                onClick={handleSOSClick}
+                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl h-9 px-4 py-2 animate-pulse"
+                title="Emergency SOS"
+                aria-label="Emergency SOS Button"
+              >
+                <svg
+                  className="w-4 h-4 mr-1"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                SOS
               </button>
             </>
           )}
@@ -397,12 +376,34 @@ const Navbar = () => {
 
               {/* Show logout button when authenticated, login/signup when not */}
               {isSignedIn || token ? (
-                <button
-                  onClick={() => handleNav(handleLogout)}
-                  className="w-11/12 rounded-md text-base font-medium bg-emerald-500 text-white hover:bg-emerald-600 h-11 px-4 py-2"
-                >
-                  Logout
-                </button>
+                <>
+                  <button
+                    onClick={() => handleNav(handleLogout)}
+                    className="w-11/12 rounded-md text-base font-medium bg-emerald-500 text-white hover:bg-emerald-600 h-11 px-4 py-2"
+                  >
+                    Logout
+                  </button>
+
+                  {/* SOS Button in mobile menu */}
+                  <button
+                    onClick={() => handleNav(handleSOSClick)}
+                    className="w-11/12 rounded-md text-base font-bold bg-red-600 text-white hover:bg-red-700 shadow-lg h-11 px-4 py-2 animate-pulse flex items-center justify-center gap-2"
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Emergency SOS
+                  </button>
+                </>
               ) : (
                 <>
                   <button
@@ -417,6 +418,26 @@ const Navbar = () => {
                   >
                     Get Started
                   </button>
+
+                  {/* SOS Button in mobile menu for non-authenticated users */}
+                  <button
+                    onClick={() => handleNav(handleSOSClick)}
+                    className="w-11/12 rounded-md text-base font-bold bg-red-600 text-white hover:bg-red-700 shadow-lg h-11 px-4 py-2 flex items-center justify-center gap-2"
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Emergency SOS
+                  </button>
                 </>
               )}
             </nav>
@@ -428,80 +449,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-// import React from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import Switch from '../DarkModeToggle';
-
-// const Navbar = () => {
-//   const navigate = useNavigate();
-
-//   const scrollToTop = () => {
-//     window.scrollTo({ top: 0, behavior: 'smooth' });
-//   };
-
-//   return (
-//     <header
-//       className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur"
-//       style={{
-//         '--tw-bg-opacity': '0.95',
-//         backgroundColor: 'rgba(255, 255, 255, 0.95)'
-//       }}
-//     >
-//       <div className="container flex h-14 items-center justify-between">
-//         <button onClick={scrollToTop} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300">
-//           <svg
-//             xmlns="http://www.w3.org/2000/svg"
-//             width="24"
-//             height="24"
-//             viewBox="0 0 24 24"
-//             fill="none"
-//             stroke="currentColor"
-//             strokeWidth="2"
-//             strokeLinecap="round"
-//             strokeLinejoin="round"
-//             className="h-6 w-6 text-emerald-500"
-//           >
-//             <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-//             <circle cx="12" cy="10" r="3" />
-//           </svg>
-//           <span className="text-xl font-bold">Civix</span>
-//         </button>
-//         <nav className="hidden md:flex gap-6">
-//           <a href="#features" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
-//             Features
-//           </a>
-//           <a href="#how-it-works" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
-//             How It Works
-//           </a>
-//           <a href="#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
-//             Testimonials
-//           </a>
-//           <a href="#faq" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
-//             FAQ
-//           </a>
-//         </nav>
-//         <div className="flex items-center gap-4">
-//           <Switch />
-//           <button
-//             onClick={() => navigate('/login')}
-//             className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-//           >
-//             Login
-//           </button>
-//           <button
-//             onClick={() => navigate('/signup')}
-//             className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-primary-foreground hover:bg-emerald-500/90 h-9 px-4 py-2"
-//           >
-//             Get Started
-//           </button>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default Navbar;
