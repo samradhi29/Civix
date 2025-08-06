@@ -25,7 +25,7 @@ const ContributorsPage = () => {
         const fetchContributors = async () => {
             try {
                 const response = await fetch(
-                    "https://api.github.com/repos/HarshS16/Civix/contributors"
+                    "https://api.github.com/repos/HarshS16/Civix/contributors?per_page=200"
                 );
 
                 if (!response.ok) {
