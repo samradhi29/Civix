@@ -1,6 +1,5 @@
-import { Github, Info, ShieldCheck, ScrollText, Star, UsersIcon } from "lucide-react";
+import { Github, Info, ShieldCheck, ScrollText, Star, UsersIcon, ArrowUpRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
-import './Footer.css';
 import logoF from '../assets/logo.png'; 
 
 const Footer = () => {
@@ -11,7 +10,7 @@ const Footer = () => {
       name: "GitHub",
       href: "https://github.com/HarshS16/Civix",
       icon: Github,
-      color: "hover:text-emerald-500 dark:hover:text-green-400",
+      description: "View source code"
     },
   ];
 
@@ -19,83 +18,104 @@ const Footer = () => {
     {
       title: "Civix",
       links: [
-        { name: "About", href: "/about", icon: Info, color: "text-emerald-500" },
-        { name: "Features", href: "/#features", icon: Star, color: "text-emerald-500" },
+        { name: "About", href: "/about", icon: Info },
+        { name: "Features", href: "/#features", icon: Star },
       ],
     },
     {
       title: "Legal",
       links: [
-        { name: "Privacy", href: "/privacy", icon: ShieldCheck, color: "text-emerald-500" },
-        { name: "Terms", href: "/terms", icon: ScrollText, color: "text-emerald-500" },
-        { name: "Our contributors", href: "https://github.com/HarshS16/Civix/graphs/contributors", icon: UsersIcon, color: "text-emerald-500" },
+        { name: "Privacy", href: "/privacy", icon: ShieldCheck },
+        { name: "Terms", href: "/terms", icon: ScrollText },
+        { name: "Contributors", href: "https://github.com/HarshS16/Civix/graphs/contributors", icon: UsersIcon },
       ],
     },
   ];
 
   return (
-    <footer className="footer-glass border-t pt-12 pb-6 text-gray-600 dark:text-gray-300">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-2">
-              <img src={logoF} alt="Civix Logo" style={{ width: '90px' }} />
+    <footer className="relative bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-900/95 dark:via-slate-800/95 dark:to-slate-900/95 backdrop-blur-xl border-t border-green-500/20 dark:border-green-500/10 text-slate-800 dark:text-slate-100">
+      <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-transparent to-blue-500/10 dark:from-green-500/5 dark:via-transparent dark:to-blue-500/5 pointer-events-none"></div>
+      
+      <div className="relative max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
+          
+          <div className="lg:col-span-2 space-y-6">
+            <div className="flex items-center space-x-3">
+              <img 
+                src={logoF} 
+                alt="Civix Logo" 
+                className="w-20 h-auto" 
+              />
             </div>
-            <p className="mt-4 max-w-md text-sm">
-              Civix is designed to empower and inform citizens. Stay informed, make better decisions, and explore features built for civic engagement.
+            
+            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed max-w-md">
+              Empowering citizens through technology. Stay informed, make better decisions, 
+              and engage with civic life through our innovative platform.
             </p>
-            <div className="flex space-x-4 mt-6">
+            
+            <div className="flex space-x-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`social-icon ${social.color}`}
+                  className="group relative w-12 h-12 bg-green-500/20 hover:bg-green-500/30 dark:bg-green-500/10 dark:hover:bg-green-500/20 border border-green-500/30 hover:border-green-500/50 dark:border-green-500/20 dark:hover:border-green-500/40 rounded-xl flex items-center justify-center text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-lg hover:shadow-green-500/25"
+                  title={social.description}
                 >
-                  <social.icon className="w-6 h-6" />
+                  <social.icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                 </a>
               ))}
             </div>
           </div>
 
           {footerLinks.map((section) => (
-            <div key={section.title}>
-              {/* Removed conflicting Tailwind classes for size and weight */}
-              <h3 className="mb-4 pb-2 relative heading-rainbow-gradient heading-underline">
-                {section.title}
-              </h3>
-              <ul className="space-y-3">
+            <div key={section.title} className="space-y-6">
+              <div className="relative">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                  {section.title}
+                </h3>
+                <div className="w-8 h-0.5 bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-300 hover:w-12"></div>
+              </div>
+              
+              <ul className="space-y-4">
                 {section.links.map((link) => (
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className="hover:text-emerald-500 transition-colors duration-200 flex items-center gap-2 group link-bounce"
+                      className="group flex items-center space-x-3 text-slate-600 hover:text-green-600 dark:text-slate-300 dark:hover:text-green-300 transition-all duration-300 hover:translate-x-2 py-1"
                     >
-                      <link.icon className={`w-4 h-4 ${link.color}`} />
-                      <span className="link-text">{link.name}</span>
+                      <link.icon className="w-4 h-4 text-green-500 group-hover:text-green-600 dark:text-green-400 dark:group-hover:text-green-300 transition-colors duration-300 group-hover:scale-110" />
+                      <span className="text-sm font-medium">{link.name}</span>
+                      <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-all duration-300 transform -translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0" />
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
+
+          
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm">
-            <div className="text-center md:text-left text-muted-foreground dark:text-muted-foreground">
-              <p>© {currentYear} Civix. All rights reserved.</p>
+        <div className="border-t border-green-500/20 dark:border-green-500/10 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="text-slate-500 dark:text-slate-400 text-sm">
+              © {currentYear} Civix. All rights reserved.
             </div>
-            <div className="text-muted-foreground dark:text-muted-foreground">
-              Built with ❤️ by{" "}
+            
+            <div className="flex items-center space-x-2 text-slate-500 dark:text-slate-400 text-sm">
+              <span>Built with</span>
+              <span className="text-red-400 animate-pulse text-base">♥</span>
+              <span>by</span>
               <a
                 href="https://github.com/HarshS16/Civix"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-emerald-500 hover:text-emerald-600 dark:hover:text-green-400 transition-colors"
+                className="group inline-flex items-center space-x-1 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 font-medium transition-all duration-300 hover:scale-105"
               >
-                Harsh S.
+                <span>Harsh S.</span>
+                <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-all duration-300 transform translate-x-1 -translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0" />
               </a>
             </div>
           </div>
