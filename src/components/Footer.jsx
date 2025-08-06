@@ -1,7 +1,7 @@
 import { Github, Info, ShieldCheck, ScrollText, Star, UsersIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import './Footer.css';
-import logoF from './logoo.svg';
+import logoF from '../assets/logo.png'; 
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
