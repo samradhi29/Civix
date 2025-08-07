@@ -35,6 +35,7 @@ import CivicSimulator from './Pages/CivicSimulator';
 import Contributors from './Pages/Contributors';
 import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 import SOS from './Pages/SOS';
+import Chatroom from './Pages/Chatroom';
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -95,6 +96,8 @@ const App = () => {
             <Route path="/complaints" element={<MyComplaints />} />
             <Route path="/contributors" element={<Contributors />} />
             <Route path="/sos" element={<SOS/>}/>
+            <Route path='/chatroom' element={<Chatroom/>}/>
+
 
             {/* Protected Routes */}
             <Route
