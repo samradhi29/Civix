@@ -265,7 +265,9 @@ function About() {
             </p>
             <div className="cta-buttons">
               <button className="btn-primary">Download App</button>
-              <button className="btn-outline">Contact Us</button>
+              <Link to="/contact" >
+              <button className="cta-secondary" >Contact Us</button>
+              </Link>
             </div>
           </div>
         </motion.section>
