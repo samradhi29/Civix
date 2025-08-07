@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { User, Mail, MessageCircle, CheckCircle, Send, Sparkles, Phone, MapPin, Clock } from 'lucide-react';
 
 const ContactForm = () => {
@@ -11,6 +12,14 @@ const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
 
+const serviceId = process.env.REACT_APP_CONTACT_SERVICE_ID || '';
+const templateId = process.env.REACT_APP_CONTACT_TEMPLATE_ID || '';
+const publicKey = process.env.REACT_APP_CONTACT_PUBLIC_KEY || '';
+
+  console.log("ENV SERVICE ID:", serviceId);
+  console.log("ENV TEMPLATE ID:", templateId);
+  console.log("ENV PUBLIC KEY:", publicKey);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -20,26 +29,39 @@ const ContactForm = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const isNameValid = getFieldValidation('name', formData.name);
-  const isEmailValid = getFieldValidation('email', formData.email);
-  const isMessageValid = getFieldValidation('message', formData.message);
+    const isNameValid = getFieldValidation('name', formData.name);
+    const isEmailValid = getFieldValidation('email', formData.email);
+    const isMessageValid = getFieldValidation('message', formData.message);
 
-  if (!isNameValid || !isEmailValid || !isMessageValid) {
-    alert("Please fill out all fields correctly.");
-    return; // Don't proceed if any field is invalid
-  }
+    if (!isNameValid || !isEmailValid || !isMessageValid) {
+      alert("Please fill out all fields correctly.");
+      return; 
+    }
 
-  setIsLoading(true);
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  setIsLoading(false);
-  setSubmitted(true);
-  setTimeout(() => {
-    setSubmitted(false);
-    setFormData({ name: '', email: '', message: '' });
-  }, 3000);
-};
+    setIsLoading(true);
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message
+        },
+        publicKey
+      );
+      setSubmitted(true);
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (error) {
+      alert("An error occurred while sending your message. Please try again.");
+      console.error("EmailJS Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
 
   const isFilled = (value) => value.trim() !== '';
