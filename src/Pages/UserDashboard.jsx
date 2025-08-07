@@ -9,7 +9,8 @@ import {
   BarChart3, 
   BookOpen ,
   Bell,
-  X
+  X,
+  MessageCircle
 } from "lucide-react";
 
 const UserDashboard = () => {
@@ -177,6 +178,14 @@ const UserDashboard = () => {
             icon={BookOpen}
             gradient="from-teal-600 to-green-700"
             shadowColor="shadow-teal-600/20"
+          />
+          <DashboardCard
+            title="Chat Room"
+            description="Join the community chat and engage in real-time discussions."
+            onClick={() => navigate("/chatroom")}
+            icon={MessageCircle}
+            gradient="from-green-700 to-teal-700"
+            shadowColor="shadow-green-700/20"
           />
         </div>
       </main>
