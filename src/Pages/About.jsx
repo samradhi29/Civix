@@ -180,8 +180,9 @@ function About() {
                 <div className="feature-icon">{feature.icon}</div>
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
+                <p className="feature-details">{feature.details}</p>
                 
-                <AnimatePresence>
+                {/* <AnimatePresence>
                   {activeFeature === index && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
@@ -189,10 +190,9 @@ function About() {
                       exit={{ opacity: 0, height: 0 }}
                       className="feature-details"
                     >
-                      <p>{feature.details}</p>
                     </motion.div>
                   )}
-                </AnimatePresence>
+                </AnimatePresence> */}
               </motion.div>
             ))}
           </div>
