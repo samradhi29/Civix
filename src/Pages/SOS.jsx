@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MapPin, Clock, Shield, AlertTriangle, Heart, Car, Home, Users, ChevronRight, Copy, Check } from 'lucide-react';
+import { Phone, MapPin, Clock, Shield, AlertTriangle, Heart, Car, Home, Users, ChevronRight, Copy, Check, Zap, Send } from 'lucide-react';
 
 const SOSPage = () => {
   const [location, setLocation] = useState(null);
@@ -40,19 +40,19 @@ const SOSPage = () => {
   }, []);
 
   const emergencyNumbers = [
-    { name: 'Police Emergency', number: '100', icon: Shield, color: 'bg-blue-600', description: 'Police assistance and law enforcement' },
-    { name: 'Fire Emergency', number: '101', icon: AlertTriangle, color: 'bg-red-600', description: 'Fire department and rescue services' },
-    { name: 'Medical Emergency', number: '108', icon: Heart, color: 'bg-green-600', description: 'Ambulance and medical emergency' },
-    { name: 'Women Helpline', number: '1091', icon: Users, color: 'bg-purple-600', description: '24x7 helpline for women in distress' },
-    { name: 'Child Helpline', number: '1098', icon: Users, color: 'bg-pink-600', description: 'Child protection and assistance' },
-    { name: 'Disaster Management', number: '108', icon: Car, color: 'bg-orange-600', description: 'Natural disaster and emergency response' }
+    { name: 'Police Emergency', number: '100', icon: Shield, color: 'from-blue-500 to-blue-700', description: 'Police assistance and law enforcement' },
+    { name: 'Fire Emergency', number: '101', icon: AlertTriangle, color: 'from-red-500 to-red-700', description: 'Fire department and rescue services' },
+    { name: 'Medical Emergency', number: '108', icon: Heart, color: 'from-emerald-500 to-emerald-700', description: 'Ambulance and medical emergency' },
+    { name: 'Women Helpline', number: '1091', icon: Users, color: 'from-purple-500 to-purple-700', description: '24x7 helpline for women in distress' },
+    { name: 'Child Helpline', number: '1098', icon: Users, color: 'from-pink-500 to-pink-700', description: 'Child protection and assistance' },
+    { name: 'Disaster Management', number: '108', icon: Car, color: 'from-orange-500 to-orange-700', description: 'Natural disaster and emergency response' }
   ];
 
   const quickActions = [
-    { name: 'Send Location to Emergency Contact', action: () => shareLocation(), icon: MapPin, color: 'bg-indigo-600' },
-    { name: 'Medical Information', action: () => alert('Show medical info'), icon: Heart, color: 'bg-red-500' },
-    { name: 'Safe Word Alert', action: () => sendSafeWordAlert(), icon: Shield, color: 'bg-yellow-600' },
-    { name: 'Record Audio', action: () => startRecording(), icon: AlertTriangle, color: 'bg-gray-600' }
+    { name: 'Send Location to Emergency Contact', action: () => shareLocation(), icon: Send, color: 'from-indigo-500 to-indigo-700' },
+    { name: 'Medical Information', action: () => alert('Show medical info'), icon: Heart, color: 'from-rose-500 to-rose-700' },
+    { name: 'Safe Word Alert', action: () => sendSafeWordAlert(), icon: Shield, color: 'from-amber-500 to-amber-700' },
+    { name: 'Record Audio', action: () => startRecording(), icon: Zap, color: 'from-violet-500 to-violet-700' }
   ];
 
   const callEmergencyNumber = (number) => {
@@ -101,182 +101,255 @@ const SOSPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="bg-red-600 text-white py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="bg-white/20 p-2 rounded-full">
-                <AlertTriangle className="h-8 w-8" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <div className="relative bg-gradient-to-r from-red-600 via-red-700 to-rose-600 text-white">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative backdrop-blur-sm">
+          <div className="container mx-auto px-6 py-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-white/30 rounded-full blur-md"></div>
+                  <div className="relative bg-white/20 p-3 rounded-full border border-white/20">
+                    <AlertTriangle className="h-10 w-10" />
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-red-100 bg-clip-text text-transparent">
+                    Emergency SOS
+                  </h1>
+                  <p className="text-red-100 text-lg mt-1">Help is available 24/7 • Stay Safe</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-3xl font-bold">Emergency SOS</h1>
-                <p className="text-red-100">Help is available 24/7</p>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="flex items-center gap-2 text-red-100 mb-1">
-                <Clock className="h-4 w-4" />
-                <span className="text-sm">Current Time</span>
-              </div>
-              <div className="text-xl font-mono font-bold">
-                {currentTime.toLocaleTimeString()}
+              <div className="text-center md:text-right">
+                <div className="flex items-center justify-center md:justify-end gap-2 text-red-100 mb-2">
+                  <Clock className="h-5 w-5" />
+                  <span className="text-sm font-medium">Current Time</span>
+                </div>
+                <div className="text-2xl md:text-3xl font-mono font-bold bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
+                  {currentTime.toLocaleTimeString()}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center gap-3 mb-4">
-            <MapPin className="h-6 w-6 text-red-600" />
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Your Location</h2>
+      <div className="container mx-auto px-6 py-12 space-y-8">
+        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-slate-700/50 p-8">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="bg-gradient-to-r from-red-500 to-rose-600 p-3 rounded-full">
+              <MapPin className="h-6 w-6 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Your Location</h2>
           </div>
           
           {location ? (
-            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-              <p className="text-green-800 dark:text-green-200 mb-2">
-                <strong>Coordinates:</strong> {location.latitude.toFixed(6)}, {location.longitude.toFixed(6)}
-              </p>
-              <p className="text-green-700 dark:text-green-300 text-sm mb-3">
-                Accuracy: ±{Math.round(location.accuracy)} meters
-              </p>
-              <div className="flex gap-2 flex-wrap">
+            <div className="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border border-emerald-200 dark:border-emerald-800/50 rounded-xl p-6 backdrop-blur-sm">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-emerald-100 dark:bg-emerald-900/30 p-2 rounded-lg">
+                  <MapPin className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-emerald-800 dark:text-emerald-200 font-semibold mb-1">
+                    Coordinates: {location.latitude.toFixed(6)}, {location.longitude.toFixed(6)}
+                  </p>
+                  <p className="text-emerald-700 dark:text-emerald-300 text-sm">
+                    Accuracy: ±{Math.round(location.accuracy)} meters
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-3 flex-wrap">
                 <button
                   onClick={() => window.open(`https://maps.google.com/?q=${location.latitude},${location.longitude}`, '_blank')}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2"
                 >
-                  View on Google Maps
+                  <MapPin className="h-4 w-4" />
+                  View on Maps
                 </button>
                 <button
                   onClick={shareLocation}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2"
                 >
+                  <Send className="h-4 w-4" />
                   Share Location
                 </button>
               </div>
             </div>
           ) : locationError ? (
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
-              <p className="text-yellow-800 dark:text-yellow-200 mb-3">{locationError}</p>
+            <div className="bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 border border-amber-200 dark:border-amber-800/50 rounded-xl p-6">
+              <p className="text-amber-800 dark:text-amber-200 mb-4 font-medium">{locationError}</p>
               <button
                 onClick={getLocation}
-                className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
               >
                 Try Again
               </button>
             </div>
           ) : (
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-              <p className="text-blue-800 dark:text-blue-200">Getting your location...</p>
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800/50 rounded-xl p-6">
+              <div className="flex items-center gap-3">
+                <div className="animate-spin rounded-full h-6 w-6 border-2 border-blue-600 border-t-transparent"></div>
+                <p className="text-blue-800 dark:text-blue-200 font-medium">Getting your location...</p>
+              </div>
             </div>
           )}
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-            <Phone className="h-6 w-6 text-red-600" />
+        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-slate-700/50 p-8">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-4">
+            <div className="bg-gradient-to-r from-red-500 to-rose-600 p-3 rounded-full">
+              <Phone className="h-6 w-6 text-white" />
+            </div>
             Emergency Numbers
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {emergencyNumbers.map((emergency, index) => {
               const Icon = emergency.icon;
               return (
-                <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <div className={`${emergency.color} p-2 rounded-full`}>
-                        <Icon className="h-5 w-5 text-white" />
+                <div key={index} className="group bg-white/60 dark:bg-slate-700/60 backdrop-blur-sm border border-white/40 dark:border-slate-600/40 rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-4">
+                      <div className={`bg-gradient-to-r ${emergency.color} p-3 rounded-full shadow-lg`}>
+                        <Icon className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900 dark:text-white">{emergency.name}</h3>
-                        <p className="text-2xl font-bold text-red-600">{emergency.number}</p>
+                        <h3 className="font-bold text-lg text-slate-900 dark:text-white">{emergency.name}</h3>
+                        <p className="text-3xl font-bold bg-gradient-to-r from-red-600 to-rose-600 bg-clip-text text-transparent">
+                          {emergency.number}
+                        </p>
                       </div>
                     </div>
                     <div className="flex gap-2">
                       <button
                         onClick={() => copyToClipboard(emergency.number)}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                        className="p-3 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-full transition-all duration-300 group"
                         title="Copy number"
                       >
                         {copiedNumber === emergency.number ? 
-                          <Check className="h-4 w-4 text-green-600" /> : 
-                          <Copy className="h-4 w-4 text-gray-500" />
+                          <Check className="h-5 w-5 text-emerald-600" /> : 
+                          <Copy className="h-5 w-5 text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300" />
                         }
                       </button>
                       <button
                         onClick={() => callEmergencyNumber(emergency.number)}
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition-colors flex items-center gap-1"
+                        className="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2 shadow-lg"
                       >
                         <Phone className="h-4 w-4" />
-                        Call
+                        Call Now
                       </button>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{emergency.description}</p>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{emergency.description}</p>
                 </div>
               );
             })}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Quick Actions</h2>
+        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-slate-700/50 p-8">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">Quick Actions</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {quickActions.map((action, index) => {
               const Icon = action.icon;
               return (
                 <button
                   key={index}
                   onClick={action.action}
-                  className={`${action.color} hover:opacity-90 text-white p-4 rounded-lg transition-all transform hover:scale-105 flex items-center justify-between group`}
+                  className={`group bg-gradient-to-r ${action.color} hover:shadow-2xl text-white p-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-between relative overflow-hidden`}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className="h-6 w-6" />
-                    <span className="font-medium">{action.name}</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative flex items-center gap-4">
+                    <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <span className="font-semibold text-lg">{action.name}</span>
                   </div>
-                  <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="h-6 w-6 group-hover:translate-x-2 transition-transform duration-300" />
                 </button>
               );
             })}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Safety Tips</h2>
+        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-slate-700/50 p-8">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">Safety Guidelines</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-3">In Case of Emergency:</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• Stay calm and assess the situation</li>
-                <li>• Call the appropriate emergency number</li>
-                <li>• Provide your exact location</li>
-                <li>• Follow the operator's instructions</li>
-                <li>• Stay on the line until help arrives</li>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200/50 dark:border-blue-800/30">
+              <h3 className="font-bold text-xl text-slate-900 dark:text-white mb-4 flex items-center gap-3">
+                <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-2 rounded-lg">
+                  <AlertTriangle className="h-5 w-5 text-white" />
+                </div>
+                Emergency Protocol
+              </h3>
+              <ul className="space-y-3 text-slate-700 dark:text-slate-300">
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Stay calm and assess the situation carefully</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Call the appropriate emergency number immediately</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Provide your exact location and situation details</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Follow the emergency operator's instructions precisely</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Stay on the line until professional help arrives</span>
+                </li>
               </ul>
             </div>
             
-            <div>
-              <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-3">Important Information:</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• Keep emergency numbers easily accessible</li>
-                <li>• Share your location with trusted contacts</li>
-                <li>• Keep your phone charged</li>
-                <li>• Know your medical information</li>
-                <li>• Trust your instincts in dangerous situations</li>
+            <div className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-xl p-6 border border-emerald-200/50 dark:border-emerald-800/30">
+              <h3 className="font-bold text-xl text-slate-900 dark:text-white mb-4 flex items-center gap-3">
+                <div className="bg-gradient-to-r from-emerald-500 to-green-600 p-2 rounded-lg">
+                  <Shield className="h-5 w-5 text-white" />
+                </div>
+                Preparedness Tips
+              </h3>
+              <ul className="space-y-3 text-slate-700 dark:text-slate-300">
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Keep emergency contacts readily accessible</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Share location with trusted family members</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Maintain your phone charge above 20%</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Keep medical information and allergies documented</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span>Always trust your instincts in potentially dangerous situations</span>
+                </li>
               </ul>
             </div>
           </div>
           
-          <div className="mt-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-            <p className="text-red-800 dark:text-red-200 text-center font-medium">
-              <AlertTriangle className="h-5 w-5 inline mr-2" />
-              If you're in immediate danger, call emergency services right away. This page is a tool to help, but professional emergency services should always be your first priority.
-            </p>
+          <div className="mt-8 bg-gradient-to-r from-red-50 via-rose-50 to-red-50 dark:from-red-900/20 dark:via-rose-900/20 dark:to-red-900/20 border border-red-200/50 dark:border-red-800/30 rounded-xl p-6 backdrop-blur-sm">
+            <div className="flex items-center justify-center gap-3 text-red-800 dark:text-red-200">
+              <div className="bg-red-100 dark:bg-red-900/30 p-2 rounded-full">
+                <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400 animate-pulse" />
+              </div>
+              <p className="text-center font-semibold text-lg">
+                If you're in immediate danger, call emergency services right away. This application serves as a helpful tool, but professional emergency response should always be your primary priority.
+              </p>
+            </div>
           </div>
         </div>
       </div>
