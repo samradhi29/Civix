@@ -96,7 +96,7 @@ const App = () => {
             <Route path="/complaints" element={<MyComplaints />} />
             <Route path="/contributors" element={<Contributors />} />
             <Route path="/sos" element={<SOS/>}/>
-            <Route path='/chatroom' element={<Chatroom/>}/>
+            <Route path='/chatrrom' element={<Chatroom/>}/>
 
 
             {/* Protected Routes */}
