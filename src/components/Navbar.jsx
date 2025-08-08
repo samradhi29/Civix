@@ -91,6 +91,10 @@ const Navbar = () => {
       href: "/civic-education"
     },
     {
+      title: "Voting System",
+      href: "/voting-system"
+    },
+    {
       title: "About",
       href: "/about"
     },
