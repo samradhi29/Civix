@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, Smartphone, Shield, MapPin, MessageSquare, BarChart3, Bell, Users, Star, Globe } from 'lucide-react';
+import DownloadPageQRCode from '../components/DownloadPageQRCode';
 
 const DownloadAndroid = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
@@ -220,6 +221,26 @@ const DownloadAndroid = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* QR Code Section */}
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-white via-green-50 to-emerald-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Get Civix on Your Android Device
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Scan the QR code below with your Android camera to be redirected to Google Play when Civix launches.
+            </p>
+          </div>
+          
+          <DownloadPageQRCode 
+            title="Civix for Android"
+            subtitle="Coming Soon to Google Play"
+            size="large"
+          />
         </div>
       </section>
 

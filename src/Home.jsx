@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import TestimonialCarousel from "./components/TestimonialCarousel";
 import {  AnimatePresence } from "framer-motion";
 import favv from './favv.svg';
+import EnhancedQRCode from "./components/EnhancedQRCode";
 
 
 
@@ -846,29 +847,7 @@ const questions = [
               </div>
 
               <div className="hidden lg:flex items-center justify-end animate-on-scroll px-6">
-                <div className="relative w-full max-w-sm">
-
-                  {/* QR Card */}
-                  <div className="flex flex-col items-center justify-center bg-white dark:bg-[#111827] border rounded-xl shadow-xl transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl p-6">
-                    <img
-                      src="/downloadCivixQrCode.png"
-                      alt="Download Civix App QR Code"
-                      className="w-48 h-48 object-contain mb-4"
-                      loading="lazy"
-                    />
-                    <p className="text-center text-sm font-medium text-gray-800 dark:text-gray-300">
-                      Civix App on Mobile
-                    </p>
-                  </div>
-
-                  {/* Floating Icon */}
-                  <div className="absolute -bottom-5 -left-5 h-16 w-16 rounded-lg border bg-white dark:bg-[#111827] p-2 shadow-lg transition-transform duration-300 hover:scale-110">
-                    <div className="flex items-center justify-center h-full w-full rounded bg-emerald-100 dark:bg-emerald-900">
-                      <img src={favv} alt="" style={{width : "35px"}} />
-                    </div>
-                  </div>
-
-                </div>
+                <EnhancedQRCode />
               </div>
 
             </div>
