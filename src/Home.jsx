@@ -737,7 +737,7 @@ const questions = [
                 >
                   {faq.answer}
                 </motion.p>
-                {faq.media && (
+                {/* {faq.media && (
                   <img
                     src={faq.media}
                     alt="FAQ explainer"
@@ -745,7 +745,7 @@ const questions = [
                     style={{ pointerEvents: "none" }}
                     loading="lazy"
                   />
-                )}
+                )} */}
               </motion.div>
             )}
           </AnimatePresence>
