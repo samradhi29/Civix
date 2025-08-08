@@ -7,8 +7,9 @@ import {
   Phone,
   Send,
   Upload,
+  MapPin,
 } from "lucide-react";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState, useEffect } from "react";
 import csrfManager from "../utils/csrfManager";
 
 const useDebounce = (callback, delay) => {
@@ -130,6 +131,7 @@ export default function ReportIssue() {
     title: "",
     description: "",
     notifyByEmail: false,
+    location: "",
   });
   const [file, setFile] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -249,9 +251,45 @@ export default function ReportIssue() {
         required: true,
         icon: MessageSquare,
       },
+      {
+        id: "location",
+        type: "text",
+        label: "Location",
+        placeholder: "Detecting your current location...",
+        required: true,
+        icon: MapPin,
+      },
     ],
     []
   );
+
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+          );
+          const data = await res.json();
+          setFormData((prev) => ({
+            ...prev,
+            location: data.display_name || `${latitude}, ${longitude}`,
+          }));
+        } catch (err) {
+          console.error("Location fetch error:", err);
+          setFormData((prev) => ({
+            ...prev,
+            location: `${latitude}, ${longitude}`,
+          }));
+        }
+      },
+      (err) => {
+        console.warn("Geolocation error:", err.message);
+      }
+    );
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-4 relative">
