@@ -87,7 +87,7 @@ const MyComplaints = () => {
                 key={id}
                 className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-green-100 dark:border-green-700 hover:border-green-200 dark:hover:border-green-600"
               >
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2 sm:gap-0">
                   <div className="flex items-center gap-2 text-green-600 dark:text-green-300">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -104,7 +104,7 @@ const MyComplaints = () => {
                   {complaint}
                 </p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-green-100 dark:border-green-700">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-4 border-t border-green-100 dark:border-green-700 gap-2 sm:gap-0">
                   <div className="flex items-center gap-1 text-green-600 dark:text-green-300 hover:text-green-700 dark:hover:text-green-200 transition-colors cursor-pointer">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
