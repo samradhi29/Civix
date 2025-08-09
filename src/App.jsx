@@ -37,6 +37,7 @@ import Contributors from './Pages/Contributors';
 import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 import SOS from './Pages/SOS';
 import Chatroom from './Pages/Chatroom';
+import TaxImpact from './Pages/TaxImpact';
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -99,6 +100,7 @@ const App = () => {
             <Route path="/contributors" element={<Contributors />} />
             <Route path="/sos" element={<SOS/>}/>
             <Route path='/chatroom' element={<Chatroom/>}/>
+            <Route path='/tax-impact' element={<TaxImpact/>}/>
 
 
             {/* Protected Routes */}
