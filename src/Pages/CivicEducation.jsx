@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { ChevronDown, ChevronUp, Users, Vote, Building, Heart, BookOpen, Download, Play, CheckCircle, XCircle, RotateCcw, Trophy, Star, Brain, Target, Lightbulb, Award, Clock, TrendingUp, MessageCircle, Share2, Bookmark, Calendar, MapPin, Phone, Mail, ExternalLink, Zap, Globe, Shield, Scale, Gavel, FileText, PieChart, BarChart3, Activity, Sparkles, Rocket, Gamepad2, Gift, Medal, Crown, Flame } from 'lucide-react';
 
 const CivicEducation = () => {
@@ -1343,11 +1344,13 @@ const CivicEducation = () => {
               </h4>
               <div className="grid md:grid-cols-3 gap-4">
                 {/* Tax Impact Calculator */}
+                <Link to="/tax-impact">
                 <div className="bg-gradient-to-br from-yellow-400 to-orange-500 text-white p-6 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer">
                   <PieChart className="w-12 h-12 mx-auto mb-3" />
                   <h5 className="font-semibold mb-2">Tax Impact Calculator</h5>
                   <p className="text-sm text-white/90">See how your taxes fund local services</p>
                 </div>
+                </Link>
 
                 {/* Voting Guide */}
                 <div className="bg-gradient-to-br from-green-400 to-emerald-500 text-white p-6 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer">
@@ -1357,11 +1360,13 @@ const CivicEducation = () => {
                 </div>
 
                 {/* Representative Finder */}
+                <Link to='/repersentative-finder'>
                 <div className="bg-gradient-to-br from-blue-400 to-purple-500 text-white p-6 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer">
                   <Users className="w-12 h-12 mx-auto mb-3" />
                   <h5 className="font-semibold mb-2">Representative Finder</h5>
                   <p className="text-sm text-white/90">Contact your elected officials</p>
                 </div>
+                </Link>
               </div>
             </div>
 

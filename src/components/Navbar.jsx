@@ -88,6 +88,7 @@ const Navbar = () => {
   }
 
   const navLinks = [
+    
     {
       title: "About",
       href: "/about",

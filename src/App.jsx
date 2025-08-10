@@ -27,6 +27,7 @@ import NewIssue from './Pages/NewIssue';
 import IssueDetail from './Pages/IssueDetail';
 import UserDashboard from './Pages/UserDashboard';
 import CommunityVotingPage from './Pages/CommunityVotingPage';
+import VotingSystem from './Pages/VotingSystem';
 import Profile from './Pages/Profile';
 import Resources from './Pages/Resources';
 import MyComplaints from './Pages/MyComplaints';
@@ -36,6 +37,8 @@ import Contributors from './Pages/Contributors';
 import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 import SOS from './Pages/SOS';
 import Chatroom from './Pages/Chatroom';
+import TaxImpact from './Pages/TaxImpact';
+import RepersentativeFinder from './Pages/RepersentativeFinder';
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -91,12 +94,15 @@ const App = () => {
             <Route path="/civic-education" element={<CivicEducation />} />
             <Route path="/civic-simulator" element={<CivicSimulator />} />
             <Route path="/community-voting" element={<CommunityVotingPage />} />
+            <Route path="/voting-system" element={<VotingSystem />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/complaints" element={<MyComplaints />} />
             <Route path="/contributors" element={<Contributors />} />
             <Route path="/sos" element={<SOS/>}/>
             <Route path='/chatroom' element={<Chatroom/>}/>
+            <Route path='/tax-impact' element={<TaxImpact/>}/>
+            <Route path='/repersentative-finder' element={<RepersentativeFinder/>}/>
 
 
             {/* Protected Routes */}
