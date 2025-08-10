@@ -38,6 +38,7 @@ import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 import SOS from './Pages/SOS';
 import Chatroom from './Pages/Chatroom';
 import TaxImpact from './Pages/TaxImpact';
+import RepersentativeFinder from './Pages/RepersentativeFinder';
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -101,6 +102,7 @@ const App = () => {
             <Route path="/sos" element={<SOS/>}/>
             <Route path='/chatroom' element={<Chatroom/>}/>
             <Route path='/tax-impact' element={<TaxImpact/>}/>
+            <Route path='/repersentative-finder' element={<RepersentativeFinder/>}/>
 
 
             {/* Protected Routes */}

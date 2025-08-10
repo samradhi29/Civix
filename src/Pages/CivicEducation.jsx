@@ -1360,11 +1360,13 @@ const CivicEducation = () => {
                 </div>
 
                 {/* Representative Finder */}
+                <Link to='/repersentative-finder'>
                 <div className="bg-gradient-to-br from-blue-400 to-purple-500 text-white p-6 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer">
                   <Users className="w-12 h-12 mx-auto mb-3" />
                   <h5 className="font-semibold mb-2">Representative Finder</h5>
                   <p className="text-sm text-white/90">Contact your elected officials</p>
                 </div>
+                </Link>
               </div>
             </div>
 
