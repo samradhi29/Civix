@@ -117,7 +117,8 @@ const Navbar = () => {
           </button>
         </div>
 
-        <nav className="hidden lg:flex gap-4">
+        <nav className="hidden md:flex gap-4">
+
           {navLinks.map((navItem) => {
             const Icon = navItem.icon;
             return (
@@ -140,7 +141,8 @@ const Navbar = () => {
 
         <button
           id="mobile-nav-toggle"
-          className="lg:hidden flex items-center justify-center p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="md:hidden flex items-center justify-center p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500"
+
           aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={mobileMenuOpen}
           onClick={() => setMobileMenuOpen((open) => !open)}
@@ -154,10 +156,12 @@ const Navbar = () => {
           </svg>
         </button>
 
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4">
+
           <button
             onClick={handleSOSClick}
-            className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl h-9 px-4 py-2"
+            className="hidden md:inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl h-9 px-4 py-2"
+
             title="Emergency SOS"
             aria-label="Emergency SOS Button"
           >
@@ -253,11 +257,12 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <>
           <div
-            className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm animate-fade-in"
+            className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm animate-fade-in"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
-          <div className="lg:hidden fixed inset-x-0 top-0 z-[100] animate-fade-slide-up">
+          <div className="md:hidden fixed inset-x-0 top-0 z-[100] animate-fade-slide-up">
+
             <nav id="mobile-nav-panel" className="relative flex flex-col items-center w-full h-[100vh] bg-white dark:bg-[#18181b] pt-24 gap-6 shadow-xl">
               <button
                 className="absolute top-6 right-6 text-3xl text-emerald-600 focus:outline-none"
@@ -367,8 +372,12 @@ const Navbar = () => {
                   </button>
                 </>
               )}
+              <div className="mt-auto pb-10">
+                <Switch />
+              </div>
             </nav>
 .
+
           </div>
         </>
       )}
