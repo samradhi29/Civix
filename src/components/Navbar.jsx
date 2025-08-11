@@ -5,12 +5,14 @@ import { jwtDecode } from 'jwt-decode';
 import { useAuth } from '@clerk/clerk-react';
 import logo from '../assets/logo.png';
 import { title } from 'process';
+import { Info, Phone, Users } from 'lucide-react';
+
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const [rightDropdownOpen, setRightDropdownOpen] = useState(false);
+  const rightDropdownRef = useRef(null);
   const { isSignedIn, signOut } = useAuth();
 
   const handleNav = (cb) => {
@@ -25,7 +27,7 @@ const Navbar = () => {
     }
     localStorage.removeItem("token");
     window.dispatchEvent(new Event("storage-update"));
-    setProfileDropdownOpen(false);
+    setRightDropdownOpen(false);
     navigate("/");
   };
 
@@ -37,11 +39,11 @@ const Navbar = () => {
     // Or open a modal, call emergency services, etc.
   };
 
-  // Close profile dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setProfileDropdownOpen(false);
+      if (rightDropdownRef.current && !rightDropdownRef.current.contains(event.target)) {
+        setRightDropdownOpen(false);
       }
     };
 
@@ -72,7 +74,7 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', onClick);
   }, [mobileMenuOpen]);
 
-  // ✅ Check if logged-in user is admin
+  // Check if logged-in user is admin
   const token = localStorage.getItem('token');
   let isAdmin = false;
 
@@ -86,56 +88,62 @@ const Navbar = () => {
   }
 
   const navLinks = [
-    {
-      title: "Civic Education & Rights",
-      href: "/civic-education"
-    },
-    {
-      title: "Voting System",
-      href: "/voting-system"
-    },
+    
     {
       title: "About",
-      href: "/about"
+      href: "/about",
+      icon: Info,
     },
     {
       title: "Contact Us",
-      href: "/contact"
+      href: "/contact",
+      icon: Phone,
     },
     {
       title: "Our contributors",
-      href: "/contributors"
+      href: "/contributors",
+      icon: Users,
     },
+  ];
 
-  ]
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur">
-      <div className="container flex h-14 items-center justify-between">
-        <button onClick={() => { setMobileMenuOpen(false); navigate('/'); }} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300" style={{ width: "74px", marginLeft: "21px" }}
-        >
+   <div className="container flex h-14 items-center justify-between">
 
-          <img src={logo} alt="" />
-          <span id="logo" className="text-xl font-bold" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>  </span>
-        </button>
 
-        {/* Desktop nav - only show on large screens */}
-        <nav className="hidden lg:flex gap-6">
-          {navLinks.map((navItem) => (
-            <Link key={navItem.title}
-              to={navItem.href}
-              className='text-sm font-medium hover:text-emerald-500 transition-colors duration-300'
-            >
-              {navItem.title}
-            </Link>
-          ))}
+        <div className="flex items-center">
+          <button onClick={() => { setMobileMenuOpen(false); navigate('/'); }} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300">
+            <img src={logo} alt="Civix logo" className="h-8 w-auto" />
+          </button>
+        </div>
+
+        <nav className="hidden md:flex gap-4">
+
+          {navLinks.map((navItem) => {
+            const Icon = navItem.icon;
+            return (
+              <Link
+                key={navItem.title}
+                to={navItem.href}
+                className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-white rounded-full px-4 py-2 transition-all duration-300 hover:bg-gradient-to-r from-emerald-400 to-teal-500 hover:shadow-lg"
+              >
+                <Icon className="w-5 h-5" />
+                <span>{navItem.title}</span>
+              </Link>
+            );
+          })}
         </nav>
 
 
-        {/* Hamburger for mobile and tablet */}
+
+
+
+
         <button
           id="mobile-nav-toggle"
-          className="lg:hidden flex items-center justify-center p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="md:hidden flex items-center justify-center p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500"
+
           aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={mobileMenuOpen}
           onClick={() => setMobileMenuOpen((open) => !open)}
@@ -149,187 +157,113 @@ const Navbar = () => {
           </svg>
         </button>
 
-        <div className="flex items-center gap-4">
-          <Switch />
+        <div className="hidden md:flex items-center gap-4">
 
-          {/* Profile Icon with Dropdown for authenticated users */}
-          {(isSignedIn || token) && (
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                className="hidden lg:flex items-center justify-center w-9 h-9 rounded-full bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-900 dark:hover:bg-emerald-800 transition-colors duration-200"
-                aria-label="Profile menu"
-              >
-                <svg
-                  className="w-5 h-5 text-emerald-600 dark:text-emerald-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
-              </button>
+          <button
+            onClick={handleSOSClick}
+            className="hidden md:inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl h-9 px-4 py-2"
 
-              {/* Profile Dropdown */}
-              {profileDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
-                  <button
-                    onClick={() => {
-                      setProfileDropdownOpen(false);
-                      navigate('/profile');
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    Profile
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setProfileDropdownOpen(false);
-                      navigate(isAdmin ? '/admin' : '/user/dashboard');
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                    Dashboard
-                  </button>
-
-                  {isAdmin && (
-                    <button
-                      onClick={() => {
-                        setProfileDropdownOpen(false);
-                        navigate('/admin');
-                      }}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                      Admin Panel
-                    </button>
-                  )}
-
-                  <hr className="my-2 border-gray-200 dark:border-gray-700" />
-
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1" />
-                    </svg>
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Dashboard link for authenticated users */}
-          {(isSignedIn || token) && (
-            <button
-              onClick={() => navigate(isAdmin ? '/admin' : '/user/dashboard')}
-              className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium border border-emerald-500 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 h-9 px-4 py-2"
+            title="Emergency SOS"
+            aria-label="Emergency SOS Button"
+          >
+            <svg
+              className="w-4 h-4 mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Dashboard
+              <path
+                fillRule="evenodd"
+                d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+            SOS
+          </button>
+          <div className="h-8 flex items-center justify-center">
+            <Switch />
+          </div>
+
+
+
+          <div className="relative" ref={rightDropdownRef}>
+            <button
+              onClick={() => setRightDropdownOpen(!rightDropdownOpen)}
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200"
+              aria-label="Open user menu"
+            >
+              <svg className="h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             </button>
-          )}
 
-          {/* Show logout button when authenticated, login/signup when not */}
-          {isSignedIn || token ? (
-            <>
-              <button
-                onClick={handleLogout}
-                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-white hover:bg-emerald-600 h-9 px-4 py-2"
-              >
-                Logout
-              </button>
-              
-              {/* SOS Button - positioned after logout button */}
-              <button
-                onClick={handleSOSClick}
-                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl h-9 px-4 py-2"
-                title="Emergency SOS"
-                aria-label="Emergency SOS Button"
-              >
-                <svg
-                  className="w-4 h-4 mr-1"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                SOS
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => navigate('/login')}
-                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-              >
-                Login
-              </button>
-              <button
-                onClick={() => navigate('/signup')}
-                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-primary-foreground hover:bg-emerald-600 h-9 px-4 py-2"
-              >
-                Get Started
-              </button>
+            {rightDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-56 rounded-lg bg-gradient-to-r from-emerald-400 to-teal-500 p-px shadow-xl z-50">
+                <div className="bg-white dark:bg-gray-900 rounded-[7px]">
+                  <div className="p-1">
 
-              {/* SOS Button for non-authenticated users - positioned after signup */}
-              <button
-                onClick={handleSOSClick}
-                className="hidden lg:inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl h-9 px-4 py-2"
-                title="Emergency SOS"
-                aria-label="Emergency SOS Button"
-              >
-                <svg
-                  className="w-4 h-4 mr-1"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                SOS
-              </button>
-            </>
-          )}
+                  <button
+                    onClick={() => { setRightDropdownOpen(false); navigate('/civic-education'); }}
+                    className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
+                  >
+                    Civic Education & Rights
+                  </button>
+                  
+                  {!(isSignedIn || token) ? (
+                    <button
+                      onClick={() => { setRightDropdownOpen(false); navigate('/login'); }}
+                      className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
+                    >
+                      Login
+                    </button>
+                  ) : (
+                    <>
+                      <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                      <button
+                        onClick={() => {
+                          setRightDropdownOpen(false);
+                          navigate('/profile');
+                        }}
+                        className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
+                      >
+                        Profile
+                      </button>
+                      <button
+                        onClick={() => {
+                          setRightDropdownOpen(false);
+                          navigate(isAdmin ? '/admin' : '/user/dashboard');
+                        }}
+                        className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
+                      >
+                        Dashboard
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-3 py-2 text-sm rounded-md text-red-600 dark:text-red-400 hover:text-white hover:bg-gradient-to-r from-red-500 to-rose-600 transition-all duration-200 flex items-center gap-2"
+                      >
+                        Logout
+                      </button>
+                    </>
+                  )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+
+          </div>
         </div>
       </div>
 
-      {/* Mobile/Tablet menu overlay and panel */}
       {mobileMenuOpen && (
         <>
-          {/* Dark overlay */}
           <div
-            className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm animate-fade-in"
+            className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm animate-fade-in"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
-          {/* Panel */}
-          <div className="lg:hidden fixed inset-x-0 top-0 z-[100] animate-fade-slide-up">
+          <div className="md:hidden fixed inset-x-0 top-0 z-[100] animate-fade-slide-up">
+
             <nav id="mobile-nav-panel" className="relative flex flex-col items-center w-full h-[100vh] bg-white dark:bg-[#18181b] pt-24 gap-6 shadow-xl">
               <button
                 className="absolute top-6 right-6 text-3xl text-emerald-600 focus:outline-none"
@@ -349,7 +283,6 @@ const Navbar = () => {
                 </Link>
               ))}
 
-              {/* Profile link for authenticated users in mobile menu */}
               {(isSignedIn || token) && (
                 <button
                   onClick={() => handleNav(() => navigate('/profile'))}
@@ -359,7 +292,6 @@ const Navbar = () => {
                 </button>
               )}
 
-              {/* Dashboard link for authenticated users in mobile menu */}
               {(isSignedIn || token) && (
                 <button
                   onClick={() => handleNav(() => navigate(isAdmin ? '/admin' : '/user/dashboard'))}
@@ -378,7 +310,6 @@ const Navbar = () => {
                 </button>
               )}
 
-              {/* Show logout button when authenticated, login/signup when not */}
               {isSignedIn || token ? (
                 <>
                   <button
@@ -388,7 +319,6 @@ const Navbar = () => {
                     Logout
                   </button>
 
-                  {/* SOS Button in mobile menu */}
                   <button
                     onClick={() => handleNav(handleSOSClick)}
                     className="w-11/12 rounded-md text-base font-bold bg-red-600 text-white hover:bg-red-700 shadow-lg h-11 px-4 py-2 animate-pulse flex items-center justify-center gap-2"
@@ -423,7 +353,6 @@ const Navbar = () => {
                     Get Started
                   </button>
 
-                  {/* SOS Button in mobile menu for non-authenticated users */}
                   <button
                     onClick={() => handleNav(handleSOSClick)}
                     className="w-11/12 rounded-md text-base font-bold bg-red-600 text-white hover:bg-red-700 shadow-lg h-11 px-4 py-2 flex items-center justify-center gap-2"
@@ -444,7 +373,12 @@ const Navbar = () => {
                   </button>
                 </>
               )}
+              <div className="mt-auto pb-10">
+                <Switch />
+              </div>
             </nav>
+.
+
           </div>
         </>
       )}
