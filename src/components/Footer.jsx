@@ -123,7 +123,7 @@ const Footer = () => {
       ))}
     </div>
 
-    {/* Feedback + Submit inline */}
+   
     {selectedRating !== null && (
       <div className="flex items-center gap-2">
         <input
@@ -140,6 +140,7 @@ const Footer = () => {
           Submit
         </button>
       </div>
+
     )}
   </div>
 </div>
