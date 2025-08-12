@@ -1,204 +1,177 @@
+// src/components/About.js
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {Link} from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import './About.css';
+import mission from '../assets/mission.png';
 
 function About() {
   const [isDarkMode, setIsDarkMode] = useState(
-    window.matchMedia('(prefers-color-scheme: dark)').matches
+    () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
   );
   const [activeFeature, setActiveFeature] = useState(null);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => setIsDarkMode(mediaQuery.matches);
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: false,   // repeat when scrolling up/down
+      mirror: true,  // animate out while scrolling past
+    });
+
+    // Refresh AOS after layout changes / images load
+    const refreshAOS = () => AOS.refresh();
+
+    // refresh on load/resize and a small timeout (helps with images and fonts)
+    window.addEventListener('load', refreshAOS);
+    window.addEventListener('resize', refreshAOS);
+    const timeoutId = setTimeout(refreshAOS, 600);
+
+    // prefer-color-scheme listener
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => setIsDarkMode(mq.matches);
+    mq.addEventListener && mq.addEventListener('change', handleChange);
+
+    return () => {
+      window.removeEventListener('load', refreshAOS);
+      window.removeEventListener('resize', refreshAOS);
+      clearTimeout(timeoutId);
+      mq.removeEventListener && mq.removeEventListener('change', handleChange);
+    };
   }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 12
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.8, rotateY: -15 },
-    visible: (i) => ({
-      opacity: 1,
-      scale: 1,
-      rotateY: 0,
-      transition: {
-        delay: i * 0.2,
-        type: 'spring',
-        stiffness: 120,
-        damping: 15
-      }
-    }),
-    hover: {
-      scale: 1.05,
-      rotateY: 5,
-      z: 50,
-      transition: {
-        type: 'spring',
-        stiffness: 400,
-        damping: 25
-      }
-    }
-  };
 
   const features = [
     {
       icon: '📱',
       title: 'Easy Reporting',
-      description: 'Quickly log issues with a few taps and notify the right authorities instantly.',
-      details: 'Our intuitive interface makes reporting civic issues as simple as sending a text message.'
+      description:
+        'Quickly log issues with a few taps and notify the right authorities instantly.',
+      details:
+        'Our intuitive interface makes reporting civic issues as simple as sending a text message.',
     },
     {
       icon: '📊',
       title: 'Track Progress',
-      description: 'Stay updated with real-time progress on your complaints and resolutions.',
-      details: 'Get notifications and track every step from submission to resolution with our advanced tracking system.'
+      description:
+        'Stay updated with real-time progress on your complaints and resolutions.',
+      details:
+        'Get notifications and track every step from submission to resolution with our advanced tracking system.',
     },
     {
       icon: '🤝',
       title: 'Community Driven',
-      description: 'Engage and collaborate with your neighborhood to drive meaningful change.',
-      details: 'Join forces with neighbors, vote on issues, and create a stronger voice for your community.'
-    }
+      description:
+        'Engage and collaborate with your neighborhood to drive meaningful change.',
+      details:
+        'Join forces with neighbors, vote on issues, and create a stronger voice for your community.',
+    },
   ];
 
   const steps = [
     {
       number: '01',
       title: 'Report Issue',
-      description: 'Log in via mobile app and describe your issue with location and photo'
+      description:
+        'Log in via mobile app and describe your issue with location and photo',
     },
     {
       number: '02',
       title: 'Route & Process',
-      description: 'Civix automatically routes your report to the relevant department'
+      description: 'Civix automatically routes your report to the relevant department',
     },
     {
       number: '03',
       title: 'Track & Resolve',
-      description: 'Monitor updates and resolution status in real-time with notifications'
-    }
+      description:
+        'Monitor updates and resolution status in real-time with notifications',
+    },
   ];
 
   return (
     <div className={`about-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-     
-
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="content-wrapper"
-      >
-        <motion.section variants={itemVariants} className="hero-section">
+      <div className="content-wrapper">
+        {/* HERO */}
+        <section className="hero-section" data-aos="fade-up">
           <div className="hero-content">
+            <div className="glitter-container" aria-hidden>
+              {[...Array(10)].map((_, i) => (
+                <span
+                  key={i}
+                  className="glitter-star"
+                  style={{
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    animationDuration: `${3 + Math.random() * 2}s`,
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* small framer animation only for the badge (doesn't conflict with AOS) */}
             <motion.div
-              initial={{ scale: 0.5, opacity: 0 }}
+              initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
+              transition={{ duration: 0.6, type: 'spring', stiffness: 120 }}
               className="hero-badge"
             >
               ✨ Empowering Citizens
             </motion.div>
-            
-            <motion.h1
-              className="hero-title bg-gradient-to-r from-gray-300 to-gray-700 bg-clip-text text-transparent"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
+
+            <h1 className="hero-title">
               Report Local Issues.
               <br />
               <span className="gradient-text">Make Your City Better.</span>
-            </motion.h1>
-            
-            <motion.p
-              className="hero-description"
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              Civix helps citizens report and track local civic issues like potholes, 
-              broken lights, and garbage collection problems with unprecedented ease and transparency.
-            </motion.p>
+            </h1>
 
-            <motion.div
-              className="hero-cta"
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <Link to="/signup" >
-              <button className="cta-primary">Get Started</button>
+            <p className="hero-description">
+              Civix helps citizens report and track local civic issues like potholes, broken lights,
+              and garbage collection problems with unprecedented ease and transparency.
+            </p>
+
+            <div className="hero-cta">
+              <Link to="/signup">
+                <button className="cta-primary">Get Started</button>
               </Link>
               <button className="cta-secondary">Learn More</button>
-            </motion.div>
+            </div>
           </div>
-        </motion.section>
+        </section>
 
-        <motion.section variants={itemVariants} className="features-section">
+        {/* FEATURES */}
+        <section className="features-section" data-aos="fade-up" data-aos-delay="100">
           <div className="section-header">
             <h2 className="section-title">Powerful Features</h2>
-            <p className="section-subtitle">Everything you need to make a real difference in your community</p>
+            <p className="section-subtitle">
+              Everything you need to make a real difference in your community
+            </p>
           </div>
 
           <div className="features-grid">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                custom={index}
-                variants={cardVariants}
-                whileHover="hover"
+                className="feature-card"
+                whileHover={{ scale: 1.04 }}
                 onHoverStart={() => setActiveFeature(index)}
                 onHoverEnd={() => setActiveFeature(null)}
-                className="feature-card"
+                data-aos="fade-up"
+                data-aos-delay={120 * index}
               >
                 <div className="feature-icon">{feature.icon}</div>
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
                 <p className="feature-details">{feature.details}</p>
-                
-                {/* <AnimatePresence>
-                  {activeFeature === index && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="feature-details"
-                    >
-                    </motion.div>
-                  )}
-                </AnimatePresence> */}
               </motion.div>
             ))}
           </div>
-        </motion.section>
+        </section>
 
-        <motion.section variants={itemVariants} className="process-section">
+        {/* PROCESS */}
+        <section className="process-section" data-aos="fade-up" data-aos-delay="200">
           <div className="section-header">
             <h2 className="section-title">How It Works</h2>
             <p className="section-subtitle">Simple steps to create meaningful change</p>
@@ -206,10 +179,11 @@ function About() {
 
           <div className="process-timeline">
             {steps.map((step, index) => (
-              <motion.div
+              <div
                 key={index}
-                variants={itemVariants}
                 className="timeline-item"
+                data-aos="fade-right"
+                data-aos-delay={index * 120}
               >
                 <div className="timeline-marker">
                   <span className="step-number">{step.number}</span>
@@ -218,21 +192,22 @@ function About() {
                   <h3 className="step-title">{step.title}</h3>
                   <p className="step-description">{step.description}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.section>
+        </section>
 
-        <motion.section variants={itemVariants} className="why-section">
+        {/* WHY */}
+        <section className="why-section" data-aos="fade-up" data-aos-delay="300">
           <div className="why-content">
             <div className="why-text">
-              <h2 className="section-title">Why Choose Civix?</h2>
+              <h2 className="why-section-title">Why Choose Civix?</h2>
               <p className="why-description">
-                Civix empowers citizens by simplifying the process to voice concerns and foster 
-                positive change in communities. We connect the public with civic authorities for 
-                enhanced governance, transparency, and real results that matter.
+                Civix empowers citizens by simplifying the process to voice concerns and foster positive
+                change in communities. We connect the public with civic authorities for enhanced governance,
+                transparency, and real results that matter.
               </p>
-              
+
               <div className="stats-grid">
                 <div className="stat-item">
                   <span className="stat-number">10K+</span>
@@ -248,16 +223,39 @@ function About() {
                 </div>
               </div>
             </div>
-            
+
             <div className="why-visual">
               <div className="visual-element">
-                <div className="pulse-ring"></div>
+                <div className="pulse-ring" />
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
-        <motion.section variants={itemVariants} className="cta-section">
+        {/* MISSION & VISION */}
+        <section className="mission-vision-section" data-aos="fade-up" data-aos-delay="400">
+          <div className="mv-container">
+            <div className="mv-text">
+              <h2 className="section-title">Our Mission</h2>
+              <p>
+                To empower every citizen to take action and improve their city by making civic reporting
+                simple, transparent, and impactful.
+              </p>
+              <h2 className="section-title">Our Vision</h2>
+              <p>
+                A world where communities and governments work hand-in-hand to create cleaner, safer, and
+                more livable cities for everyone.
+              </p>
+            </div>
+            <div className="mv-image">
+              {/* refresh AOS once this image is loaded */}
+              <img src={mission} alt="Mission" onLoad={() => AOS.refresh()} />
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="cta-section" data-aos="zoom-in" data-aos-delay="500">
           <div className="cta-content">
             <h2 className="cta-title">Ready to Make a Difference?</h2>
             <p className="cta-description">
@@ -265,13 +263,13 @@ function About() {
             </p>
             <div className="cta-buttons">
               <button className="btn-primary">Download App</button>
-              <Link to="/contact" >
-              <button className="cta-secondary" >Contact Us</button>
+              <Link to="/contact">
+                <button className="cta-secondary">Contact Us</button>
               </Link>
             </div>
           </div>
-        </motion.section>
-      </motion.div>
+        </section>
+      </div>
     </div>
   );
 }
