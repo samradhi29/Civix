@@ -6,6 +6,16 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './About.css';
 import mission from '../assets/mission.png';
+import { 
+  Users, 
+  Globe, 
+  Heart, 
+  Target, 
+  Zap, 
+  Shield,
+  Award,
+  Smartphone
+} from 'lucide-react';
 
 function About() {
   const [isDarkMode, setIsDarkMode] = useState(
@@ -43,31 +53,55 @@ function About() {
     };
   }, []);
 
-  const features = [
+   const features = [
     {
-      icon: '📱',
-      title: 'Easy Reporting',
-      description:
-        'Quickly log issues with a few taps and notify the right authorities instantly.',
-      details:
-        'Our intuitive interface makes reporting civic issues as simple as sending a text message.',
+      icon: <Users className="w-7 h-7" />,
+      title: "Community Building",
+      description: "Connect with like-minded individuals in your area",
+      details: "Create lasting relationships and build stronger neighborhoods through our advanced matching system."
     },
     {
-      icon: '📊',
-      title: 'Track Progress',
-      description:
-        'Stay updated with real-time progress on your complaints and resolutions.',
-      details:
-        'Get notifications and track every step from submission to resolution with our advanced tracking system.',
+      icon: <Globe className="w-7 h-7" />,
+      title: "Global Impact",
+      description: "Make a difference on a worldwide scale",
+      details: "Join international initiatives and see how your local actions contribute to global change."
     },
     {
-      icon: '🤝',
-      title: 'Community Driven',
-      description:
-        'Engage and collaborate with your neighborhood to drive meaningful change.',
-      details:
-        'Join forces with neighbors, vote on issues, and create a stronger voice for your community.',
+      icon: <Heart className="w-7 h-7" />,
+      title: "Social Good",
+      description: "Focus on projects that truly matter",
+      details: "Our AI-powered system helps identify the most impactful opportunities in your community."
     },
+    {
+      icon: <Target className="w-7 h-7" />,
+      title: "Goal Tracking",
+      description: "Measure your impact with precision",
+      details: "Advanced analytics and reporting tools help you track progress and celebrate achievements."
+    },
+    {
+      icon: <Zap className="w-7 h-7" />,
+      title: "Quick Actions",
+      description: "Take immediate action when it matters",
+      details: "Real-time notifications and one-click participation make helping others effortless."
+    },
+    {
+      icon: <Shield className="w-7 h-7" />,
+      title: "Verified Projects",
+      description: "Trust in legitimate, vetted opportunities",
+      details: "Every project undergoes rigorous verification to ensure your time and effort create real impact."
+    },
+    {
+      icon: <Award className="w-7 h-7" />,
+      title: "Recognition System",
+      description: "Get acknowledged for your contributions",
+      details: "Earn badges, certificates, and community recognition for your volunteer work and achievements."
+    },
+    {
+      icon: <Smartphone className="w-7 h-7" />,
+      title: "Mobile First",
+      description: "Volunteer on the go with our mobile app",
+      details: "Native iOS and Android apps with offline capabilities and push notifications."
+    }
   ];
 
   const steps = [
@@ -141,61 +175,80 @@ function About() {
           </div>
         </section>
 
-        {/* FEATURES */}
-        <section className="features-section" data-aos="fade-up" data-aos-delay="100">
-          <div className="section-header">
-            <h2 className="section-title">Powerful Features</h2>
-            <p className="section-subtitle">
-              Everything you need to make a real difference in your community
-            </p>
+       <section className="relative py-20 px-6 ">
+      
+      <div className="relative max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center px-4 py-2 mb-6 bg-green-50/80 dark:bg-green-900/30 rounded-full border border-green-100/60 dark:border-green-700/30">
+            <span className="text-green-700 dark:text-green-300 text-sm font-medium">✨ Powerful Features</span>
           </div>
+          
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-6 leading-tight">
+            Everything you need to make a 
+            <span className="block text-green-600 dark:text-green-400">real difference</span>
+          </h2>
+          
+          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Discover powerful tools and features designed to amplify your impact and 
+            connect you with meaningful opportunities in your community
+          </p>
+        </div>
 
-          <div className="features-grid">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                className="feature-card"
-                whileHover={{ scale: 1.04 }}
-                onHoverStart={() => setActiveFeature(index)}
-                onHoverEnd={() => setActiveFeature(null)}
-                data-aos="fade-up"
-                data-aos-delay={120 * index}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className={`group relative p-6 rounded-2xl transition-all duration-300 cursor-pointer
+                ${activeFeature === index 
+                  ? 'bg-white dark:bg-slate-800 shadow-xl shadow-green-500/5 dark:shadow-green-500/10 border border-green-200/40 dark:border-green-600/30 transform translate-y-[-4px]' 
+                  : 'bg-white/70 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 hover:shadow-lg dark:hover:shadow-lg border border-white/50 dark:border-slate-700/50'
+                } backdrop-blur-sm`}
+              onMouseEnter={() => setActiveFeature(index)}
+              onMouseLeave={() => setActiveFeature(null)}
+            >
+              <div className={`absolute inset-0 rounded-2xl transition-opacity duration-300 ${
+                activeFeature === index 
+                  ? 'bg-gradient-to-br from-green-50/50 to-emerald-50/30 dark:from-green-900/20 dark:to-emerald-900/20 opacity-100' 
+                  : 'opacity-0'
+              }`}></div>
+
+              <div className={`relative mb-5 w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300
+                ${activeFeature === index 
+                  ? 'bg-gradient-to-br from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 text-white shadow-md shadow-green-500/20 dark:shadow-green-500/30' 
+                  : 'bg-green-50 dark:bg-green-900/40 text-green-600 dark:text-green-400 group-hover:bg-green-100 dark:group-hover:bg-green-900/60'
+                }`}
               >
-                <div className="feature-icon">{feature.icon}</div>
-                <h3 className="feature-title">{feature.title}</h3>
-                <p className="feature-description">{feature.description}</p>
-                <p className="feature-details">{feature.details}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* PROCESS */}
-        <section className="process-section" data-aos="fade-up" data-aos-delay="200">
-          <div className="section-header">
-            <h2 className="section-title">How It Works</h2>
-            <p className="section-subtitle">Simple steps to create meaningful change</p>
-          </div>
-
-          <div className="process-timeline">
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className="timeline-item"
-                data-aos="fade-right"
-                data-aos-delay={index * 120}
-              >
-                <div className="timeline-marker">
-                  <span className="step-number">{step.number}</span>
-                </div>
-                <div className="timeline-content">
-                  <h3 className="step-title">{step.title}</h3>
-                  <p className="step-description">{step.description}</p>
-                </div>
+                {feature.icon}
               </div>
-            ))}
-          </div>
-        </section>
+
+              <div className="relative">
+                <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-3 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors duration-200">
+                  {feature.title}
+                </h3>
+                
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-3">
+                  {feature.description}
+                </p>
+                
+                <p className={`text-xs text-slate-500 dark:text-slate-400 leading-relaxed transition-all duration-300 ${
+                  activeFeature === index ? 'opacity-100 max-h-16' : 'opacity-0 max-h-0 overflow-hidden'
+                }`}>
+                  {feature.details}
+                </p>
+              </div>
+
+              <div className={`absolute top-4 right-4 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                activeFeature === index ? 'bg-green-400 dark:bg-green-500' : 'bg-slate-200 dark:bg-slate-600'
+              }`}></div>
+
+              <div className={`absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-green-400 to-emerald-500 dark:from-green-500 dark:to-emerald-600 transition-all duration-300 ${
+                activeFeature === index ? 'opacity-100' : 'opacity-0'
+              }`}></div>
+            </div>
+          ))}
+        </div>        
+      </div>
+    </section>
 
         {/* WHY */}
         <section className="why-section" data-aos="fade-up" data-aos-delay="300">
