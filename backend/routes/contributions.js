@@ -1,5 +1,5 @@
 const express = require("express");
-const { getContributors } = require("../controllers/contributor.controller");
+const { getContributors } = require("../controllers/contributor");
 
 const router = express.Router();
 
