@@ -39,6 +39,7 @@ import SOS from './Pages/SOS';
 import Chatroom from './Pages/Chatroom';
 import TaxImpact from './Pages/TaxImpact';
 import RepersentativeFinder from './Pages/RepersentativeFinder';
+import Analytics from './Pages/Analytics';
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -103,6 +104,7 @@ const App = () => {
             <Route path='/chatroom' element={<Chatroom/>}/>
             <Route path='/tax-impact' element={<TaxImpact/>}/>
             <Route path='/repersentative-finder' element={<RepersentativeFinder/>}/>
+            <Route path='/admin/analytics' element={<Analytics/>}/>
 
 
             {/* Protected Routes */}
