@@ -234,7 +234,6 @@ const navigate = useNavigate();
                 </nav>
               </aside>
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
         <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 mb-6 p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
@@ -255,7 +254,6 @@ const navigate = useNavigate();
             </div>
           </div>
 
-          {/* Filter Tabs */}
           <div className="flex items-center justify-between">
             <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
               {['all', 'unread', 'read'].map((tab) => (
@@ -285,7 +283,6 @@ const navigate = useNavigate();
           </div>
         </div>
 
-        {/* Notifications List */}
         <div className="space-y-3">
           {filteredNotifications.length === 0 ? (
             <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-12 text-center">
@@ -376,7 +373,6 @@ const navigate = useNavigate();
           )}
         </div>
 
-        {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-gray-500 text-sm">
             Showing {filteredNotifications.length} of {notifications.length} notifications
