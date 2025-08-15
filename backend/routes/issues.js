@@ -12,5 +12,6 @@ router.patch("/:id/status", verifyToken, isAdmin, issueController.updateIssueSta
 
 // GET: All issues
 router.get("/", issueController.getAllIssues);
+router.get("/:id",issueController.getIssueById)
 
 module.exports = router;
