@@ -41,6 +41,7 @@ import TaxImpact from './Pages/TaxImpact';
 import RepersentativeFinder from './Pages/RepersentativeFinder';
 import Analytics from './Pages/Analytics';
 import Users from './Pages/Users';
+import Documents from './Pages/Documents';
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -107,6 +108,7 @@ const App = () => {
             <Route path='/repersentative-finder' element={<RepersentativeFinder/>}/>
             <Route path='/admin/analytics' element={<Analytics/>}/>
             <Route path='/admin/users' element={<Users/>}/>
+            <Route path='/admin/documents' element={<Documents/>}/>
 
 
             {/* Protected Routes */}
@@ -121,9 +123,9 @@ const App = () => {
             <Route
               path="/admin/dashboard"
               element={
-                <PrivateRoute allowedRoles={['admin']}>
+                // <PrivateRoute allowedRoles={['admin']}>
                   <AdminDashboard />
-                </PrivateRoute>
+                // </PrivateRoute>
               }
             />
             <Route

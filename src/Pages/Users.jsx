@@ -24,7 +24,6 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   { key: 'notifications', label: 'Notifications', icon: Bell, route: '/admin/notifications' },
   { key: 'settings', label: 'Settings', icon: Settings, route: '/admin/settings' },
 ];
-  // Mock user data
   const users = [
     {
       id: 1,
@@ -176,13 +175,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const getRoleColor = (role) => {
     switch (role) {
       case 'admin':
-        return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+        return 'bg-red-100 text-red-800';
       case 'moderator':
-        return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+        return 'bg-blue-100 text-blue-800';
       case 'citizen':
-        return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+        return 'bg-green-100 text-green-800';
       default:
-        return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -191,13 +190,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">User Details</h2>
+              <h2 className="text-xl font-semibold text-gray-900">User Details</h2>
               <button 
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-gray-400 hover:text-gray-600"
               >
                 <XCircle className="h-6 w-6" />
               </button>
@@ -206,14 +205,14 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
           
           <div className="p-6 space-y-6">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                <User className="h-8 w-8 text-green-600 dark:text-green-400" />
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                <User className="h-8 w-8 text-green-600" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{user.name}</h3>
+                <h3 className="text-lg font-semibold text-gray-900">{user.name}</h3>
                 <div className="flex items-center space-x-2 mt-1">
                   {getStatusIcon(user.status)}
-                  <span className="text-sm text-gray-600 dark:text-gray-400 capitalize">{user.status}</span>
+                  <span className="text-sm text-gray-600 capitalize">{user.status}</span>
                   {user.verified && <CheckCircle className="h-4 w-4 text-blue-500" />}
                 </div>
               </div>
@@ -222,17 +221,17 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Contact Information</label>
+                  <label className="text-sm font-medium text-gray-700">Contact Information</label>
                   <div className="mt-2 space-y-2">
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center text-sm text-gray-600">
                       <Mail className="h-4 w-4 mr-2" />
                       {user.email}
                     </div>
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center text-sm text-gray-600">
                       <Phone className="h-4 w-4 mr-2" />
                       {user.phone}
                     </div>
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center text-sm text-gray-600">
                       <MapPin className="h-4 w-4 mr-2" />
                       {user.location}
                     </div>
@@ -240,13 +239,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Account Details</label>
+                  <label className="text-sm font-medium text-gray-700">Account Details</label>
                   <div className="mt-2 space-y-2">
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center text-sm text-gray-600">
                       <Calendar className="h-4 w-4 mr-2" />
                       Joined {user.joinDate}
                     </div>
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center text-sm text-gray-600">
                       <Shield className="h-4 w-4 mr-2" />
                       <span className={`px-2 py-1 rounded-full text-xs ${getRoleColor(user.role)}`}>
                         {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
@@ -258,36 +257,36 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Activity Stats</label>
+                  <label className="text-sm font-medium text-gray-700">Activity Stats</label>
                   <div className="mt-2 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Posts Created</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{user.posts}</span>
+                      <span className="text-gray-600">Posts Created</span>
+                      <span className="font-medium text-gray-900">{user.posts}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Comments</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{user.comments}</span>
+                      <span className="text-gray-600">Comments</span>
+                      <span className="font-medium text-gray-900">{user.comments}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Votes Cast</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{user.votes}</span>
+                      <span className="text-gray-600">Votes Cast</span>
+                      <span className="font-medium text-gray-900">{user.votes}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Reputation</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{user.reputation}/5.0</span>
+                      <span className="text-gray-600">Reputation</span>
+                      <span className="font-medium text-gray-900">{user.reputation}/5.0</span>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Last Activity</label>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{user.lastActive}</p>
+                  <label className="text-sm font-medium text-gray-700">Last Activity</label>
+                  <p className="mt-1 text-sm text-gray-600">{user.lastActive}</p>
                 </div>
               </div>
             </div>
 
-            <div className="flex space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <button className="flex-1 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
+            <div className="flex space-x-3 pt-4 border-t border-gray-200">
+              <button className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
                 <Edit className="h-4 w-4 mr-2" />
                 Edit User
               </button>
@@ -307,7 +306,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   };
 
   return (
-    <div className="min-h-screen ml-10 bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen ml-10 bg-gray-50">
         {isSidebarOpen && (
                 <div
                   className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
@@ -315,11 +314,11 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                 />
               )}
               <aside
-                className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 dark:bg-gray-900/80 dark:border-gray-800/50 flex flex-col shadow-xl ${
+                className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
                   isSidebarOpen ? 'w-[64]' : 'w-16'
                 }`}
               >
-                <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-800/50">
+                <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50">
                   <div className={`flex items-center transition-all duration-300 ${isSidebarOpen ? 'opacity-100' : 'opacity-0 w-0'}`}>
                     <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
                       <span className="text-white font-bold text-sm">C</span>
@@ -334,25 +333,25 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                     type="button"
                     aria-label={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
+                    className={`p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
                       !isSidebarOpen ? 'mx-auto' : ''
                     }`}
                   >
                     {isSidebarOpen ? (
-                      <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                      <ChevronLeft className="w-5 h-5 text-gray-600" />
                     ) : (
-                      <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                      <ChevronRight className="w-5 h-5 text-gray-600" />
                     )}
                   </button>
                 </div>
                 {isSidebarOpen && (
-                  <div className="p-4 border-b border-gray-200/50 dark:border-gray-800/50">
+                  <div className="p-4 border-b border-gray-200/50">
                     <div className="relative">
                       <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                       <input
                         type="text"
                         placeholder="Search..."
-                        className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                        className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                       />
                     </div>
                   </div>
@@ -370,7 +369,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                             ${isSidebarOpen ? '' : 'justify-center'}
                             ${isActive
                               ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25 transform scale-[1.02]'
-                              : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white hover:shadow-md'
+                              : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 hover:shadow-md'
                             }
                           `}
                           onClick={() => navigate(item.route)}
@@ -386,7 +385,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                               } ${
                                 isActive
                                   ? 'text-white'
-                                  : 'text-gray-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
+                                  : 'text-gray-500 group-hover:text-emerald-600'
                               }`}
                             />
                             {isSidebarOpen && (
@@ -408,16 +407,15 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                   })}
                 </nav>
               </aside>
-      {/* Header */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-green-100 dark:border-gray-700">
+      <div className="bg-white shadow-sm border-b border-green-100">
         <div className="px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Users Management</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">Manage platform users and their permissions</p>
+              <h1 className="text-2xl font-bold text-gray-900">Users Management</h1>
+              <p className="text-gray-600 mt-1">Manage platform users and their permissions</p>
             </div>
             <div className="flex items-center space-x-4">
-              <button className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">
+              <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
                 Add New User
               </button>
             </div>
@@ -426,8 +424,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
       </div>
 
       <div className="px-8 py-6">
-        {/* Filters and Search */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-green-100 dark:border-gray-700 p-6 mb-6">
+        <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 flex-1">
               <div className="relative flex-1 max-w-md">
@@ -437,14 +434,14 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                   placeholder="Search users..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
                 />
               </div>
               
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="all">All Status</option>
                 <option value="active">Active</option>
@@ -455,7 +452,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
               <select
                 value={roleFilter}
                 onChange={(e) => setRoleFilter(e.target.value)}
-                className="border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="all">All Roles</option>
                 <option value="citizen">Citizens</option>
@@ -466,7 +463,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
             {selectedUsers.length > 0 && (
               <div className="flex items-center space-x-3">
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <span className="text-sm text-gray-600">
                   {selectedUsers.length} selected
                 </span>
                 <button className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm">
@@ -480,11 +477,10 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
           </div>
         </div>
 
-        {/* Users Table */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-green-100 dark:border-gray-700 overflow-hidden">
+        <div className="bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-700">
+              <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left">
                     <input
@@ -494,7 +490,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                       className="rounded border-gray-300 text-green-600 focus:ring-green-500"
                     />
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     User
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -514,9 +510,9 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="bg-white divide-y divide-gray-200">
                 {paginatedUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <tr key={user.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <input
                         type="checkbox"
@@ -527,18 +523,18 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3">
-                          <User className="h-5 w-5 text-green-600 dark:text-green-400" />
+                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                          <User className="h-5 w-5 text-green-600" />
                         </div>
                         <div>
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">{user.location}</div>
+                          <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                          <div className="text-sm text-gray-500">{user.location}</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900 dark:text-white">{user.email}</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">{user.phone}</div>
+                      <div className="text-sm text-gray-900">{user.email}</div>
+                      <div className="text-sm text-gray-500">{user.phone}</div>
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 rounded-full text-xs ${getRoleColor(user.role)}`}>
@@ -548,13 +544,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         {getStatusIcon(user.status)}
-                        <span className="ml-2 text-sm text-gray-900 dark:text-white capitalize">{user.status}</span>
+                        <span className="ml-2 text-sm text-gray-900 capitalize">{user.status}</span>
                         {user.verified && <CheckCircle className="h-4 w-4 text-blue-500 ml-2" />}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900 dark:text-white">{user.posts} posts</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">Last: {user.lastActive}</div>
+                      <div className="text-sm text-gray-900">{user.posts} posts</div>
+                      <div className="text-sm text-gray-500">Last: {user.lastActive}</div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-2">
@@ -563,11 +559,11 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                             setSelectedUser(user);
                             setShowUserModal(true);
                           }}
-                          className="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300"
+                          className="text-green-600 hover:text-green-800"
                         >
                           <Eye className="h-4 w-4" />
                         </button>
-                        <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                        <button className="text-gray-400 hover:text-gray-600">
                           <MoreVertical className="h-4 w-4" />
                         </button>
                       </div>
@@ -578,27 +574,26 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
             </table>
           </div>
 
-          {/* Pagination */}
-          <div className="bg-gray-50 dark:bg-gray-700 px-6 py-3 border-t border-gray-200 dark:border-gray-600">
+          <div className="bg-gray-50 px-6 py-3 border-t border-gray-200">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-700 dark:text-gray-300">
+              <div className="text-sm text-gray-700">
                 Showing {startIndex + 1} to {Math.min(startIndex + usersPerPage, filteredUsers.length)} of {filteredUsers.length} users
               </div>
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="px-3 py-1 border border-gray-300 rounded text-sm bg-white text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
                 >
                   Previous
                 </button>
-                <span className="text-sm text-gray-700 dark:text-gray-300">
+                <span className="text-sm text-gray-700">
                   Page {currentPage} of {totalPages}
                 </span>
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="px-3 py-1 border border-gray-300 rounded text-sm bg-white text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
                 >
                   Next
                 </button>
