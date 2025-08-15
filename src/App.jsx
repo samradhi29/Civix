@@ -43,6 +43,8 @@ import Analytics from './Pages/Analytics';
 import Users from './Pages/Users';
 import Documents from './Pages/Documents';
 import Settings from './Pages/Settings';
+import Notification from './Pages/Notification';
+
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -111,6 +113,8 @@ const App = () => {
             <Route path='/admin/users' element={<Users/>}/>
             <Route path='/admin/documents' element={<Documents/>}/>
             <Route path='/admin/settings' element={<Settings/>}/>
+            <Route path='/admin/notifications' element={<Notification/>}/>
+
 
 
             {/* Protected Routes */}
