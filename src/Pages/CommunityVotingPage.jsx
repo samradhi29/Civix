@@ -9,6 +9,7 @@ const CommunityVotingPage = () => {
   const [selectedArea, setSelectedArea] = useState("All Areas");
   const [sortBy, setSortBy] = useState("Most Votes");
   const [isDark, setIsDark] = useState(false);
+  const [votedIssues, setVotedIssues] = useState({}); // New state to track voted issues
 
   const [issues, setIssues] = useState([
     {
@@ -67,9 +68,15 @@ const CommunityVotingPage = () => {
     });
 
   const handleVote = (id) => {
-    setIssues(issues.map(issue => 
-      issue.id === id ? {...issue, votes: issue.votes + 1} : issue
+    const hasVoted = votedIssues[id];
+    setIssues(issues.map(issue =>
+      issue.id === id ? { ...issue, votes: hasVoted ? issue.votes - 1 : issue.votes + 1 } : issue
     ));
+
+    setVotedIssues(prevVotedIssues => ({
+      ...prevVotedIssues,
+      [id]: !prevVotedIssues[id] // Toggle the vote status for the issue ID
+    }));
   };
 
   const getPriorityColor = (priority) => {
@@ -109,14 +116,13 @@ const CommunityVotingPage = () => {
           Back
         </button>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <motion.div 
+          <motion.div
             className="flex items-center justify-between mb-8"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center space-x-4">
-              
               <div>
                 <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">
                   Community Voting
@@ -124,11 +130,9 @@ const CommunityVotingPage = () => {
                 <p className="text-gray-600 dark:text-gray-400 mt-1">Help prioritize local issues in your area</p>
               </div>
             </div>
-
-          
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,7 +175,7 @@ const CommunityVotingPage = () => {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-200/50 dark:border-gray-700/50 mb-8"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -181,13 +185,13 @@ const CommunityVotingPage = () => {
               <Filter className="w-5 h-5 text-green-600 dark:text-green-400" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Filters</h3>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Area</label>
                 <div className="relative">
-                  <select 
-                    value={selectedArea} 
+                  <select
+                    value={selectedArea}
                     onChange={(e) => setSelectedArea(e.target.value)}
                     className="w-full appearance-none bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent transition-all duration-200"
                   >
@@ -202,8 +206,8 @@ const CommunityVotingPage = () => {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Sort By</label>
                 <div className="relative">
-                  <select 
-                    value={sortBy} 
+                  <select
+                    value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                     className="w-full appearance-none bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent transition-all duration-200"
                   >
@@ -218,7 +222,7 @@ const CommunityVotingPage = () => {
           </motion.div>
 
           <AnimatePresence mode="wait">
-            <motion.div 
+            <motion.div
               className="grid gap-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -230,7 +234,7 @@ const CommunityVotingPage = () => {
                   className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-lg border border-gray-200/50 dark:border-gray-700/50 overflow-hidden transition-all duration-300"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
+                  transition={{
                     duration: 0.5,
                     delay: index * 0.1,
                   }}
@@ -285,9 +289,9 @@ const CommunityVotingPage = () => {
                         <span className="text-sm text-gray-600 dark:text-gray-400">Community Support</span>
                         <span className="text-sm font-medium text-gray-900 dark:text-white">{Math.min(issue.votes * 5, 100)}%</span>
                       </div>
-                      
+
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-                        <motion.div 
+                        <motion.div
                           className="h-full bg-gradient-to-r from-green-500 to-emerald-500 rounded-full"
                           initial={{ width: 0 }}
                           animate={{ width: `${Math.min(issue.votes * 5, 100)}%` }}
@@ -296,14 +300,14 @@ const CommunityVotingPage = () => {
                         />
                       </div>
 
-                      <motion.button 
+                      <motion.button
                         onClick={() => handleVote(issue.id)}
-                        className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2"
+                        className={`w-full text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 ${votedIssues[issue.id] ? 'bg-gray-500 hover:bg-gray-600' : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700'}`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <TrendingUp className="w-4 h-4" />
-                        <span>Vote for This Issue ({issue.votes})</span>
+                        {votedIssues[issue.id] ? <CheckCircle className="w-4 h-4" /> : <TrendingUp className="w-4 h-4" />}
+                        <span>{votedIssues[issue.id] ? `Voted (${issue.votes})` : `Vote for This Issue (${issue.votes})`}</span>
                       </motion.button>
                     </div>
                   </div>
@@ -313,7 +317,7 @@ const CommunityVotingPage = () => {
           </AnimatePresence>
 
           {filteredIssues.length === 0 && (
-            <motion.div 
+            <motion.div
               className="text-center py-12"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

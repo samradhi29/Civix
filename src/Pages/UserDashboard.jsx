@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
   FileText, 
@@ -7,7 +7,7 @@ import {
   User, 
   Headphones, 
   BarChart3, 
-  BookOpen ,
+  BookOpen,
   Bell,
   X,
   MessageCircle
@@ -23,15 +23,42 @@ const UserDashboard = () => {
 
   const unreadCount = notifications.filter(n => n.unread).length;
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
-  const markAllAsRead = () => {
+  // Hook to handle clicks outside of the dropdown
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowNotifications(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
+  const markAllAsRead = (e) => {
+    e.stopPropagation();
     setNotifications(notifications.map(n => ({ ...n, unread: false })));
+  };
+
+  const markAsRead = (e, id) => {
+    e.stopPropagation();
+    setNotifications(notifications.map(n => 
+      n.id === id ? { ...n, unread: false } : n
+    ));
+  };
+
+  const removeNotification = (e, id) => {
+    e.stopPropagation();
+    setNotifications(notifications.filter(n => n.id !== id));
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-gray-900 dark:to-black">
-     <div className="absolute top-20 right-6 z-50">
-        <div className="relative">
+      <div className="absolute top-20 right-6 z-50">
+        <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setShowNotifications(!showNotifications)}
             className="relative p-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-white/20 dark:border-gray-700 shadow-lg hover:shadow-xl hover:shadow-green-500/20 transition-all duration-300 hover:scale-105 group"
@@ -45,7 +72,9 @@ const UserDashboard = () => {
           </button>
 
           {showNotifications && (
-            <div className="absolute top-full right-0 mt-2 w-80 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl border border-white/20 dark:border-gray-700 shadow-2xl shadow-green-500/10 overflow-hidden animate-in slide-in-from-top-2 duration-200">
+            <div 
+              className="absolute top-full right-0 mt-2 w-80 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl border border-white/20 dark:border-gray-700 shadow-2xl shadow-green-500/10 overflow-hidden animate-in slide-in-from-top-2 duration-200"
+            >
               <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-800">
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Notifications</h3>
                 <button
@@ -60,17 +89,17 @@ const UserDashboard = () => {
                   notifications.map((notification, index) => (
                     <div
                       key={notification.id}
-                      className={`p-4 ${index !== notifications.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''} hover:bg-green-50/50 dark:hover:bg-gray-700/50 transition-colors duration-200 cursor-pointer ${
+                      className={`relative p-4 ${index !== notifications.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''} hover:bg-green-50/50 dark:hover:bg-gray-700/50 transition-colors duration-200 group ${
                         notification.unread ? 'bg-green-50/30 dark:bg-green-900/10' : ''
                       }`}
-                      onClick={() => {
-                        if (notification.unread) {
-                          setNotifications(notifications.map(n => 
-                            n.id === notification.id ? { ...n, unread: false } : n
-                          ));
-                        }
-                      }}
+                      onClick={(e) => markAsRead(e, notification.id)}
                     >
+                      <button 
+                        onClick={(e) => removeNotification(e, notification.id)}
+                        className="absolute top-2 right-2 p-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
                       <div className="flex items-start space-x-3">
                         {notification.unread && (
                           <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0 animate-pulse"></div>
@@ -104,7 +133,10 @@ const UserDashboard = () => {
                   >
                     Mark All Read
                   </button>
-                  <button className="flex-1 text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium transition-colors duration-200 py-1">
+                  <button 
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex-1 text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium transition-colors duration-200 py-1"
+                  >
                     View All
                   </button>
                 </div>
@@ -112,13 +144,6 @@ const UserDashboard = () => {
             </div>
           )}
         </div>
-
-        {showNotifications && (
-          <div 
-            className="fixed inset-0 z-40" 
-            onClick={() => setShowNotifications(false)}
-          />
-        )}
       </div>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
@@ -213,17 +238,14 @@ const DashboardCard = ({ title, description, onClick, icon: Icon, gradient, shad
         <div className={`w-20 h-20 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
           <Icon className="w-10 h-10 text-white" />
         </div>
-        
       
         <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors duration-300">
           {title}
         </h3>
-        
-
+      
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
           {description}
         </p>
-        
         
       </div>
  
