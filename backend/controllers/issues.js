@@ -62,4 +62,22 @@ const updateIssueStatus = asyncHandler(async (req, res) => {
   return res.json({ message: 'Status updated successfully.' });
 });
 
-module.exports = { createIssue, getAllIssues, updateIssueStatus };
+const getIssueById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  // Optional: Validate MongoDB ObjectId format
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid issue ID format' });
+  }
+
+  const issue = await Issue.findById(id);
+
+  if (!issue) {
+    return res.status(404).json({ error: 'Issue not found' });
+  }
+
+  return res.json(issue);
+});
+
+
+module.exports = { createIssue, getAllIssues, updateIssueStatus,getIssueById };
