@@ -162,7 +162,7 @@ const Navbar = () => {
             )}
           </button>
 
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-5">
             
             <button
               onClick={handleSOSClick}
