@@ -116,15 +116,6 @@ const App = () => {
             <Route path='/admin/settings' element={<Settings/>}/>
             <Route path='/admin/notifications' element={<Notification/>}/>
 
-
-
-            {/* Protected Routes */}
-            <Route
-              path="/admin"
-              element={
-                  <AdminDashboard />
-              }
-            />
             <Route
               path="/admin/dashboard"
               element={
