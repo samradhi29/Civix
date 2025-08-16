@@ -53,11 +53,11 @@ const Analytics = () => {
   ];
 
   const StatCard = ({ title, value, change, icon: Icon, trend }) => (
-    <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+    <div className=" rounded-lg shadow-sm border border-green-100 p-6">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-600">{title}</p>
-          <p className="text-2xl font-bold text-gray-900 mt-1">{value}</p>
+          <p className="text-2xl font-bold  mt-1">{value}</p>
           <div className="flex items-center mt-2">
             <TrendingUp className={`h-4 w-4 ${trend === 'up' ? 'text-green-500' : 'text-red-500'} mr-1`} />
             <span className={`text-sm ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
@@ -73,7 +73,7 @@ const Analytics = () => {
   );
 
   return (
-    <div className="min-h-screen ml-10 bg-gray-50">
+    <div className="min-h-screen ml-10 ">
         {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
@@ -81,7 +81,7 @@ const Analytics = () => {
         />
       )}
       <aside
-        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
+        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out  backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
           isSidebarOpen ? 'w-[64]' : 'w-16'
         }`}
       >
@@ -174,18 +174,18 @@ const Analytics = () => {
           })}
         </nav>
       </aside>
-      <div className="bg-white shadow-sm border-b border-green-100">
+      <div className=" shadow-sm border-b border-green-100">
         <div className="px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Civix Analytics</h1>
-              <p className="text-gray-600 mt-1">Monitor platform engagement and community growth</p>
+              <h1 className="text-2xl font-bold ">Civix Analytics</h1>
+              <p className="text-gray-500 mt-1">Monitor platform engagement and community growth</p>
             </div>
             <div className="flex items-center space-x-4">
               <select 
                 value={timeRange} 
                 onChange={(e) => setTimeRange(e.target.value)}
-                className="border border-green-200 rounded-lg px-4 py-2 bg-white text-gray-700 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="border border-green-200 rounded-lg px-4 py-2  text-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="7d">Last 7 days</option>
                 <option value="30d">Last 30 days</option>
@@ -232,17 +232,17 @@ const Analytics = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className="lg:col-span-2  rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-gray-900">User Growth</h3>
+              <h3 className="text-lg font-semibold">User Growth</h3>
               <div className="flex items-center space-x-4 text-sm">
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                  <span className="text-gray-600">Total Users</span>
+                  <span className="text-gray-500">Total Users</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-green-300 rounded-full mr-2"></div>
-                  <span className="text-gray-600">Active Users</span>
+                  <span className="text-gray-500">Active Users</span>
                 </div>
               </div>
             </div>
@@ -266,8 +266,8 @@ const Analytics = () => {
             </ResponsiveContainer>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Discussion Categories</h3>
+          <div className=" rounded-lg shadow-sm border border-green-100 p-6">
+            <h3 className="text-lg font-semibold mb-6">Discussion Categories</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -294,9 +294,9 @@ const Analytics = () => {
                       className="w-3 h-3 rounded-full mr-3" 
                       style={{ backgroundColor: category.color }}
                     ></div>
-                    <span className="text-sm text-gray-700">{category.name}</span>
+                    <span className="text-sm text-gray-500">{category.name}</span>
                   </div>
-                  <span className="text-sm font-medium text-gray-900">{category.value}%</span>
+                  <span className="text-sm font-medium ">{category.value}%</span>
                 </div>
               ))}
             </div>
@@ -304,8 +304,8 @@ const Analytics = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Weekly Engagement</h3>
+          <div className="rounded-lg shadow-sm border border-green-100 p-6">
+            <h3 className="text-lg font-semibold  mb-6">Weekly Engagement</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={engagementData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -327,16 +327,16 @@ const Analytics = () => {
             </ResponsiveContainer>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className="rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
+              <h3 className="text-lg font-semibold ">Recent Activity</h3>
               <button className="text-green-600 hover:text-green-800 text-sm font-medium">
                 View All
               </button>
             </div>
             <div className="space-y-4">
               {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
+                <div key={index} className="flex items-start space-x-3 p-3 bg-green-200 rounded-lg">
                   <div className="flex-shrink-0">
                     {activity.type === 'new_post' && <FileText className="h-5 w-5 text-green-600" />}
                     {activity.type === 'comment' && <MessageCircle className="h-5 w-5 text-green-600" />}
@@ -356,34 +356,34 @@ const Analytics = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className="rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center">
               <MapPin className="h-8 w-8 text-green-600 mr-3" />
               <div>
-                <p className="text-sm font-medium text-gray-600">Geographic Reach</p>
-                <p className="text-xl font-bold text-gray-900">47 Cities</p>
+                <p className="text-sm font-medium text-gray-500">Geographic Reach</p>
+                <p className="text-xl font-bold ">47 Cities</p>
                 <p className="text-sm text-green-600">+3 new this month</p>
               </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className="rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center">
               <Calendar className="h-8 w-8 text-green-600 mr-3" />
               <div>
-                <p className="text-sm font-medium text-gray-600">Scheduled Events</p>
-                <p className="text-xl font-bold text-gray-900">23</p>
+                <p className="text-sm font-medium text-gray-500">Scheduled Events</p>
+                <p className="text-xl font-bold">23</p>
                 <p className="text-sm text-green-600">Next: Town Hall</p>
               </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className="rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center">
               <AlertCircle className="h-8 w-8 text-green-600 mr-3" />
               <div>
-                <p className="text-sm font-medium text-gray-600">Moderation Queue</p>
-                <p className="text-xl font-bold text-gray-900">8</p>
+                <p className="text-sm font-medium text-gray-500">Moderation Queue</p>
+                <p className="text-xl font-bold">8</p>
                 <p className="text-sm text-yellow-600">Requires attention</p>
               </div>
             </div>

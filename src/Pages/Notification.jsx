@@ -132,7 +132,7 @@ const navigate = useNavigate();
   const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 p-6">
+    <div className="min-h-screen p-6">
         {isSidebarOpen && (
                 <div
                   className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
@@ -140,7 +140,7 @@ const navigate = useNavigate();
                 />
               )}
               <aside
-                className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
+                className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out  backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
                   isSidebarOpen ? 'w-[64]' : 'w-16'
                 }`}
               >
@@ -234,15 +234,15 @@ const navigate = useNavigate();
                 </nav>
               </aside>
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 mb-6 p-6">
+        <div className="rounded-2xl shadow-lg border border-emerald-100 mb-6 p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
               <div className="bg-emerald-100 p-3 rounded-xl">
                 <Bell className="h-6 w-6 text-emerald-600" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
-                <p className="text-gray-600">Stay updated with system alerts and activities</p>
+                <h1 className="text-2xl font-bold ">Notifications</h1>
+                <p className="text-gray-500">Stay updated with system alerts and activities</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -285,11 +285,11 @@ const navigate = useNavigate();
 
         <div className="space-y-3">
           {filteredNotifications.length === 0 ? (
-            <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-12 text-center">
+            <div className=" rounded-2xl shadow-lg border border-emerald-100 p-12 text-center">
               <div className="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Bell className="h-8 w-8 text-emerald-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No notifications</h3>
+              <h3 className="text-lg font-semibold  mb-2">No notifications</h3>
               <p className="text-gray-600">You're all caught up! Check back later for updates.</p>
             </div>
           ) : (
@@ -298,7 +298,7 @@ const navigate = useNavigate();
               return (
                 <div
                   key={notification.id}
-                  className={`bg-white rounded-xl shadow-lg border-l-4 transition-all duration-200 ${getTypeStyles(notification.type)} ${
+                  className={`rounded-xl shadow-lg border-l-4 transition-all duration-200 ${getTypeStyles(notification.type)} ${
                     !notification.read ? 'shadow-md' : 'opacity-75'
                   }`}
                 >

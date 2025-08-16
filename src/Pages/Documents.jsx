@@ -229,11 +229,11 @@ const CivixDocuments = () => {
     if (!doc) return null;
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className=" rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">Document Details</h2>
+              <h2 className="text-xl font-semibold">Document Details</h2>
               <button 
                 onClick={onClose}
                 className="text-gray-400 hover:text-gray-600"
@@ -250,7 +250,7 @@ const CivixDocuments = () => {
               </div>
               <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900">{doc.title}</h3>
+                  <h3 className="text-lg font-semibold">{doc.title}</h3>
                   {doc.isStarred && <Star className="h-5 w-5 text-yellow-500 fill-current" />}
                 </div>
                 <p className="text-gray-600 mb-3">{doc.description}</p>
@@ -282,15 +282,15 @@ const CivixDocuments = () => {
                   <div className="mt-2 space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Category</span>
-                      <span className="font-medium text-gray-900 capitalize">{doc.category}</span>
+                      <span className="font-medium  capitalize">{doc.category}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">File Type</span>
-                      <span className="font-medium text-gray-900 uppercase">{doc.type}</span>
+                      <span className="font-medium  uppercase">{doc.type}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Version</span>
-                      <span className="font-medium text-gray-900">v{doc.version}</span>
+                      <span className="font-medium ">v{doc.version}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Status</span>
@@ -335,11 +335,11 @@ const CivixDocuments = () => {
                 <div>
                   <label className="text-sm font-medium text-gray-700">Quick Actions</label>
                   <div className="mt-2 grid grid-cols-2 gap-2">
-                    <button className="flex items-center justify-center px-3 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 text-sm">
+                    <button className="flex items-center justify-center px-3 py-2  text-green-700 rounded-lg hover:bg-green-100 text-sm">
                       <Download className="h-4 w-4 mr-1" />
                       Download
                     </button>
-                    <button className="flex items-center justify-center px-3 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 text-sm">
+                    <button className="flex items-center justify-center px-3 py-2  text-blue-700 rounded-lg hover:bg-blue-100 text-sm">
                       <Share2 className="h-4 w-4 mr-1" />
                       Share
                     </button>
@@ -349,15 +349,15 @@ const CivixDocuments = () => {
             </div>
 
             <div className="flex space-x-3 pt-4 border-t border-gray-200">
-              <button className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
+              <button className="flex-1 bg-green-600 hover:bg-green-700  px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
                 <Edit className="h-4 w-4 mr-2" />
                 Edit Document
               </button>
-              <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
+              <button className="flex-1 bg-blue-600 hover:bg-blue-700  px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
                 <Eye className="h-4 w-4 mr-2" />
                 Preview
               </button>
-              <button className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
+              <button className="flex-1 bg-red-600 hover:bg-red-700  px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
                 <Trash2 className="h-4 w-4 mr-2" />
                 Delete
               </button>
@@ -369,7 +369,7 @@ const CivixDocuments = () => {
   };
 
   const DocumentCard = ({ doc }) => (
-    <div className="bg-white rounded-lg shadow-sm border border-green-100 p-4 hover:shadow-md transition-shadow">
+    <div className=" rounded-lg shadow-sm border border-green-100 p-4 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center space-x-2">
           {getFileIcon(doc.type)}
@@ -391,7 +391,7 @@ const CivixDocuments = () => {
         </div>
       </div>
       
-      <h3 className="font-medium text-gray-900 mb-2 line-clamp-2">{doc.title}</h3>
+      <h3 className="font-medium mb-2 line-clamp-2">{doc.title}</h3>
       <p className="text-sm text-gray-600 mb-3 line-clamp-2">{doc.description}</p>
       
       <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
@@ -422,7 +422,7 @@ const CivixDocuments = () => {
   );
 
   return (
-    <div className="min-h-screen ml-10 bg-gray-50">
+    <div className="min-h-screen ml-10">
         {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
@@ -430,14 +430,14 @@ const CivixDocuments = () => {
         />
       )}
       <aside
-        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
+        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out  backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
           isSidebarOpen ? 'w-[64]' : 'w-16'
         }`}
       >
         <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50">
           <div className={`flex items-center transition-all duration-300 ${isSidebarOpen ? 'opacity-100' : 'opacity-0 w-0'}`}>
             <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-sm">C</span>
+              <span className=" font-bold text-sm">C</span>
             </div>
             {isSidebarOpen && (
               <span className="ml-3 text-xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
@@ -513,7 +513,7 @@ const CivixDocuments = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                 </button>
                 {!isSidebarOpen && (
-                  <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 text-white text-sm rounded-lg opacity-0 group-hover:transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2  text-sm rounded-lg opacity-0 group-hover:transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
                     {item.label}
                     <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent0" />
                   </div>
@@ -523,15 +523,15 @@ const CivixDocuments = () => {
           })}
         </nav>
       </aside>
-      <div className="bg-white shadow-sm border-b border-green-100">
+      <div className=" shadow-sm border-b border-green-100">
         <div className="px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Documents Management</h1>
+              <h1 className="text-2xl font-bold ">Documents Management</h1>
               <p className="text-gray-600 mt-1">Manage platform documents and files</p>
             </div>
             <div className="flex items-center space-x-4">
-              <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center">
+              <button className="bg-green-600 hover:bg-green-700  px-4 py-2 rounded-lg transition-colors flex items-center">
                 <Upload className="h-4 w-4 mr-2" />
                 Upload Document
               </button>
@@ -541,7 +541,7 @@ const CivixDocuments = () => {
       </div>
 
       <div className="px-8 py-6">
-        <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6 mb-6">
+        <div className=" rounded-lg shadow-sm border border-green-100 p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 flex-1">
               <div className="relative flex-1 max-w-md">
@@ -551,14 +551,14 @@ const CivixDocuments = () => {
                   placeholder="Search documents..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg   focus:ring-2 focus:ring-green-500 focus:border-green-500"
                 />
               </div>
               
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="border border-gray-300 rounded-lg px-4 py-2 text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 {categories.map(category => (
                   <option key={category.value} value={category.value}>{category.label}</option>
@@ -568,7 +568,7 @@ const CivixDocuments = () => {
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="border border-gray-300 rounded-lg px-4 py-2 text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="all">All Types</option>
                 <option value="pdf">PDF</option>
@@ -631,10 +631,10 @@ const CivixDocuments = () => {
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden mb-6">
+          <div className=" rounded-lg shadow-sm border border-green-100 overflow-hidden mb-6">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-gray-200">
                   <tr>
                     <th className="px-6 py-3 text-left">
                       <input
@@ -664,9 +664,9 @@ const CivixDocuments = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className=" divide-y divide-gray-200">
                   {paginatedDocs.map((doc) => (
-                    <tr key={doc.id} className="hover:bg-gray-50">
+                    <tr key={doc.id} className="hover:bg-gray-300">
                       <td className="px-6 py-4">
                         <input
                           type="checkbox"
@@ -682,7 +682,7 @@ const CivixDocuments = () => {
                           </div>
                           <div>
                             <div className="flex items-center space-x-2">
-                              <div className="text-sm font-medium text-gray-900">{doc.title}</div>
+                              <div className="text-sm font-medium">{doc.title}</div>
                               {doc.isStarred && <Star className="h-4 w-4 text-yellow-500 fill-current" />}
                               {getVisibilityIcon(doc.visibility)}
                             </div>
@@ -691,7 +691,7 @@ const CivixDocuments = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-sm text-gray-900 capitalize">{doc.category.replace('-', ' ')}</span>
+                        <span className="text-sm capitalize">{doc.category.replace('-', ' ')}</span>
                       </td>
                       <td className="px-6 py-4">
                         <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(doc.status)}`}>
@@ -699,11 +699,11 @@ const CivixDocuments = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">{doc.uploadedBy}</div>
+                        <div className="text-sm">{doc.uploadedBy}</div>
                         <div className="text-sm text-gray-500">{doc.uploadDate}</div>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">{doc.uploadDate}</div>
+                        <div className="text-sm">{doc.uploadDate}</div>
                         <div className="text-sm text-gray-500">{doc.downloads} downloads</div>
                       </td>
                       <td className="px-6 py-4">
@@ -731,7 +731,7 @@ const CivixDocuments = () => {
               </table>
             </div>
 
-            <div className="bg-gray-50 px-6 py-3 border-t border-gray-200">
+            <div className="bg-gray-200 px-6 py-3 border-t border-gray-200">
               <div className="flex items-center justify-between">
                 <div className="text-sm text-gray-700">
                   Showing {startIndex + 1} to {Math.min(startIndex + docsPerPage, filteredDocs.length)} of {filteredDocs.length} documents
@@ -761,45 +761,45 @@ const CivixDocuments = () => {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className=" rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center">
               <FileText className="h-8 w-8 text-green-600 mr-3" />
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Documents</p>
-                <p className="text-xl font-bold text-gray-900">{documents.length}</p>
+                <p className="text-sm font-medium text-gray-400">Total Documents</p>
+                <p className="text-xl font-bold ">{documents.length}</p>
                 <p className="text-sm text-green-600">+12 this month</p>
               </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className=" rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center">
               <Download className="h-8 w-8 text-blue-600 mr-3" />
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Downloads</p>
-                <p className="text-xl font-bold text-gray-900">{documents.reduce((sum, doc) => sum + doc.downloads, 0).toLocaleString()}</p>
+                <p className="text-sm font-medium text-gray-400">Total Downloads</p>
+                <p className="text-xl font-bold ">{documents.reduce((sum, doc) => sum + doc.downloads, 0).toLocaleString()}</p>
                 <p className="text-sm text-blue-600">+234 this week</p>
               </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className=" rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center">
               <Eye className="h-8 w-8 text-purple-600 mr-3" />
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Views</p>
-                <p className="text-xl font-bold text-gray-900">{documents.reduce((sum, doc) => sum + doc.views, 0).toLocaleString()}</p>
+                <p className="text-sm font-medium text-gray-400">Total Views</p>
+                <p className="text-xl font-bold ">{documents.reduce((sum, doc) => sum + doc.views, 0).toLocaleString()}</p>
                 <p className="text-sm text-purple-600">+1.2K this week</p>
               </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6">
+          <div className="rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center">
               <Clock className="h-8 w-8 text-orange-600 mr-3" />
               <div>
-                <p className="text-sm font-medium text-gray-600">Pending Review</p>
-                <p className="text-xl font-bold text-gray-900">{documents.filter(doc => doc.status === 'review').length}</p>
+                <p className="text-sm font-medium text-gray-400">Pending Review</p>
+                <p className="text-xl font-bold">{documents.filter(doc => doc.status === 'review').length}</p>
                 <p className="text-sm text-orange-600">Needs attention</p>
               </div>
             </div>
