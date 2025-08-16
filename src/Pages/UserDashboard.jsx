@@ -11,7 +11,8 @@ import {
   Bell,
   X,
   MessageCircle,
-  MapPin
+  MapPin,
+  Search
 } from "lucide-react";
 
 const UserDashboard = () => {
@@ -218,6 +219,14 @@ const UserDashboard = () => {
             onClick={() => navigate("/nearby-services")}
             icon={MapPin}
             gradient="from-green-500 to-green-800"
+            shadowColor="shadow-green-500/20"
+          />
+           <DashboardCard
+            title="Lost & Found"
+            description="Bringing lost items back to their owners."
+            onClick={() => navigate("/lost-found")}
+            icon={Search}
+            gradient="from-green-500 to-green-600"
             shadowColor="shadow-green-500/20"
           />
         </div>

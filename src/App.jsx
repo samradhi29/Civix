@@ -45,6 +45,7 @@ import Documents from './Pages/Documents';
 import Settings from './Pages/Settings';
 import Notification from './Pages/Notification';
 import NearbyServices from './Pages/NearbyServices';
+import LostAndFoundPage from './Pages/Lost&Found';
 
 
 const App = () => {
@@ -117,7 +118,7 @@ const App = () => {
             <Route path='/admin/settings' element={<Settings/>}/>
             <Route path='/admin/notifications' element={<Notification/>}/>
             <Route path='/nearby-services' element={<NearbyServices/>}/>
-
+            <Route path='/lost-found' element={<LostAndFoundPage/>}/>
             <Route
               path="/admin/dashboard"
               element={
