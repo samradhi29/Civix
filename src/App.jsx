@@ -122,9 +122,7 @@ const App = () => {
             <Route
               path="/admin"
               element={
-                <RequireAdmin>
                   <AdminDashboard />
-                </RequireAdmin>
               }
             />
             <Route

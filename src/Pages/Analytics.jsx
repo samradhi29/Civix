@@ -53,11 +53,11 @@ const Analytics = () => {
   ];
 
   const StatCard = ({ title, value, change, icon: Icon, trend }) => (
-    <div className=" rounded-lg shadow-sm border border-green-100 p-6">
+    <div className="rounded-lg shadow-sm border border-green-100 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-600">{title}</p>
-          <p className="text-2xl font-bold  mt-1">{value}</p>
+          <p className="text-sm font-medium text-gray-500">{title}</p>
+          <p className="text-2xl font-bold mt-1">{value}</p>
           <div className="flex items-center mt-2">
             <TrendingUp className={`h-4 w-4 ${trend === 'up' ? 'text-green-500' : 'text-red-500'} mr-1`} />
             <span className={`text-sm ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
@@ -174,24 +174,24 @@ const Analytics = () => {
           })}
         </nav>
       </aside>
-      <div className=" shadow-sm border-b border-green-100">
+      <div className="shadow-sm border-b border-green-100">
         <div className="px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold ">Civix Analytics</h1>
-              <p className="text-gray-500 mt-1">Monitor platform engagement and community growth</p>
+              <h1 className="text-2xl font-bold text-gray-900">Civix Analytics</h1>
+              <p className="text-gray-600 mt-1">Monitor platform engagement and community growth</p>
             </div>
             <div className="flex items-center space-x-4">
               <select 
                 value={timeRange} 
                 onChange={(e) => setTimeRange(e.target.value)}
-                className="border border-green-200 rounded-lg px-4 py-2  text-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="border border-green-200 rounded-lg px-4 py-2  text-gray-700 focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="7d">Last 7 days</option>
                 <option value="30d">Last 30 days</option>
                 <option value="90d">Last 90 days</option>
               </select>
-              <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+              <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors">
                 Export Report
               </button>
             </div>
@@ -232,9 +232,9 @@ const Analytics = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2  rounded-lg shadow-sm border border-green-100 p-6">
+          <div className="lg:col-span-2 rounded-lg shadow-sm border border-green-100 p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold">User Growth</h3>
+              <h3 className="text-lg font-semibold ">User Growth</h3>
               <div className="flex items-center space-x-4 text-sm">
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
@@ -266,8 +266,8 @@ const Analytics = () => {
             </ResponsiveContainer>
           </div>
 
-          <div className=" rounded-lg shadow-sm border border-green-100 p-6">
-            <h3 className="text-lg font-semibold mb-6">Discussion Categories</h3>
+          <div className="rounded-lg shadow-sm border border-green-100 p-6">
+            <h3 className="text-lg font-semibold  mb-6">Discussion Categories</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -305,7 +305,7 @@ const Analytics = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="rounded-lg shadow-sm border border-green-100 p-6">
-            <h3 className="text-lg font-semibold  mb-6">Weekly Engagement</h3>
+            <h3 className="text-lg font-semibold mb-6">Weekly Engagement</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={engagementData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -336,7 +336,7 @@ const Analytics = () => {
             </div>
             <div className="space-y-4">
               {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-green-200 rounded-lg">
+                <div key={index} className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
                   <div className="flex-shrink-0">
                     {activity.type === 'new_post' && <FileText className="h-5 w-5 text-green-600" />}
                     {activity.type === 'comment' && <MessageCircle className="h-5 w-5 text-green-600" />}
@@ -361,7 +361,7 @@ const Analytics = () => {
               <MapPin className="h-8 w-8 text-green-600 mr-3" />
               <div>
                 <p className="text-sm font-medium text-gray-500">Geographic Reach</p>
-                <p className="text-xl font-bold ">47 Cities</p>
+                <p className="text-xl font-bold">47 Cities</p>
                 <p className="text-sm text-green-600">+3 new this month</p>
               </div>
             </div>
@@ -372,7 +372,7 @@ const Analytics = () => {
               <Calendar className="h-8 w-8 text-green-600 mr-3" />
               <div>
                 <p className="text-sm font-medium text-gray-500">Scheduled Events</p>
-                <p className="text-xl font-bold">23</p>
+                <p className="text-xl font-bold ">23</p>
                 <p className="text-sm text-green-600">Next: Town Hall</p>
               </div>
             </div>
@@ -383,7 +383,7 @@ const Analytics = () => {
               <AlertCircle className="h-8 w-8 text-green-600 mr-3" />
               <div>
                 <p className="text-sm font-medium text-gray-500">Moderation Queue</p>
-                <p className="text-xl font-bold">8</p>
+                <p className="text-xl font-bold ">8</p>
                 <p className="text-sm text-yellow-600">Requires attention</p>
               </div>
             </div>
