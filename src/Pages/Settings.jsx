@@ -115,20 +115,20 @@ const SettingsPage = () => {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">System Name</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">System Name</label>
           <input
             type="text"
             value={settings.systemName}
             onChange={(e) => handleInputChange('systemName', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Timezone</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Timezone</label>
           <select
             value={settings.timezone}
             onChange={(e) => handleInputChange('timezone', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           >
             <option value="America/New_York">Eastern Time</option>
             <option value="America/Chicago">Central Time</option>
@@ -139,22 +139,22 @@ const SettingsPage = () => {
       </div>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">System Description</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">System Description</label>
         <textarea
           value={settings.systemDescription}
           onChange={(e) => handleInputChange('systemDescription', e.target.value)}
           rows={3}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
       </div>
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+      <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <AlertTriangle className="h-5 w-5 text-yellow-600" />
+            <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
             <div>
-              <h4 className="font-medium text-yellow-800">Maintenance Mode</h4>
-              <p className="text-sm text-yellow-700">Temporarily disable public access for system updates</p>
+              <h4 className="font-medium text-yellow-800 dark:text-yellow-300">Maintenance Mode</h4>
+              <p className="text-sm text-yellow-700 dark:text-yellow-400">Temporarily disable public access for system updates</p>
             </div>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
@@ -164,7 +164,7 @@ const SettingsPage = () => {
               onChange={(e) => handleInputChange('maintenanceMode', e.target.checked)}
               className="sr-only peer"
             />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+            <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
           </label>
         </div>
       </div>
@@ -173,16 +173,16 @@ const SettingsPage = () => {
 
   const renderSecuritySettings = () => (
     <div className="space-y-6">
-      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6">
-        <h3 className="font-semibold text-emerald-800 mb-4 flex items-center">
+      <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700 rounded-lg p-6">
+        <h3 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-4 flex items-center">
           <Lock className="h-5 w-5 mr-2" />
           Authentication Settings
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex items-center justify-between">
             <div>
-              <label className="font-medium text-gray-700">Two-Factor Authentication</label>
-              <p className="text-sm text-gray-600">Require 2FA for admin accounts</p>
+              <label className="font-medium text-gray-700 dark:text-gray-300">Two-Factor Authentication</label>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Require 2FA for admin accounts</p>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
@@ -191,7 +191,7 @@ const SettingsPage = () => {
                 onChange={(e) => handleInputChange('twoFactorAuth', e.target.checked)}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+              <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
             </label>
           </div>
         </div>
@@ -199,45 +199,45 @@ const SettingsPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Session Timeout (minutes)</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Session Timeout (minutes)</label>
           <input
             type="number"
             value={settings.sessionTimeout}
             onChange={(e) => handleInputChange('sessionTimeout', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Password Expiry (days)</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password Expiry (days)</label>
           <input
             type="number"
             value={settings.passwordExpiry}
             onChange={(e) => handleInputChange('passwordExpiry', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Max Login Attempts</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Max Login Attempts</label>
           <input
             type="number"
             value={settings.maxLoginAttempts}
             onChange={(e) => handleInputChange('maxLoginAttempts', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
       </div>
 
-      <div className="border-t pt-6">
-        <h3 className="font-semibold text-gray-800 mb-4">Change Password</h3>
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+        <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">Change Password</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Current Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 value={settings.currentPassword}
                 onChange={(e) => handleInputChange('currentPassword', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent pr-10"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent pr-10 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               />
               <button
                 type="button"
@@ -245,29 +245,29 @@ const SettingsPage = () => {
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5 text-gray-400" />
+                  <EyeOff className="h-5 w-5 text-gray-400 dark:text-gray-500" />
                 ) : (
-                  <Eye className="h-5 w-5 text-gray-400" />
+                  <Eye className="h-5 w-5 text-gray-400 dark:text-gray-500" />
                 )}
               </button>
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
             <input
               type={showPassword ? "text" : "password"}
               value={settings.newPassword}
               onChange={(e) => handleInputChange('newPassword', e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm Password</label>
             <input
               type={showPassword ? "text" : "password"}
               value={settings.confirmPassword}
               onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
           </div>
         </div>
@@ -284,13 +284,13 @@ const SettingsPage = () => {
           { key: 'pushNotifications', label: 'Push Notifications', desc: 'Browser push notifications', icon: Bell },
           { key: 'criticalAlerts', label: 'Critical Alerts', desc: 'Immediate alerts for critical issues', icon: AlertTriangle }
         ].map(({ key, label, desc, icon: Icon }) => (
-          <div key={key} className="bg-gray-50 rounded-lg p-4">
+          <div key={key} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <Icon className="h-5 w-5 text-emerald-600" />
+                <Icon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                 <div>
-                  <h4 className="font-medium text-gray-800">{label}</h4>
-                  <p className="text-sm text-gray-600">{desc}</p>
+                  <h4 className="font-medium text-gray-800 dark:text-gray-200">{label}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{desc}</p>
                 </div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -300,7 +300,7 @@ const SettingsPage = () => {
                   onChange={(e) => handleInputChange(key, e.target.checked)}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
               </label>
             </div>
           </div>
@@ -317,11 +317,11 @@ const SettingsPage = () => {
           { key: 'requireEmailVerification', label: 'Email Verification Required', desc: 'Users must verify email before activation' },
           { key: 'allowPublicRegistration', label: 'Allow Public Registration', desc: 'Enable public user registration' }
         ].map(({ key, label, desc }) => (
-          <div key={key} className="bg-gray-50 rounded-lg p-4">
+          <div key={key} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-medium text-gray-800">{label}</h4>
-                <p className="text-sm text-gray-600">{desc}</p>
+                <h4 className="font-medium text-gray-800 dark:text-gray-200">{label}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{desc}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -330,7 +330,7 @@ const SettingsPage = () => {
                   onChange={(e) => handleInputChange(key, e.target.checked)}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
               </label>
             </div>
           </div>
@@ -338,12 +338,12 @@ const SettingsPage = () => {
       </div>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Maximum Users Per District</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Maximum Users Per District</label>
         <input
           type="number"
           value={settings.maxUsersPerDistrict}
           onChange={(e) => handleInputChange('maxUsersPerDistrict', e.target.value)}
-          className="w-full md:w-1/3 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full md:w-1/3 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
       </div>
     </div>
@@ -351,8 +351,8 @@ const SettingsPage = () => {
 
   const renderVotingSettings = () => (
     <div className="space-y-6">
-      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6">
-        <h3 className="font-semibold text-emerald-800 mb-4">Voting System Configuration</h3>
+      <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700 rounded-lg p-6">
+        <h3 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-4">Voting System Configuration</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
             { key: 'votingEnabled', label: 'Enable Voting System', desc: 'Allow citizens to cast votes' },
@@ -362,8 +362,8 @@ const SettingsPage = () => {
           ].map(({ key, label, desc }) => (
             <div key={key} className="flex items-center justify-between">
               <div>
-                <h4 className="font-medium text-gray-800">{label}</h4>
-                <p className="text-sm text-gray-600">{desc}</p>
+                <h4 className="font-medium text-gray-800 dark:text-gray-200">{label}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{desc}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -372,7 +372,7 @@ const SettingsPage = () => {
                   onChange={(e) => handleInputChange(key, e.target.checked)}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
               </label>
             </div>
           ))}
@@ -380,11 +380,11 @@ const SettingsPage = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Result Publication</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Result Publication</label>
         <select
           value={settings.resultPublication}
           onChange={(e) => handleInputChange('resultPublication', e.target.value)}
-          className="w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full md:w-1/2 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         >
           <option value="immediate">Immediate</option>
           <option value="delayed">Delayed (24 hours)</option>
@@ -398,50 +398,50 @@ const SettingsPage = () => {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">SMTP Server</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">SMTP Server</label>
           <input
             type="text"
             value={settings.smtpServer}
             onChange={(e) => handleInputChange('smtpServer', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">SMTP Port</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">SMTP Port</label>
           <input
             type="text"
             value={settings.smtpPort}
             onChange={(e) => handleInputChange('smtpPort', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Username</label>
           <input
             type="email"
             value={settings.smtpUsername}
             onChange={(e) => handleInputChange('smtpUsername', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
           <input
             type="password"
             value={settings.smtpPassword}
             onChange={(e) => handleInputChange('smtpPassword', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
       </div>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">From Name</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">From Name</label>
         <input
           type="text"
           value={settings.emailFromName}
           onChange={(e) => handleInputChange('emailFromName', e.target.value)}
-          className="w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full md:w-1/2 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
       </div>
     </div>
@@ -449,11 +449,11 @@ const SettingsPage = () => {
 
   const renderBackupSettings = () => (
     <div className="space-y-6">
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="font-semibold text-blue-800">Automatic Backup</h3>
-            <p className="text-sm text-blue-700">Enable scheduled system backups</p>
+            <h3 className="font-semibold text-blue-800 dark:text-blue-300">Automatic Backup</h3>
+            <p className="text-sm text-blue-700 dark:text-blue-400">Enable scheduled system backups</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -462,18 +462,18 @@ const SettingsPage = () => {
               onChange={(e) => handleInputChange('autoBackup', e.target.checked)}
               className="sr-only peer"
             />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+            <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
           </label>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Backup Frequency</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Backup Frequency</label>
           <select
             value={settings.backupFrequency}
             onChange={(e) => handleInputChange('backupFrequency', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           >
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -481,20 +481,20 @@ const SettingsPage = () => {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Retention Period (days)</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Retention Period (days)</label>
           <input
             type="number"
             value={settings.retentionPeriod}
             onChange={(e) => handleInputChange('retentionPeriod', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Backup Location</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Backup Location</label>
           <select
             value={settings.backupLocation}
             onChange={(e) => handleInputChange('backupLocation', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           >
             <option value="cloud">Cloud Storage</option>
             <option value="local">Local Storage</option>
@@ -519,7 +519,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-6">
         {isSidebarOpen && (
                         <div
                           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
@@ -527,11 +527,11 @@ const SettingsPage = () => {
                         />
                       )}
                       <aside
-                        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
-                          isSidebarOpen ? 'w-[64]' : 'w-16'
+                        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-700/50 flex flex-col shadow-xl ${
+                          isSidebarOpen ? 'w-64' : 'w-16'
                         }`}
                       >
-                        <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50">
+                        <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-700/50">
                           <div className={`flex items-center transition-all duration-300 ${isSidebarOpen ? 'opacity-100' : 'opacity-0 w-0'}`}>
                             <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
                               <span className="text-white font-bold text-sm">C</span>
@@ -546,25 +546,25 @@ const SettingsPage = () => {
                             type="button"
                             aria-label={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
                             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                            className={`p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
+                            className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
                               !isSidebarOpen ? 'mx-auto' : ''
                             }`}
                           >
                             {isSidebarOpen ? (
-                              <ChevronLeft className="w-5 h-5 text-gray-600" />
+                              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                             ) : (
-                              <ChevronRight className="w-5 h-5 text-gray-600" />
+                              <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                             )}
                           </button>
                         </div>
                         {isSidebarOpen && (
-                          <div className="p-4 border-b border-gray-200/50">
+                          <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
                             <div className="relative">
-                              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
                               <input
                                 type="text"
                                 placeholder="Search..."
-                                className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                                className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all text-gray-900 dark:text-gray-100"
                               />
                             </div>
                           </div>
@@ -582,7 +582,7 @@ const SettingsPage = () => {
                                     ${isSidebarOpen ? '' : 'justify-center'}
                                     ${isActive
                                       ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25 transform scale-[1.02]'
-                                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 hover:shadow-md'
+                                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-md'
                                     }
                                   `}
                                   onClick={() => navigate(item.route)}
@@ -598,7 +598,7 @@ const SettingsPage = () => {
                                       } ${
                                         isActive
                                           ? 'text-white'
-                                          : 'text-gray-500 group-hover:text-emerald-600'
+                                          : 'text-gray-500 dark:text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
                                       }`}
                                     />
                                     {isSidebarOpen && (
@@ -610,9 +610,9 @@ const SettingsPage = () => {
                                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                                 </button>
                                 {!isSidebarOpen && (
-                                  <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 text-white text-sm rounded-lg opacity-0 group-hover:transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                                  <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
                                     {item.label}
-                                    <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent0" />
+                                    <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700" />
                                   </div>
                                 )}
                               </div>
@@ -620,27 +620,27 @@ const SettingsPage = () => {
                           })}
                         </nav>
                       </aside>
-      <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 mb-6 p-6">
+      <div className={`max-w-6xl mx-auto transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-16'}`}>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-emerald-100 dark:border-gray-700 mb-6 p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="bg-emerald-100 p-3 rounded-xl">
-                <Settings className="h-6 w-6 text-emerald-600" />
+              <div className="bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-xl">
+                <Settings className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">System Settings</h1>
-                <p className="text-gray-600">Configure and manage your Civix platform</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">System Settings</h1>
+                <p className="text-gray-600 dark:text-gray-400">Configure and manage your Civix platform</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
               {saveStatus === 'saving' && (
-                <div className="flex items-center text-emerald-600">
+                <div className="flex items-center text-emerald-600 dark:text-emerald-400">
                   <RefreshCw className="h-4 w-4 animate-spin mr-2" />
                   <span className="text-sm">Saving...</span>
                 </div>
               )}
               {saveStatus === 'success' && (
-                <div className="flex items-center text-green-600">
+                <div className="flex items-center text-green-600 dark:text-green-400">
                   <CheckCircle className="h-4 w-4 mr-2" />
                   <span className="text-sm">Settings saved</span>
                 </div>
@@ -648,7 +648,7 @@ const SettingsPage = () => {
               <button
                 onClick={handleSave}
                 disabled={saveStatus === 'saving'}
-                className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white px-6 py-2 rounded-lg font-medium flex items-center space-x-2 transition-colors"
+                className="bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 disabled:opacity-50 text-white px-6 py-2 rounded-lg font-medium flex items-center space-x-2 transition-colors"
               >
                 <Save className="h-4 w-4" />
                 <span>Save Changes</span>
@@ -659,7 +659,7 @@ const SettingsPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-4">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-emerald-100 dark:border-gray-700 p-4">
               <nav className="space-y-2">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -669,8 +669,8 @@ const SettingsPage = () => {
                       onClick={() => setActiveTab(tab.id)}
                       className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                         activeTab === tab.id
-                          ? 'bg-emerald-100 text-emerald-700 font-medium'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                          ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 font-medium'
+                          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
                       }`}
                     >
                       <Icon className="h-5 w-5" />
@@ -683,12 +683,12 @@ const SettingsPage = () => {
           </div>
 
           <div className="lg:col-span-3">
-            <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-8">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-emerald-100 dark:border-gray-700 p-8">
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                   {tabs.find(tab => tab.id === activeTab)?.name}
                 </h2>
-                <p className="text-gray-600 mt-1">
+                <p className="text-gray-600 dark:text-gray-400 mt-1">
                   Configure your {tabs.find(tab => tab.id === activeTab)?.name.toLowerCase()} preferences
                 </p>
               </div>
