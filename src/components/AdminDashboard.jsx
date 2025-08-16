@@ -180,7 +180,7 @@ const AdminDashboard = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/20 dark:from-gray-900 dark:via-gray-800/30 dark:to-gray-900/20">
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
@@ -188,11 +188,11 @@ const AdminDashboard = () => {
         />
       )}
       <aside
-        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
+        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 dark:bg-gray-900/80 dark:border-gray-700/50 flex flex-col shadow-xl ${
           isSidebarOpen ? 'w-[64]' : 'w-16'
         }`}
       >
-        <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50">
+        <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-700/50">
           <div className={`flex items-center transition-all duration-300 ${isSidebarOpen ? 'opacity-100' : 'opacity-0 w-0'}`}>
             <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
               <span className="text-white font-bold text-sm">C</span>
@@ -207,25 +207,25 @@ const AdminDashboard = () => {
             type="button"
             aria-label={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
+            className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
               !isSidebarOpen ? 'mx-auto' : ''
             }`}
           >
             {isSidebarOpen ? (
-              <ChevronLeft className="w-5 h-5 text-gray-600" />
+              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-300" />
             ) : (
-              <ChevronRight className="w-5 h-5 text-gray-600" />
+              <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-300" />
             )}
           </button>
         </div>
         {isSidebarOpen && (
-          <div className="p-4 border-b border-gray-200/50">
+          <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
               <input
                 type="text"
                 placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
               />
             </div>
           </div>
@@ -243,7 +243,7 @@ const AdminDashboard = () => {
                     ${isSidebarOpen ? '' : 'justify-center'}
                     ${isActive
                       ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25 transform scale-[1.02]'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 hover:shadow-md'
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white hover:shadow-md'
                     }
                   `}
                   onClick={() => navigate(item.route)}
@@ -259,7 +259,7 @@ const AdminDashboard = () => {
                       } ${
                         isActive
                           ? 'text-white'
-                          : 'text-gray-500 group-hover:text-emerald-600'
+                          : 'text-gray-500 dark:text-gray-400 group-hover:text-emerald-600'
                       }`}
                     />
                     {isSidebarOpen && (
@@ -271,9 +271,9 @@ const AdminDashboard = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                 </button>
                 {!isSidebarOpen && (
-                  <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 text-white text-sm rounded-lg opacity-0 group-hover:transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
                     {item.label}
-                    <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent0" />
+                    <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900 dark:border-r-gray-800" />
                   </div>
                 )}
               </div>
@@ -282,7 +282,7 @@ const AdminDashboard = () => {
         </nav>
       </aside>
       <motion.header 
-        className="bg-white/80 backdrop-blur-md border-b border-green-100 sticky top-0 z-40"
+        className="bg-white/80 backdrop-blur-md border-b border-green-100 dark:bg-gray-900/80 dark:border-gray-700 sticky top-0 z-40"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -298,21 +298,21 @@ const AdminDashboard = () => {
                   <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-700 bg-clip-text text-transparent">
                     Civix Admin
                   </h1>
-                  <p className="text-sm text-gray-500">Citizen Issue Management</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Citizen Issue Management</p>
                 </div>
               </div>
             </div>
             
             <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors">
+              <button className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors">
                 <Bell className="w-5 h-5" />
               </button>
-              <button className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors">
+              <button className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors">
                 <Settings className="w-5 h-5" />
               </button>
               <button 
                 onClick={() => navigate("/login")}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors"
               >
                 <LogOut className="w-4 h-4" />
                 <span className="text-sm font-medium">Logout</span>
@@ -329,10 +329,10 @@ const AdminDashboard = () => {
         animate="animate"
       >
         <motion.div variants={itemVariants} className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Welcome back, Admin! 👋
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Monitor and manage citizen-reported issues across the city
           </p>
         </motion.div>
@@ -344,12 +344,12 @@ const AdminDashboard = () => {
           <motion.div 
             variants={cardVariants}
             whileHover="hover"
-            className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-green-100 shadow-sm"
+            className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-green-100 dark:bg-gray-800/70 dark:border-gray-700 shadow-sm"
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Issues</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Issues</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{stats.total}</p>
               </div>
               <div className="p-3 bg-gradient-to-r from-emerald-500 to-green-600 rounded-lg">
                 <BarChart3 className="w-6 h-6 text-white" />
@@ -358,7 +358,7 @@ const AdminDashboard = () => {
             <div className="mt-4 flex items-center text-sm">
               <TrendingUp className="w-4 h-4 text-emerald-500 mr-1" />
               <span className="text-emerald-600 font-medium">+12%</span>
-              <span className="text-gray-500 ml-1">from last month</span>
+              <span className="text-gray-500 dark:text-gray-400 ml-1">from last month</span>
             </div>
           </motion.div>
 
@@ -376,12 +376,12 @@ const AdminDashboard = () => {
                 key={status}
                 variants={cardVariants}
                 whileHover="hover"
-                className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-green-100 shadow-sm"
+                className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-green-100 dark:bg-gray-800/70 dark:border-gray-700 shadow-sm"
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">{status}</p>
-                    <p className="text-2xl font-bold text-gray-900">{count || 0}</p>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">{status}</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{count || 0}</p>
                   </div>
                   <div className={`p-3 rounded-lg ${config.color.split(' ')[0]} ${config.color.split(' ')[0]}/20`}>
                     <Icon className={`w-5 h-5 ${config.color.split(' ')[1]}`} />
@@ -394,27 +394,27 @@ const AdminDashboard = () => {
 
         <motion.div 
           variants={itemVariants}
-          className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-green-100 shadow-sm mb-6"
+          className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-green-100 dark:bg-gray-800/70 dark:border-gray-700 shadow-sm mb-6"
         >
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
               <div className="relative">
-                <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search issues..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 w-full sm:w-64 border border-green-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white/50 backdrop-blur-sm"
+                  className="pl-10 pr-4 py-2 w-full sm:w-64 border border-green-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
                 />
               </div>
               
               <div className="relative">
-                <Filter className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Filter className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="pl-10 pr-8 py-2 border border-green-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white/50 backdrop-blur-sm appearance-none"
+                  className="pl-10 pr-8 py-2 border border-green-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm appearance-none text-gray-900 dark:text-gray-100"
                 >
                   <option value="all">All Status</option>
                   <option value="Pending">Pending</option>
@@ -428,7 +428,7 @@ const AdminDashboard = () => {
             <div className="flex space-x-3">
               <button
                 onClick={() => {/* Handle export */}}
-                className="flex items-center space-x-2 px-4 py-2 text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors font-medium"
+                className="flex items-center space-x-2 px-4 py-2 text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded-lg transition-colors font-medium"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -448,10 +448,10 @@ const AdminDashboard = () => {
 
         <motion.div 
           variants={itemVariants}
-          className="bg-white/70 backdrop-blur-sm rounded-xl border border-green-100 shadow-sm overflow-hidden"
+          className="bg-white/70 backdrop-blur-sm rounded-xl border border-green-100 dark:bg-gray-800/70 dark:border-gray-700 shadow-sm overflow-hidden"
         >
-          <div className="px-6 py-4 border-b border-green-100">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+          <div className="px-6 py-4 border-b border-green-100 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center">
               <MessageSquare className="w-5 h-5 text-emerald-600 mr-2" />
               Reported Issues ({filteredIssues.length})
             </h3>
@@ -459,24 +459,24 @@ const AdminDashboard = () => {
 
           {filteredIssues.length === 0 ? (
             <div className="p-12 text-center">
-              <AlertCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500 text-lg mb-2">No issues found</p>
-              <p className="text-gray-400">Try adjusting your search or filter criteria</p>
+              <AlertCircle className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+              <p className="text-gray-500 dark:text-gray-400 text-lg mb-2">No issues found</p>
+              <p className="text-gray-400 dark:text-gray-500">Try adjusting your search or filter criteria</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50/50">
+                <thead className="bg-gray-50/50 dark:bg-gray-800/50">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Issue</th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Contact</th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Category</th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Priority</th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                   {filteredIssues.map((issue, index) => {
                     const StatusIcon = statusConfig[issue.status]?.icon || AlertCircle;
                     return (
@@ -485,23 +485,23 @@ const AdminDashboard = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="hover:bg-emerald-50/30 transition-colors"
+                        className="hover:bg-emerald-50/30 dark:hover:bg-emerald-900/10 transition-colors"
                       >
                         <td className="px-6 py-4">
                           <div>
-                            <p className="text-sm font-semibold text-gray-900">{issue.title}</p>
-                            <p className="text-sm text-gray-500 mt-1 line-clamp-2">{issue.description}</p>
-                            <p className="text-xs text-gray-400 mt-1">Reported: {issue.dateReported}</p>
+                            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{issue.title}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">{issue.description}</p>
+                            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Reported: {issue.dateReported}</p>
                           </div>
                         </td>
                         <td className="px-6 py-4">
                           <div>
-                            <p className="text-sm text-gray-900">{issue.email}</p>
-                            <p className="text-sm text-gray-500">{issue.phone}</p>
+                            <p className="text-sm text-gray-900 dark:text-gray-100">{issue.email}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{issue.phone}</p>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
                             {issue.category}
                           </span>
                         </td>
@@ -523,7 +523,7 @@ const AdminDashboard = () => {
                           <select
                             value={issue.status}
                             onChange={(e) => handleStatusChange(issue._id, e.target.value)}
-                            className="text-sm border border-green-200 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white/50 backdrop-blur-sm"
+                            className="text-sm border border-green-200 dark:border-gray-600 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-900 dark:text-gray-100"
                           >
                             <option value="Pending">Pending</option>
                             <option value="In Progress">In Progress</option>
