@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { User, Mail, MessageCircle, CheckCircle, Send, Sparkles, Phone, MapPin, Clock } from 'lucide-react';
+import { User, Mail, MessageCircle, CheckCircle, Send, Sparkles, Phone, MapPin, Clock, AlertCircle } from 'lucide-react';
+
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
+  const [errors, setErrors] = useState({});
+
 
 const serviceId = process.env.REACT_APP_CONTACT_SERVICE_ID || '';
 const templateId = process.env.REACT_APP_CONTACT_TEMPLATE_ID || '';
@@ -26,18 +29,50 @@ const publicKey = process.env.REACT_APP_CONTACT_PUBLIC_KEY || '';
       ...prev,
       [name]: value
     }));
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: null
+      }));
+    }
+  };
+
+  const getFieldValidation = (field, value) => {
+    switch (field) {
+      case 'email':
+        if (!value.trim()) return "Email is required.";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Please enter a valid email address.";
+        return null;
+      case 'name':
+        if (!value.trim()) return "Name is required.";
+        if (value.trim().length < 2) return "Name must be at least 2 characters long.";
+        return null;
+      case 'message':
+        if (!value.trim()) return "Message is required.";
+        if (value.trim().length < 10) return "Message must be at least 10 characters long.";
+        return null;
+      default:
+        return null;
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const newErrors = {};
+    const nameError = getFieldValidation('name', formData.name);
+    if (nameError) newErrors.name = nameError;
 
-    const isNameValid = getFieldValidation('name', formData.name);
-    const isEmailValid = getFieldValidation('email', formData.email);
-    const isMessageValid = getFieldValidation('message', formData.message);
+    const emailError = getFieldValidation('email', formData.email);
+    if (emailError) newErrors.email = emailError;
 
-    if (!isNameValid || !isEmailValid || !isMessageValid) {
-      alert("Please fill out all fields correctly.");
-      return; 
+    const messageError = getFieldValidation('message', formData.message);
+    if (messageError) newErrors.message = messageError;
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return;
     }
 
     setIsLoading(true);
@@ -54,6 +89,7 @@ const publicKey = process.env.REACT_APP_CONTACT_PUBLIC_KEY || '';
       );
       setSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
+      setErrors({});
       setTimeout(() => setSubmitted(false), 3000);
     } catch (error) {
       alert("An error occurred while sending your message. Please try again.");
@@ -63,141 +99,198 @@ const publicKey = process.env.REACT_APP_CONTACT_PUBLIC_KEY || '';
     }
   };
 
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    const error = getFieldValidation(name, value);
+    setErrors(prev => ({ ...prev, [name]: error }));
+    setFocusedField(null);
+  };
 
   const isFilled = (value) => value.trim() !== '';
 
-  const getFieldValidation = (field, value) => {
-    switch (field) {
-      case 'email':
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      case 'name':
-        return value.trim().length >= 2;
-      case 'message':
-        return value.trim().length >= 10;
-      default:
-        return true;
-    }
-  };
 
   return (
-    <div className="space-y-6">
-      <div className="relative group">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
-          <User className={`w-5 h-5 transition-colors duration-300 ${
-            focusedField === 'name' || isFilled(formData.name) 
-              ? 'text-emerald-500' 
-              : 'text-gray-400'
-          }`} />
-        </div>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
+    <form noValidate onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <div className="relative group">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+            <User className={`w-5 h-5 transition-colors duration-300 ${
+              focusedField === 'name' || isFilled(formData.name) 
+                ? 'text-emerald-500' 
+                : 'text-gray-400'
+            }`} />
+          </div>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
           onChange={handleChange}
           onFocus={() => setFocusedField('name')}
-          onBlur={() => setFocusedField(null)}
+          onBlur={handleBlur}
           required
-          className="peer w-full pl-12 pr-4 py-4 bg-gray-50/50 dark:bg-slate-700/50 border-2 border-gray-200 dark:border-slate-600 rounded-2xl text-gray-900 dark:text-white placeholder-transparent focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-700 transition-all duration-300 text-lg"
-          placeholder="Your Name"
-        />
-        <label
-          htmlFor="name"
-          className={`absolute left-12 px-2 bg-white dark:bg-slate-800 transition-all duration-300 pointer-events-none font-medium ${
-            focusedField === 'name' || isFilled(formData.name)
-              ? '-top-3 text-sm text-emerald-600 dark:text-emerald-400'
-              : 'top-4 text-gray-500 dark:text-gray-400'
-          } peer-focus:-top-3 peer-focus:text-sm peer-focus:text-emerald-600 dark:peer-focus:text-emerald-400`}
-        >
-          Your Name
-        </label>
-        {isFilled(formData.name) && getFieldValidation('name', formData.name) && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2">
-            <CheckCircle className="w-5 h-5 text-emerald-500" />
-          </div>
-        )}
-      </div>
 
-      <div className="relative group">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
-          <Mail className={`w-5 h-5 transition-colors duration-300 ${
-            focusedField === 'email' || isFilled(formData.email) 
-              ? 'text-emerald-500' 
-              : 'text-gray-400'
-          }`} />
+            className={`peer w-full pl-12 pr-4 py-4 bg-gray-50/50 dark:bg-slate-700/50 border-2 rounded-2xl text-gray-900 dark:text-white placeholder-transparent focus:outline-none focus:bg-white dark:focus:bg-slate-700 transition-all duration-300 text-lg ${
+              errors.name
+                ? 'border-red-500 dark:border-red-500 focus:border-red-500'
+                : 'border-gray-200 dark:border-slate-600 focus:border-emerald-500'
+            }`}
+            placeholder="Your Name"
+          />
+          <label
+            htmlFor="name"
+            className={`absolute left-12 px-2 bg-white dark:bg-slate-800 transition-all duration-300 pointer-events-none font-medium ${
+              focusedField === 'name' || isFilled(formData.name) ? '-top-3 text-sm' : 'top-4'
+            } ${
+              errors.name
+                ? 'text-red-500 dark:text-red-400'
+                : focusedField === 'name' || isFilled(formData.name)
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : 'text-gray-500 dark:text-gray-400'
+            } peer-focus:-top-3 peer-focus:text-sm ${
+              errors.name ? 'peer-focus:text-red-500' : 'peer-focus:text-emerald-600 dark:peer-focus:text-emerald-400'
+            }`}
+          >
+            Your Name
+          </label>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+          {errors.name ? (
+            <AlertCircle className="w-5 h-5 text-red-500" />
+          ) : isFilled(formData.name) && getFieldValidation('name', formData.name) === null ? (
+            <CheckCircle className="w-5 h-5 text-emerald-500" />
+          ) : null}
         </div>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
+      </div>
+      {errors.name && (
+        <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+          {errors.name}
+        </p>
+      )}
+    </div>
+
+
+      <div>
+        <div className="relative group">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+            <Mail className={`w-5 h-5 transition-colors duration-300 ${
+              focusedField === 'email' || isFilled(formData.email) 
+                ? 'text-emerald-500' 
+                : 'text-gray-400'
+            }`} />
+          </div>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
           onChange={handleChange}
           onFocus={() => setFocusedField('email')}
-          onBlur={() => setFocusedField(null)}
+          onBlur={handleBlur}
           required
-          className="peer w-full pl-12 pr-4 py-4 bg-gray-50/50 dark:bg-slate-700/50 border-2 border-gray-200 dark:border-slate-600 rounded-2xl text-gray-900 dark:text-white placeholder-transparent focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-700 transition-all duration-300 text-lg"
-          placeholder="Your Email"
-        />
-        <label
-          htmlFor="email"
-          className={`absolute left-12 px-2 bg-white dark:bg-slate-800 transition-all duration-300 pointer-events-none font-medium ${
-            focusedField === 'email' || isFilled(formData.email)
-              ? '-top-3 text-sm text-emerald-600 dark:text-emerald-400'
-              : 'top-4 text-gray-500 dark:text-gray-400'
-          } peer-focus:-top-3 peer-focus:text-sm peer-focus:text-emerald-600 dark:peer-focus:text-emerald-400`}
-        >
-          Your Email
-        </label>
-        {isFilled(formData.email) && getFieldValidation('email', formData.email) && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2">
-            <CheckCircle className="w-5 h-5 text-emerald-500" />
-          </div>
-        )}
-      </div>
 
-      <div className="relative group">
-        <div className="absolute left-4 top-5 z-10">
-          <MessageCircle className={`w-5 h-5 transition-colors duration-300 ${
-            focusedField === 'message' || isFilled(formData.message) 
-              ? 'text-emerald-500' 
-              : 'text-gray-400'
-          }`} />
+            className={`peer w-full pl-12 pr-4 py-4 bg-gray-50/50 dark:bg-slate-700/50 border-2 rounded-2xl text-gray-900 dark:text-white placeholder-transparent focus:outline-none focus:bg-white dark:focus:bg-slate-700 transition-all duration-300 text-lg ${
+              errors.email
+                ? 'border-red-500 dark:border-red-500 focus:border-red-500'
+                : 'border-gray-200 dark:border-slate-600 focus:border-emerald-500'
+            }`}
+            placeholder="Your Email"
+          />
+          <label
+            htmlFor="email"
+            className={`absolute left-12 px-2 bg-white dark:bg-slate-800 transition-all duration-300 pointer-events-none font-medium ${
+              focusedField === 'email' || isFilled(formData.email) ? '-top-3 text-sm' : 'top-4'
+            } ${
+              errors.email
+                ? 'text-red-500 dark:text-red-400'
+                : focusedField === 'email' || isFilled(formData.email)
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : 'text-gray-500 dark:text-gray-400'
+            } peer-focus:-top-3 peer-focus:text-sm ${
+              errors.email ? 'peer-focus:text-red-500' : 'peer-focus:text-emerald-600 dark:peer-focus:text-emerald-400'
+            }`}
+          >
+            Your Email
+          </label>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+          {errors.email ? (
+            <AlertCircle className="w-5 h-5 text-red-500" />
+          ) : isFilled(formData.email) && getFieldValidation('email', formData.email) === null ? (
+            <CheckCircle className="w-5 h-5 text-emerald-500" />
+          ) : null}
         </div>
-        <textarea
-          id="message"
-          name="message"
-          rows="4"
-          value={formData.message}
+      </div>
+      {errors.email && (
+        <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+          {errors.email}
+        </p>
+      )}
+    </div>
+
+
+      <div>
+        <div className="relative group">
+          <div className="absolute left-4 top-5 z-10">
+            <MessageCircle className={`w-5 h-5 transition-colors duration-300 ${
+              focusedField === 'message' || isFilled(formData.message) 
+                ? 'text-emerald-500' 
+                : 'text-gray-400'
+            }`} />
+          </div>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            value={formData.message}
           onChange={handleChange}
           onFocus={() => setFocusedField('message')}
-          onBlur={() => setFocusedField(null)}
+          onBlur={handleBlur}
           required
-          className="peer w-full pl-12 pr-4 py-4 bg-gray-50/50 dark:bg-slate-700/50 border-2 border-gray-200 dark:border-slate-600 rounded-2xl text-gray-900 dark:text-white placeholder-transparent focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-700 transition-all duration-300 text-lg resize-none"
-          placeholder="Your Message"
-        />
-        <label
-          htmlFor="message"
-          className={`absolute left-12 px-2 bg-white dark:bg-slate-800 transition-all duration-300 pointer-events-none font-medium ${
-            focusedField === 'message' || isFilled(formData.message)
-              ? '-top-3 text-sm text-emerald-600 dark:text-emerald-400'
-              : 'top-4 text-gray-500 dark:text-gray-400'
-          } peer-focus:-top-3 peer-focus:text-sm peer-focus:text-emerald-600 dark:peer-focus:text-emerald-400`}
-        >
-          Your Message
-        </label>
-        {isFilled(formData.message) && getFieldValidation('message', formData.message) && (
-          <div className="absolute right-4 top-4">
+
+            className={`peer w-full pl-12 pr-4 py-4 bg-gray-50/50 dark:bg-slate-700/50 border-2 rounded-2xl text-gray-900 dark:text-white placeholder-transparent focus:outline-none focus:bg-white dark:focus:bg-slate-700 transition-all duration-300 text-lg resize-none ${
+              errors.message
+                ? 'border-red-500 dark:border-red-500 focus:border-red-500'
+                : 'border-gray-200 dark:border-slate-600 focus:border-emerald-500'
+            }`}
+            placeholder="Your Message"
+          />
+          <label
+            htmlFor="message"
+            className={`absolute left-12 px-2 bg-white dark:bg-slate-800 transition-all duration-300 pointer-events-none font-medium ${
+              focusedField === 'message' || isFilled(formData.message) ? '-top-3 text-sm' : 'top-4'
+            } ${
+              errors.message
+                ? 'text-red-500 dark:text-red-400'
+                : focusedField === 'message' || isFilled(formData.message)
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : 'text-gray-500 dark:text-gray-400'
+            } peer-focus:-top-3 peer-focus:text-sm ${
+              errors.message ? 'peer-focus:text-red-500' : 'peer-focus:text-emerald-600 dark:peer-focus:text-emerald-400'
+            }`}
+          >
+            Your Message
+          </label>
+        <div className="absolute right-4 top-4">
+          {errors.message ? (
+            <AlertCircle className="w-5 h-5 text-red-500" />
+          ) : isFilled(formData.message) && getFieldValidation('message', formData.message) === null ? (
             <CheckCircle className="w-5 h-5 text-emerald-500" />
-          </div>
-        )}
+          ) : null}
+        </div>
       </div>
+      {errors.message && (
+        <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+          {errors.message}
+        </p>
+      )}
+    </div>
+
 
       <button
         type="submit"
-        onClick={handleSubmit}
         disabled={isLoading || submitted}
         className="group relative w-full overflow-hidden bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl disabled:shadow-md transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] disabled:scale-100"
       >
+
         <div className="flex items-center justify-center gap-3">
           {isLoading ? (
             <>
@@ -230,9 +323,10 @@ const publicKey = process.env.REACT_APP_CONTACT_PUBLIC_KEY || '';
           </span>
         </div>
       )}
-    </div>
+    </form>
   );
 };
+
 
 function Contact() {
   return (
