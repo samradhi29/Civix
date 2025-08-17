@@ -12,7 +12,7 @@ import {
   X,
   MessageCircle,
   MapPin,
-  Search
+  Search,
   Calendar
 } from "lucide-react";
 
@@ -229,6 +229,7 @@ const UserDashboard = () => {
             icon={Search}
             gradient="from-green-500 to-green-600"
             shadowColor="shadow-green-500/20"
+            />
           <DashboardCard
             title="Community Holidays"
             description="Look for the Community Holidays approaching soon to you"
