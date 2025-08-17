@@ -121,32 +121,38 @@ const ContributorsPage = () => {
                 <div className="absolute inset-0 bg-black/20"></div>
                 <div className="relative px-6 py-16 sm:py-24">
                     <div className="max-w-4xl mx-auto text-center">
-                        <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6 tracking-tight">
-                            Our Amazing
-                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-300">
-                                Contributors
-                            </span>
-                        </h1>
+<h1 className="text-5xl sm:text-6xl font-bold text-white mb-6 tracking-tight">
+  <span className="typewriter typewriter1 inline-block">
+    Our Amazing
+  </span>
+  <br />
+  <span className="typewriter typewriter2 text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-300 inline-block">
+    Contributors
+  </span>
+</h1>
+
+
+
                         <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
                             Meet the incredible developers who make Civix possible through their dedication and contributions
                         </p>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-                            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                            <div className="bg-white/2 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl shadow-green-400">
                                 <div className="flex items-center justify-center mb-2">
                                     <Users className="w-8 h-8 text-green-300" />
                                 </div>
                                 <div className="text-3xl font-bold text-white">{stats.totalContributors}</div>
                                 <div className="text-green-200">Contributors</div>
                             </div>
-                            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                            <div className="bg-white/2 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl shadow-green-400">
                                 <div className="flex items-center justify-center mb-2">
                                     <GitBranch className="w-8 h-8 text-emerald-300" />
                                 </div>
                                 <div className="text-3xl font-bold text-white">{stats.totalContributions}</div>
                                 <div className="text-green-200">Total Contributions</div>
                             </div>
-                            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                            <div className="bg-white/2 backdrop-blur-md rounded-2xl p-6 border border-white/60 shadow-2xl shadow-green-400">
                                 <div className="flex items-center justify-center mb-2">
                                     <TrendingUp className="w-8 h-8 text-teal-300" />
                                 </div>
@@ -210,166 +216,230 @@ const ContributorsPage = () => {
                     </div>
                 </div>
 
-                {isLoading ? (
-                    <div className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "grid-cols-1"}`}>
-                        {Array.from({ length: 8 }).map((_, index) => (
-                            <div
-                                key={index}
-                                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 animate-pulse"
-                            >
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-16 h-16 bg-gray-300 dark:bg-gray-600 rounded-full" />
-                                    <div className="flex-1">
-                                        <div className="w-32 h-4 bg-gray-300 dark:bg-gray-600 rounded mb-2" />
-                                        <div className="w-20 h-3 bg-gray-300 dark:bg-gray-600 rounded" />
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+          {isLoading ? (
+  <div
+    className={`grid gap-6 ${
+      viewMode === "grid"
+        ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        : "grid-cols-1"
+    }`}
+  >
+    {Array.from({ length: 8 }).map((_, index) => (
+      <div
+        key={index}
+        className="bg-black/50 dark:bg-gray-800 rounded-2xl shadow-lg p-6 animate-pulse"
+      >
+        <div className="flex items-center space-x-4">
+          <div className="w-16 h-16 bg-gray-300 dark:bg-gray-700 rounded-full" />
+          <div className="flex-1">
+            <div className="w-32 h-4 bg-gray-300 dark:bg-gray-700 rounded mb-2" />
+            <div className="w-20 h-3 bg-gray-300 dark:bg-gray-700 rounded" />
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+) : isError ? (
+  <div className="text-center py-12">
+    <div className="text-6xl mb-4">🚨</div>
+    <p className="text-red-600 dark:text-red-400 text-xl font-semibold mb-2">
+      Oops! Something went wrong
+    </p>
+    <p className="text-gray-600 dark:text-gray-400">
+      We couldn't load the contributors. Please try again later.
+    </p>
+  </div>
+) : (
+  <>
+    <div
+      className={`grid gap-6 ${
+        viewMode === "grid"
+          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          : "grid-cols-1"
+      }`}
+    >
+      {displayedContributors.map((user, index) => {
+        const contributionLevel = getContributionLevel(user.contributions);
+        const rank = contributors.findIndex(
+          (c) => c.login === user.login
+        );
+
+        return (
+          <div
+            key={user.login}
+          className={`group relative bg-white border-2 border-green-200 
+  shadow-2xl shadow-gray-700 
+  dark:bg-gradient-to-br from-black to-zinc-900 
+  rounded-2xl  
+  dark:shadow-md dark:shadow-zinc-400 
+  hover:shadow-2xl dark:hover:shadow-green-800 
+  transition-all duration-300  
+  dark:border-gray-700 overflow-hidden 
+  ${viewMode === "list" ? "flex items-center p-6" : "p-6"}`}
+
+          >
+            {rank < 3 && (
+              <div className="absolute top-3 right-3 z-10">
+                {getRankIcon(rank)}
+              </div>
+            )}
+
+            {rank === 0 && (
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-orange-400/10 dark:from-yellow-400/5 dark:to-orange-400/5"></div>
+            )}
+
+            <div
+              className={`relative z-10 ${
+                viewMode === "list"
+                  ? "flex items-center w-full"
+                  : "text-center"
+              }`}
+            >
+              <div
+                className={`${
+                  viewMode === "list"
+                    ? "flex items-center space-x-4 flex-1"
+                    : ""
+                }`}
+              >
+                <div className="relative">
+                  <img
+                    src={user.avatar_url}
+                    alt={user.login}
+                    className={`rounded-full border-4 shadow-md transition-transform group-hover:scale-105 ${
+                      viewMode === "list"
+                        ? "w-16 h-16"
+                        : "w-20 h-20 mx-auto mb-4"
+                    } ${
+                      rank === 0
+                        ? "border-yellow-400"
+                        : rank === 1
+                        ? "border-gray-400"
+                        : rank === 2
+                        ? "border-amber-600"
+                        : "border-blue-400 dark:border-blue-500"
+                    }`}
+                  />
+                  {rank < 3 && (
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 dark:bg-white  rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
+                        #{rank + 1}
+                      </span>
                     </div>
-                ) : isError ? (
-                    <div className="text-center py-12">
-                        <div className="text-6xl mb-4">🚨</div>
-                        <p className="text-red-600 dark:text-red-400 text-xl font-semibold mb-2">
-                            Oops! Something went wrong
-                        </p>
-                        <p className="text-gray-600 dark:text-gray-400">
-                            We couldn't load the contributors. Please try again later.
-                        </p>
-                    </div>
-                ) : (
-                    <>
-                        <div className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "grid-cols-1"}`}>
-                            {displayedContributors.map((user, index) => {
-                                const contributionLevel = getContributionLevel(user.contributions);
-                                const rank = contributors.findIndex(c => c.login === user.login);
-                                
-                                return (
-                                    <div
-                                        key={user.login}
-                                        className={`group relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden ${
-                                            viewMode === "list" ? "flex items-center p-6" : "p-6"
-                                        }`}
-                                    >
-                                        {rank < 3 && (
-                                            <div className="absolute top-4 right-4 z-10">
-                                                {getRankIcon(rank)}
-                                            </div>
-                                        )}
-                                        
-                                        {rank === 0 && (
-                                            <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-orange-400/10 dark:from-yellow-400/5 dark:to-orange-400/5"></div>
-                                        )}
-                                        
-                                        <div className={`relative z-10 ${viewMode === "list" ? "flex items-center w-full" : "text-center"}`}>
-                                            <div className={`${viewMode === "list" ? "flex items-center space-x-4 flex-1" : ""}`}>
-                                                <div className="relative">
-                                                    <img
-                                                        src={user.avatar_url}
-                                                        alt={user.login}
-                                                        className={`rounded-full border-3 shadow-lg transition-transform group-hover:scale-105 ${
-                                                            viewMode === "list" ? "w-16 h-16" : "w-20 h-20 mx-auto mb-4"
-                                                        } ${rank === 0 ? "border-yellow-400" : rank === 1 ? "border-gray-400" : rank === 2 ? "border-amber-600" : "border-blue-400 dark:border-blue-500"}`}
-                                                    />
-                                                    {rank < 3 && (
-                                                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
-                                                            <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
-                                                                #{rank + 1}
-                                                            </span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                
-                                                <div className={viewMode === "list" ? "flex-1" : ""}>
-                                                    <h3 className={`font-bold text-gray-800 dark:text-white ${viewMode === "list" ? "text-lg" : "text-xl mb-2"}`}>
-                                                        @{user.login}
-                                                    </h3>
-                                                    
-                                                    <div className={`flex items-center gap-2 ${viewMode === "list" ? "mb-2" : "justify-center mb-4"}`}>
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${contributionLevel.color} ${contributionLevel.textColor}`}>
-                                                            {contributionLevel.level}
-                                                        </span>
-                                                        <span className="text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
-                                                            {user.contributions} contributions
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <a
-                                                href={user.html_url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className={`inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 ${
-                                                    viewMode === "list" ? "ml-4" : "w-full justify-center"
-                                                }`}
-                                            >
-                                                <Github className="w-5 h-5" />
-                                                View Profile
-                                            </a>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                  )}
+                </div>
 
-                        {hasMore && (
-                            <div className="flex justify-center mt-12">
-                                <button
-                                    onClick={loadMoreContributors}
-                                    disabled={isLoadingMore}
-                                    className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-1"
-                                >
-                                    <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                                    <div className="relative flex items-center gap-3">
-                                        {isLoadingMore ? (
-                                            <>
-                                                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                Loading more amazing contributors...
-                                            </>
-                                        ) : (
-                                            <>
-                                                <ChevronDown className="w-6 h-6" />
-                                                Show More Contributors
-                                            </>
-                                        )}
-                                    </div>
-                                </button>
-                            </div>
-                        )}
+                <div className={viewMode === "list" ? "flex-1" : ""}>
+                  <h3
+                    className={`font-bold text-gray-900 dark:text-white ${
+                      viewMode === "list" ? "text-lg" : "text-xl mb-2"
+                    }`}
+                  >
+                    @{user.login}
+                  </h3>
 
-                        {isLoadingMore && (
-                            <div className={`grid gap-6 mt-8 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "grid-cols-1"}`}>
-                                {Array.from({ length: 4 }).map((_, index) => (
-                                    <div
-                                        key={`loading-${index}`}
-                                        className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 animate-pulse"
-                                    >
-                                        <div className="flex items-center space-x-4">
-                                            <div className="w-16 h-16 bg-gray-300 dark:bg-gray-600 rounded-full" />
-                                            <div className="flex-1">
-                                                <div className="w-32 h-4 bg-gray-300 dark:bg-gray-600 rounded mb-2" />
-                                                <div className="w-20 h-3 bg-gray-300 dark:bg-gray-600 rounded" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                  <div
+                    className={`flex items-center gap-2 ${
+                      viewMode === "list"
+                        ? "mb-2"
+                        : "justify-center mb-4"
+                    }`}
+                  >
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${contributionLevel.color} ${contributionLevel.textColor}`}
+                    >
+                      {contributionLevel.level}
+                    </span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                      {user.contributions} contributions
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-                        {filteredContributors.length === 0 && searchTerm && (
-                            <div className="text-center py-12">
-                                <div className="text-6xl mb-4">🔍</div>
-                                <p className="text-gray-600 dark:text-gray-400 text-xl mb-2">
-                                    No contributors found
-                                </p>
-                                <p className="text-gray-500 dark:text-gray-500">
-                                    Try adjusting your search terms
-                                </p>
-                            </div>
-                        )}
-                    </>
-                )}
+              <a
+                href={user.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400   hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1 ${
+                  viewMode === "list"
+                    ? "ml-4"
+                    : "w-full justify-center"
+                }`}
+              >
+                <Github className="w-5 h-5" />
+                View Profile
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    {hasMore && (
+      <div className="flex justify-center mt-12">
+        <button
+          onClick={loadMoreContributors}
+          disabled={isLoadingMore}
+          className="group relative overflow-hidden bg-gradient-to-r from-green-400 to-green-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-1"
+        >
+          <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+          <div className="relative flex items-center gap-3">
+            {isLoadingMore ? (
+              <>
+                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Loading more amazing contributors...
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-6 h-6" />
+                Show More Contributors
+              </>
+            )}
+          </div>
+        </button>
+      </div>
+    )}
+
+    {isLoadingMore && (
+      <div
+        className={`grid gap-6 mt-8 ${
+          viewMode === "grid"
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            : "grid-cols-1"
+        }`}
+      >
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div
+            key={`loading-${index}`}
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 animate-pulse"
+          >
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-gray-300 dark:bg-gray-700 rounded-full" />
+              <div className="flex-1">
+                <div className="w-32 h-4 bg-gray-300 dark:bg-gray-700 rounded mb-2" />
+                <div className="w-20 h-3 bg-gray-300 dark:bg-gray-700 rounded" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {filteredContributors.length === 0 && searchTerm && (
+      <div className="text-center py-12">
+        <div className="text-6xl mb-4">🔍</div>
+        <p className="text-gray-700 dark:text-gray-400 text-xl mb-2">
+          No contributors found
+        </p>
+        <p className="text-gray-500 dark:text-gray-500">
+          Try adjusting your search terms
+        </p>
+      </div>
+    )}
+  </>
+)}
+
             </div>
         </div>
     );

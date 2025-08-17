@@ -4,7 +4,7 @@ import App from "./App";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter } from "react-router-dom";
-
+import "./global.css"
 const clerkPubKey = "pk_test_ZGlyZWN0LXNwb25nZS04NC5jbGVyay5hY2NvdW50cy5kZXYk";
 
 if (!clerkPubKey) {
