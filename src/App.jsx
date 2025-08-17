@@ -45,6 +45,7 @@ import Documents from './Pages/Documents';
 import Settings from './Pages/Settings';
 import Notification from './Pages/Notification';
 import NearbyServices from './Pages/NearbyServices';
+import CommunityHolidays from './Pages/CommunityHolidays';
 
 
 const App = () => {
@@ -117,6 +118,7 @@ const App = () => {
             <Route path='/admin/settings' element={<Settings/>}/>
             <Route path='/admin/notifications' element={<Notification/>}/>
             <Route path='/nearby-services' element={<NearbyServices/>}/>
+            <Route path='/community-holidays' element={<CommunityHolidays/>}/>
 
             <Route
               path="/admin/dashboard"
