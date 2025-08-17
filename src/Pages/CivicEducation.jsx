@@ -713,7 +713,7 @@ const CivicEducation = () => {
               <div className="flex items-center mb-4">
                 <BookOpen className="w-16 h-16 mr-4 opacity-90" />
                 <div>
-                  <h1 className="text-4xl md:text-5xl font-bold mb-2">
+                  <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold">
                     Civic Education & Rights
                   </h1>
                   <p className="text-xl opacity-90">
@@ -729,7 +729,7 @@ const CivicEducation = () => {
           </div>
 
           {/* User Stats Dashboard */}
-          <div className="grid md:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
               <div className="flex items-center justify-between">
                 <div>
@@ -794,10 +794,10 @@ const CivicEducation = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 bg-white dark:bg-gray-900 text-black dark:text-white">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 bg-white dark:bg-gray-900 text-black dark:text-white">
         {/* Navigation Tabs */}
         <div className="bg-white dark:bg-[#1f2937] rounded-xl shadow-lg mb-8 overflow-hidden">
-          <div className="flex border-b border-gray-200">
+          <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide">
             {[
               { id: 'overview', label: 'Overview', icon: <Globe className="w-4 h-4" /> },
               { id: 'learn', label: 'Learn', icon: <BookOpen className="w-4 h-4" /> },
@@ -807,12 +807,12 @@ const CivicEducation = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex items-center justify-center space-x-2 py-4 px-6 transition-colors ${activeTab === tab.id
+                className={`flex-shrink-0 flex items-center justify-center space-x-2 py-3 px-4 sm:px-6 transition-colors ${
+                  activeTab === tab.id
                   ? 'bg-emerald-50 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 border-b-2 border-emerald-500'
                   : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-
-                  }`}
-              >
+            }`}
+                >
                 {tab.icon}
                 <span className="font-medium">{tab.label}</span>
               </button>
@@ -886,7 +886,7 @@ const CivicEducation = () => {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-6 rounded-xl shadow-lg">
                 <div className="flex items-center justify-between mb-4">
                   <Users className="w-12 h-12 opacity-80" />
@@ -1157,7 +1157,7 @@ const CivicEducation = () => {
                     </h4>
 
                     {/* Answer Options */}
-                    <div className="grid gap-3 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                       {currentQuestion.options.map((option, index) => (
                         <button
                           key={index}
@@ -1257,7 +1257,7 @@ const CivicEducation = () => {
               <p className="opacity-90 mb-6">
                 Get comprehensive guides, worksheets, and reference materials
               </p>
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <a href="/pdfs/civic_rights_guide.pdf" download className="bg-white/20 hover:bg-white/30 p-4 rounded-lg transition-colors">
                   <FileText className="w-8 h-8 mx-auto mb-2" />
                   <div className="font-medium">Civic Rights Guide</div>

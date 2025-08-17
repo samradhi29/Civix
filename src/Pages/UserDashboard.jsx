@@ -13,6 +13,7 @@ import {
   MessageCircle,
   MapPin,
   Search
+  Calendar
 } from "lucide-react";
 
 const UserDashboard = () => {
@@ -228,6 +229,13 @@ const UserDashboard = () => {
             icon={Search}
             gradient="from-green-500 to-green-600"
             shadowColor="shadow-green-500/20"
+          <DashboardCard
+            title="Community Holidays"
+            description="Look for the Community Holidays approaching soon to you"
+            onClick={() => navigate("/community-holidays")}
+            icon={Calendar}
+            gradient="from-emerald-600 to-teal-700"
+            shadowColor="shadow-emerald-600/20"
           />
         </div>
       </main>

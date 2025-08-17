@@ -46,6 +46,8 @@ import Settings from './Pages/Settings';
 import Notification from './Pages/Notification';
 import NearbyServices from './Pages/NearbyServices';
 import LostAndFoundPage from './Pages/Lost&Found';
+import CommunityHolidays from './Pages/CommunityHolidays';
+
 
 
 const App = () => {
@@ -119,6 +121,7 @@ const App = () => {
             <Route path='/admin/notifications' element={<Notification/>}/>
             <Route path='/nearby-services' element={<NearbyServices/>}/>
             <Route path='/lost-found' element={<LostAndFoundPage/>}/>
+            <Route path='/community-holidays' element={<CommunityHolidays/>}/>
             <Route
               path="/admin/dashboard"
               element={
